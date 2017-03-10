@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>预加载</title>
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<style>
+		.tab-a {
+			display: inline-block;
+			padding: 5px 0;
+			margin: 0 15px;
+			border-bottom: 3px solid transparent;
+			color: #343;
+			font: menu;
+			font-size: 14px;
+		}
+		.tab .active {
+			color: #019EE4;
+			border-bottom-color: #019EE4;
+		}
+		.panel {
+			padding: 15px;
+		}
+		.panel img {
+			display: none;
+		}
+		.panel .active {
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div id="tab" class="tab">
+		<a href="javascript:" class="tab-a active">美女1</a>
+		<a href="javascript:" class="tab-a">美女2</a>
+		<a href="javascript:" class="tab-a">美女3</a>
+	</div>
+	<div id="panel" class="panel">
+		<img src="../images/0.jpg" class="active">
+		<img src="../images/1.jpg">
+		<img src="../images/2.jpg">
+	</div>
+	<script type="text/javascript">
+		var elTb = $('#tab a'), elImgs = $('#panel img');
+		elTb.each(function(index) {
+			$(this).data('index', index).click(function() {
+				var target = elImgs.eq($(this).data('index'));    
+				$(this).addClass('active').siblings('a').removeClass('active');
+				target.addClass('active').siblings('img').removeClass('active');    
+			});    
+		});
+		elTb.on({mouseenter: function() {
+				var target;    
+				if (!this.preloaded) {
+					target = elImgs.eq($(this).data('index'));
+            // 图片地址换成真实地址
+            target.attr('src', target.attr('data-src')).removeAttr('data-src');
+            // 标记已加载
+            this.preloaded = true;
+          }
+        }    
+      });
+    </script>
+  </body>
+  </html>

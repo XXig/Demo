@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>交互动画-按钮</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<style>
+		html,body{height:100%;overflow: hidden;background-color:#18cc95;}
+		.icon{
+			width: 100%;
+			padding:12px 5%;
+			position:fixed;
+			right:0;
+			top:0;
+			background-color: rgba(0,0,0,.3);
+		}
+		.icon ul{
+			width: 38px;
+			height: 38px;
+			position:relative;
+		}
+		.icon ul li{
+			width: 38px;
+			height: 6px;
+			border-radius: 3px;
+			background-color: #fff;
+			box-shadow: 0 1px 4px rgba(0,0,0,.1);
+			position: absolute;
+			left: 0;
+		}
+		.line-top{
+			top:0;
+			-webkit-transform-origin:right bottom;
+			transform-origin:right bottom;
+			-webkit-animation: lineTop paused .2s ease-in forwards;
+			animation: lineTop paused .2s ease-in forwards;
+		}
+		.line-main{
+			top:50%;
+			margin-top:-3px;
+			-webkit-transform-origin:20% center;
+			transform-origin:20% center;
+			-webkit-animation: lineMain paused .23s ease-in forwards;
+			animation: lineMain paused .23s ease-in forwards;
+		}
+		.line-down{
+			bottom:0;
+			-webkit-transform-origin:right top;
+			transform-origin:right top;
+			-webkit-animation: lineDown paused .2s ease-in forwards;
+			animation: lineDown paused .2s ease-in forwards;
+		}
+		@-webkit-keyframes lineTop {
+			to{ 
+				-webkit-transform:rotate(-48deg); 
+				transform:rotate(-48deg);
+				left: -8px;
+				width: 110%; 
+			} 
+		}
+		@keyframes lineTop {
+			to{ 
+				-webkit-transform:rotate(-48deg); 
+				transform:rotate(-48deg); 
+				left: -8px;
+				width: 110%;
+			} 
+		}
+		@-webkit-keyframes lineMain {
+			to{ 
+				-webkit-transform:rotateY(90deg);
+				transform:rotateY(90deg);
+			} 
+		}
+		@keyframes lineMain {
+			to{ 
+				-webkit-transform:rotateY(90deg);
+				transform:rotateY(90deg);
+			} 
+		}
+		@-webkit-keyframes lineDown {
+			to{ 
+				-webkit-transform:rotate(48deg); 
+				transform:rotate(48deg);
+				left: -7px;
+				bottom: -1px;
+				width: 110%; 
+			} 
+		}
+		@keyframes lineDown {
+			to{ 
+				-webkit-transform:rotate(48deg); 
+				transform:rotate(48deg); 
+				left: -7px;
+				bottom: -1px;
+				width: 110%;
+			} 
+		}
+	</style>
+</head>
+<body>
+	<div class="icon">
+		<ul>
+			<li class="line-top"></li>
+			<li class="line-main"></li>
+			<li class="line-down"></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var object=document.querySelector(".icon").getElementsByTagName("li");
+		$(".icon ul").click(function(){
+			for (var i = 0; i < object.length; i++) {
+				object[i].style.webkitAnimationPlayState="running";
+				object[i].style.mozAnimationPlayState="running";
+			}
+		})
+	</script>
+</body>
+</html>

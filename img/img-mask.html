@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片</title>
+	<style>
+		*{margin:0;padding:0;list-style: none;box-sizing:border-box;}
+		.box{
+			width: 90%;
+			margin: 10% auto;
+		}
+		.box img{
+			width: 100%;
+			display:block;
+		}
+		.box ul{
+			margin-right: -2%;
+			overflow: hidden;
+		}
+		.box ul li{
+			width: 18%;
+			float: left;
+			margin-right:2%;
+			position: relative;
+			overflow: hidden;
+		}
+		.box ul li:after{
+			content: "";
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top:0;
+			left: -100%;
+			background-color: rgba(0,0,0,.5);
+			pointer-events:none;
+			opacity: 0;
+			-moz-transition:all .3s ease-out;
+			-webkit-transition:all .3s ease-out;
+			transition:all .3s ease-out;
+		}
+		.box ul li:hover:after{
+			left: 0;
+			opacity: 1;
+		}
+		.box-hover:after{
+			left: 0!important;
+			opacity: 1!important;
+		}
+		.box ul li:before{
+			content: "demo";
+			position: absolute;
+			width: 60%;
+			padding: 5% 0;
+			left:-100%;
+			top:80%;
+			-webkit-transform:translate3d(-50%,-50%,0);
+			transform:translate3d(-50%,-50%,0);
+			border:1px solid #fff;
+			z-index: 999;
+			text-align: center;
+			font-size: 14px;
+			color: #fff;
+			pointer-events:none;
+			opacity: 0;
+			-moz-transition:all .3s ease-out;
+			-webkit-transition:all .3s ease-out;
+			transition:all .3s ease-out;
+		}
+		.box ul li:hover:before{
+			left:50%;
+			opacity: 1;
+		}
+		.box-hover:before{
+			left:50%!important;
+			opacity: 1!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="box-one">
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/10bea6409b555fe10dff2bf9c1cd1d8d2391788f35105-8TQvxH_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+		</ul><br>
+		<ul>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/10bea6409b555fe10dff2bf9c1cd1d8d2391788f35105-8TQvxH_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+			<li><img src="http://hbimg.b0.upaiyun.com/5528f4ce18c56d1406841f958d77e4786382511115745-kNMMPg_fw658" alt=""></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(".box-one").hover(function(){
+			$(".box-one ul li").toggleClass("box-hover");
+		});
+		// window.onload =function(){
+		// 	var a=document.getElementsByTagName("img");
+		// 	for (var i = 0; i < a.length; i++) {
+		// 		var b=a[i].src;//获取每张图片的src值
+		// 		a[i].setAttribute("onclick","window.location.href="+b);//给每张图片添加onClick跳转的方法，跳转的链接地址为src值
+		// 	}
+		// }
+	</script>
+</body>
+</html>

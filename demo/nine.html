@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>九宫格</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			box-sizing: border-box;
+		}
+		.box ul{
+			width: 300px;
+			height: 50px;
+			margin: 10% auto;
+		}
+		.box ul li{
+			width: 100px;
+			height: 50px;
+			float: left;
+			text-align: center;
+			line-height: 50px;
+			border-top:1px solid #000;/*主要*/
+			position: relative;/*主要*/
+		}
+		.box ul li + li{
+			/*单行方法*/
+			/*border-left: 1px solid #000;*/
+		}
+		.box ul li:not(:nth-child(3n)):after{
+			content: "";
+			position: absolute;
+			width: 1px;
+			height: 30px;
+			background-color: #000;
+			right: 0;
+			top:50%;
+			-ms-transform:translate3d(0,-50%,0) ;
+			-moz-transform:translate3d(0,-50%,0) ;
+			-webkit-transform:translate3d(0,-50%,0);
+			-o-transform:translate3d(0,-50%,0) ;
+			transform:translate3d(0,-50%,0) ;
+		}
+		/*兼容ie8+*/
+
+
+		/*JavaScript方法*/
+		.bor,.debor{
+			width: 100px;
+			height: 50px;
+			float: left;
+			text-align: center;
+			line-height: 50px;
+			border-top:1px solid #000;/*主要*/
+			position: relative;/*主要*/
+		}
+		.bor:after{
+			content: "";
+			position: absolute;
+			width: 1px;/*竖线的宽度*/
+			height: 30px;/*竖线的高度*/
+			background-color: #000;/*竖线的颜色*/
+			right: -1px;
+			top:50%;
+			transform:translate3d(0,-50%,0) ;
+			-ms-transform:translate3d(0,-50%,0) ;
+			-moz-transform:translate3d(0,-50%,0) ;
+			-webkit-transform:translate3d(0,-50%,0);
+			-o-transform:translate3d(0,-50%,0) ;
+		}
+		.debor:after{
+			content: "";
+			width: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul></ul>
+	</div>
+	<div>
+		<ul>
+			<li></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	var length = 9;//自定义输出多少个li
+	for (var i = 0; i < length; i++) {
+		var ul=document.querySelector(".box ul"),
+		li = document.createElement("li");
+		ul.appendChild(li);//循环输出li
+		//JavaScript方法
+		// li.className ="bor";//给li添加bor的class
+		// var	ls=ul.getElementsByTagName("li");
+		// if( (i+1) % 3 == 0){
+		// 	ls[i].className ="debor"//位置在3倍数的li修改class为debor
+		// }
+	}
+</script>
+</body>
+</html>

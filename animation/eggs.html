@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>砸金蛋</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<script type="text/javascript" src="../js/zepto.min.js"></script>
+	<style>
+		html,body{
+			height: 100%;
+			background: -webkit-linear-gradient(left top, #F27A7A , #F6B269);
+			background: linear-gradient(to bottom right, #F27A7A , #F6B269);
+			overflow: hidden;
+		}
+		*{margin: 0;padding: 0;list-style: none;}
+		.box{
+			width: 90%;
+			position: relative;
+			top:50%;
+			left: 50%;
+			-webkit-transform: translate3d(-50%,-50%,0);
+			-moz-transform: translate3d(-50%,-50%,0);
+			-ms-transform: translate3d(-50%,-50%,0);
+			-o-transform: translate3d(-50%,-50%,0);
+			transform: translate3d(-50%,-50%,0);
+		}
+		.box ul{
+			margin-right:-10%;
+			overflow: hidden; 
+		}
+		.box ul li{
+			width: -webkit-calc(100% / 3 - 10%);
+			width: calc(100% / 3 - 10%);
+			margin:0 10% 7% 0;
+			float: left;
+			position: relative;
+		}
+		.box ul li:before{
+			content: "";
+			width: 25%;height: 3%;
+			border-radius: 50%;
+			background-color:rgba(155,22,22,.9);
+			position: absolute;
+			bottom:-10%;
+			left: 37.5%;
+			-webkit-filter: blur(2px);    
+			filter: blur(2px);   
+			filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=1, MakeShadow=false); 
+			z-index: 2;
+		}
+		.box ul li:after{
+			content: "";
+			width: 50%;height: 10%;
+			border-radius: 50%;
+			background-color:#B64040;
+			position: absolute;
+			bottom:-14%;
+			left: 25%;
+			-webkit-filter: blur(5px);    
+			filter: blur(5px);   
+			filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);  
+			z-index: 1;
+		}
+		.box ul li:last-child{
+			margin-bottom:0;
+		}
+		.box ul li img{
+			display: block;
+			position: relative;
+			z-index: 3;
+		}
+		@-webkit-keyframes shake {
+			0%, 100% {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			10%, 30%, 50%, 70%, 90% {
+				-webkit-transform: translate3d(-10px, 0, 0);
+				transform: translate3d(-10px, 0, 0);
+			}
+
+			20%, 40%, 60%, 80% {
+				-webkit-transform: translate3d(10px, 0, 0);
+				transform: translate3d(10px, 0, 0);
+			}
+		}
+		@keyframes shake {
+			0%, 100% {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+
+			10%, 30%, 50%, 70%, 90% {
+				-webkit-transform: translate3d(-10px, 0, 0);
+				transform: translate3d(-10px, 0, 0);
+			}
+
+			20%, 40%, 60%, 80% {
+				-webkit-transform: translate3d(10px, 0, 0);
+				transform: translate3d(10px, 0, 0);
+			}
+		}
+		.shake {
+			-webkit-animation: shake .3s ease 1;
+			animation: shake .3s ease 1;
+		}
+		.img-6{
+			-webkit-animation: img .3s ease 1;
+			animation: img .3s ease 1;
+		}
+		@keyframes img {
+			50% {
+				-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
+		}
+		@-webkit-keyframes img {
+			50% {
+				-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul></ul>
+	</div>
+</body>
+<script type="text/javascript">
+	var g = 9,//定义金蛋数量
+	 t = 2000,//定义间隔时间ms
+	 j = 1;//定义金蛋个数
+	 function loading() {
+	 	return "complete" == document.readyState ? (clickE(), setInterval(function() {
+	 		return eggs(),clickE()
+	 	},t)) : void 0
+	 }
+	 document.onreadystatechange = loading;
+	 $(function() {
+	 	return eggs()
+	 });
+	 eggs = function (){
+	 	var html = [], i = 0;
+	 	while ( i<g ) {
+	 		html.push('<li><img width="100%" src="../images/egg.png"></li>'),
+	 		i++;
+	 	};
+	 	document.querySelector(".box ul").innerHTML = html.join('');
+	 };
+	 clickE = function (){
+	 	var a = NoRepeat(1, g, j);
+	 	console.log("砸第"+a+"个，会中奖哦");
+	 	var b = $("li"),c = null !== b.ontouchstart ? "click": "touchstart";
+	 	b.one(c,
+	 		function() {
+	 			$(this).addClass("shake"),
+	 			setTimeout(function() {
+	 				$(".shake").children().attr("src", "../images/egg-k.png")
+	 			},350);
+	 			var d=$(this).index()+1;
+	 			Array.prototype.in_array=function(e){
+	 				var r=new RegExp(','+e+',');
+	 				return (r.test(','+this.join(this.S)+','));
+	 			};
+	 			if (a.in_array(d) == 1) 
+	 				return console.log("中奖啦");
+	 		})
+	 }
+
+	 function newNumber(a, b) {
+	 	return Math.round(Math.random() * (b - a) + a)
+	 }
+	 function isHaveThisNumber(a, b) {
+	 	if ("object" == typeof a && 0 == a.length) return ! 1;
+	 	for (var c = 0; c < a.length; c++) if (a[c] == b) return ! 0;
+	 		return ! 1
+	 }
+	 function NoRepeat(a, b, c) {
+	 	var d, e = new Array,
+	 	f = 0;
+	 	if (! (a > b || 0 > a || 0 > b || 0 > c || c > b - a + 1)) {
+	 		for (var g = 0; c > g; g++) {
+	 			if (d = newNumber(a, b), isHaveThisNumber(e, d)) for (; isHaveThisNumber(e, d);) d = newNumber(a, b);
+	 			e[f++] = d
+	 		}
+	 		return e
+	 	}
+	 }
+	</script>
+	</html>

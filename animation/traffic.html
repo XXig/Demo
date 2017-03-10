@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的流量</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script>
+		var evt = "onorientationchange" in window ? "orientationchange" : "resize";
+		function resize() {
+			var html = document.documentElement, fontSize = 100,
+			pageW = 375, pageH = 604,
+			wk = 375;hk = 604;
+			if (html.clientWidth / html.clientHeight > pageW / pageH) {
+				if (html.clientHeight <= hk) {
+					html.style.fontSize = html.clientHeight / pageH * fontSize + "px";
+				} else {
+					html.style.fontSize = hk / pageH * fontSize + "px";
+				}
+			} else {
+				if (html.clientWidth <= wk) {
+					html.style.fontSize = html.clientWidth / pageW * fontSize + "px";
+				} else {
+					html.style.fontSize = wk / pageW * fontSize + "px";
+				}
+			}
+		}
+		resize();
+	</script>
+	<style>
+		html,body{height:100%;overflow: hidden}
+		.xycenter{
+			left:50%;
+			top:45%;
+			transform:translate3d(-50%,-50%,0);-webkit-transform:translate3d(-50%,-50%,0)
+		}
+		.box{
+			width: 3.2rem;
+			height: 2rem;
+			position: relative;
+			/*border: .01rem solid #f00;*/
+			overflow: hidden;
+		}
+		.box *{
+			position: absolute;
+			left:50%;
+			transform:translate3d(-50%,0,0);-webkit-transform:translate3d(-50%,0,0);
+		}
+		.bar{
+			width: 3.1rem;
+			height: 2rem;
+			z-index: 9999;
+			/*background-color: rgba(255,0,0,.7);*/
+			overflow: hidden;
+			-webkit-transform-origin:center 1.56rem 0;
+			-moz-transform-origin:center 1.56rem 0;
+			transform-origin:center 1.56rem 0;
+			-webkit-animation:bar linear 1.2s forwards;
+			animation:bar linear 1.2s forwards
+		}
+		@-webkit-keyframes bar {
+			to { 
+				-webkit-transform-origin:center 1.56rem 0;
+				-moz-transform-origin:center 1.56rem 0;
+				transform-origin:center 1.56rem 0;
+				-webkit-transform:translate3d(-50%,0,0) rotateZ(-180deg);
+				transform:translate3d(-50%,0,0) rotateZ(-180deg);
+			}
+		}
+		@keyframes bar {
+			to{ 
+				-webkit-transform-origin:center 1.56rem 0;
+				-moz-transform-origin:center 1.56rem 0;
+				transform-origin:center 1.56rem 0;
+				-webkit-transform:translate3d(-50%,0,0) rotateZ(-180deg);
+				transform:translate3d(-50%,0,0) rotateZ(-180deg);
+			}
+		}
+		.bar ul{
+			width: 3.1rem;
+			height: 3.1rem;
+			top:0;
+			border: .07rem solid #FFD400;
+			border-radius: 9999rem;
+			border-bottom-color: transparent;
+			-webkit-animation:barColor linear 1s forwards;
+			animation:barColor linear 1s forwards
+		}	
+		@-webkit-keyframes barColor {
+			to { 
+				border-left-color: transparent;
+			}
+		}
+		@keyframes barColor {
+			to{ 
+				border-left-color: transparent;
+			}
+		}
+		.bar ul li{
+			width: .13rem;
+			height: .13rem;
+			top:1.8rem;
+			left: 2.945rem;
+			background: #FFD400;
+			border-radius: 9999rem;
+		}
+		.box-rline{
+			width: 3rem;
+			height: 3rem;
+			top:.05rem;
+			border: .1rem solid #ccc;
+			border-radius: 9999rem;
+		}
+		.box-num{
+			width: 2.8rem;
+			height: 2.8rem;
+			top:.15rem;
+			border: .2rem solid #F3F1F1;
+			border-radius: 9999rem;
+		}
+		.box-num:before{
+			content: "";
+			width: 2.85rem;
+			height: 2.85rem;
+			position: absolute;
+			top:50%;
+			left: 50%;
+			transform:translate3d(-50%,-50%,0);-webkit-transform:translate3d(-50%,-50%,0);
+			border: .01rem solid #E2E2E2;
+			border-radius: 9999rem;
+		}
+		.num-line{
+			width: 2.8rem;
+			height: 2rem;
+			top:-.35rem;
+		}
+		.num-line li{
+			height: .01rem;
+			background:-moz-linear-gradient(left,#ccc .095rem,transparent .095rem);
+			background:-webkit-linear-gradient(left,#ccc .095rem,transparent .095rem);
+			background:-o-linear-gradient(left,#ccc .095rem,transparent .095rem);
+			background:linear-gradient(left,#ccc .095rem,transparent .1rem);
+			bottom: 0;
+		}
+		.lin1{
+			width: 2.5rem;
+			background:-moz-linear-gradient(left,#ccc .14rem,transparent .14rem)!important;
+			background:-webkit-linear-gradient(left,#ccc .14rem,transparent .14rem)!important;
+			background:-o-linear-gradient(left,#ccc .14rem,transparent .14rem)!important;
+			background:linear-gradient(left,#ccc .14rem,transparent .14rem)!important;
+		}
+		.lin2{
+			width: 3rem;
+			-webkit-transform:translate3d(-50%,0,0) rotateZ(36deg);
+			transform:translate3d(-50%,0,0) rotateZ(36deg);
+		}
+		.lin3{
+			width: 3.4rem;
+			-webkit-transform:translate3d(-50%,0,0) rotateZ(72deg);
+			transform:translate3d(-50%,0,0) rotateZ(72deg);
+		}
+		.lin4{
+			width: 3.4rem;
+			-webkit-transform:translate3d(-50%,0,0) rotateZ(108deg);
+			transform:translate3d(-50%,0,0) rotateZ(108deg);
+		}
+		.lin5{
+			width: 3rem;
+			-webkit-transform:translate3d(-50%,0,0) rotateZ(144deg);
+			transform:translate3d(-50%,0,0) rotateZ(144deg);
+		}
+		.lin6{
+			width: 2.5rem;
+			background:-moz-linear-gradient(left,#ccc 2.36rem,transparent .14rem)!important;
+			background:-webkit-linear-gradient(left,transparent 2.36rem,#ccc .14rem)!important;
+			background:-o-linear-gradient(left,#ccc 2.36rem,transparent .14rem)!important;
+			background:linear-gradient(left,#ccc 2.36rem,transparent .14rem)!important;
+		}
+		.num-tip{
+			z-index: 6000;
+		}
+		.num-tip ul{
+			width: 2.85rem;
+			height: 2rem;
+			top:0;
+		}
+		.num-tip ul li{
+			width: .5rem;
+			font-size: .12rem;
+			color: #424242;
+			text-align: center;
+		}
+		.tip1{
+			left: .45rem;
+			bottom: -.03rem;
+		}
+		.tip2{
+			left: .48rem;
+			bottom: .68rem;
+		}
+		.tip3{
+			left: 1.02rem;
+			bottom: 1.32rem;
+		}
+		.tip4{
+			left: 1.88rem;
+			bottom: 1.32rem;
+		}
+		.tip5{
+			left: 2.38rem;
+			bottom: .68rem;
+		}
+		.tip6{
+			left: 2.34rem;
+			bottom: -.03rem;
+		}
+		.num{
+			width: 2.4rem;
+			height: 2.4rem;
+			top:.35rem;
+			padding-top: .7rem;
+			border: .01rem solid #ccc;
+			border-radius: 9999rem;
+			z-index: 5000;
+			font-size: .24rem;
+			color: #6B6B6B;
+			text-align: center;
+			line-height: .38rem;
+		}
+		.num b{
+			font-size: .26rem;
+		}
+	</style>
+</head>
+<body>
+	<section class="box xycenter">
+		<div class="bar">
+			<ul><li></li></ul>
+		</div>
+		<div class="box-rline"></div>
+		<div class="box-num">
+			<ul class="num-line">
+				<li class="lin1"></li>
+				<li class="lin2"></li>
+				<li class="lin3"></li>
+				<li class="lin4"></li>
+				<li class="lin5"></li>
+				<li class="lin6"></li>
+			</ul>
+		</div>
+		<div class="num-tip">
+			<ul>
+				<li class="tip1">0%</li>
+				<li class="tip2">20%</li>
+				<li class="tip3">40%</li>
+				<li class="tip4">60%</li>
+				<li class="tip5">80%</li>
+				<li class="tip6">100%</li>
+			</ul>
+		</div>
+		<div class="num"><b>803MB</b><br>剩余流量</div>
+	</section>
+	<script type="text/javascript">
+		document.body.addEventListener('touchmove', function(event) { 
+			event.preventDefault(); 
+		}, false);
+	</script>
+</body>
+</html>

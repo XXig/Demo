@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nodelist.js</title>
+	<script type="text/javascript" src="../js/NodeList.min.js"></script>
+	<style>
+		@import url(../css/base.css);
+		:root {
+			--width: 300px;
+			--background-color: #ff0;
+			--color: #f00;
+		}
+		.text{
+			--background-color: #eee;
+			width: calc(var(--width) / 2);
+			margin: 5% auto;
+			background-color: var(--background-color);
+			color:var(--color);
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul>1</ul>
+		<ul>1</ul>
+		<ul>1</ul>
+	</div>
+	<div class="text">1</div><br><br>
+	<div class="text">3</div><br><br>
+	<div class="text" id="textc">4</div><br><br>
+	<a href="http://www.baidu.com"></a>
+	<script>
+		// function $$(selector, context) {
+		// 	context = context || document;
+		// 	var elements = context.querySelectorAll(selector);
+		// 	return Array.prototype.slice.call(elements);
+		// }
+		
+		// 选取
+		// console.log($$('.text'))---querySelectorAll
+		// console.log($$('a').item(0))----------[]索引
+		// let container = document.getElementById('container');
+		// console.log($$('ul', container));
+
+
+		$$('.text').firstChild.remove();
+
+		// $$('a').style.set('color', 'white');
+		// $$('a').style.set({ 
+		// 	color: 'white', 
+		// 	background: 'lightblue' 
+		// });
+
+		// $$('a').set('href', 'https://sitepoint.com/');
+		// $$('.text').set({ textContent: 'Click Me', onclick: function() {
+		// console.log($$('a').get('href'));
+		// } });
+
+		// $$('video').call('pause')
+		
+		// 循环遍历
+		// $$('.text').forEach(function(a) {
+		// 	var b = parseFloat(a.textContent);
+		// 	a.style.animationDelay = '-' + b + 's';
+		// });
+
+		//绑定、移除事件
+		// $$('.text').on('click', function() {
+		// 	console.log(this, 'was clicked');
+		// });
+		// $$('.text').off('click', function() {
+		// 	console.log(this, 'was removeclicked');
+		// });
+	</script>
+</body>
+</html>

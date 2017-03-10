@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点赞功能</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<style>
+		body{overflow: hidden}
+		body h1{color: #ff0}
+		h1{color: #f00}
+		*{
+			box-sizing:content-box;
+			-webkit-box-sizing:content-box;
+		}
+		.box{
+			width: 350px;
+			height: 200px;
+			margin: 200px auto;
+		}
+		.box ul{
+			margin-right: -20px;
+			position: relative;
+		}
+		.box ul li{
+			float: left;
+			width:52px;
+			height: 52px;
+			margin-right: 20px;
+			border-radius: 100%;
+			background: #ccc;
+		}
+		.box span{
+			position: absolute;
+			display: block;
+			width: 30px;
+			height: 30px;
+			right: 30px;
+			top:55px;
+			text-align: center;
+			color: #757575;
+		}
+		.active{
+			background: #FF8D00!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="clearfix">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<span id="tip">0分</span>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var zan = document.querySelector(".box").getElementsByTagName("li"),
+		tip = document.getElementById("tip"),
+		clickEvent = (document.ontouchstart!==null) ? 'click' : 'touchstart';
+		for (var i = 0; i < zan.length; i++) {
+			zan[i].index = i;
+			$(zan[i]).on(clickEvent, function() {
+				$(this).addClass('active').prevAll().addClass('active');
+				$(this).nextAll().removeClass('active');
+				tip.innerHTML = this.index + 1+"分";
+			});
+			zan[i].onmouseover = function () {
+				$(this).addClass('active').prevAll().addClass('active');
+				$(this).nextAll().removeClass('active');
+				tip.innerHTML = this.index + 1+"分";
+			}			
+		}
+		// $(zan).on(clickEvent, function() {
+		// 	$(this).addClass('active').prevAll().addClass('active');
+		// 	$(this).nextAll().removeClass('active');
+		// 	tip.innerHTML = $("li.active").length + "分";
+		// });
+	</script>
+</body>
+</html>

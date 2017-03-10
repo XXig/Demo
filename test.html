@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的页面</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- 不缓存S -->
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<!-- 不缓存E -->
+	<!-- 缓存S -->
+	<!-- <meta http-equiv="Cache-Control" content="max-age=7200" /> -->
+	<!-- 在7200秒内不更新 -->
+	<!-- <meta http-equiv="Expires" content="Fri,31 Dec 1999 16:00:00 GMT"> -->
+	<!-- 设置过期时间 -->
+	<!-- 缓存E在7200秒内不更新 -->
+	<meta name="full-screen" content="yes">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<!-- <script type="text/javascript" src="js/base.js"></script> -->
+	<script>
+		(function(doc, win) {
+			var screenWidth = 0, size = 'M', root = doc.documentElement;
+			if (window.screen && screen.width) {
+				screenWidth = screen.width;
+				if (screenWidth > 1920) {
+					size = 'L';
+				} else if (screenWidth < 480) {
+					size = 'S';
+				}
+			}
+			root.className = size;
+			win.SIZE = size;        
+		})(document, window);
+		$(window).on('resize', function() {
+			(function(doc, win) {
+				var screenWidth = 0, size = 'M', root = doc.documentElement;
+				if (window.screen && screen.width) {
+					screenWidth = screen.width;
+					if (screenWidth > 1920) {
+						size = 'L';
+					} else if (screenWidth < 480) {
+						size = 'S';
+					}
+				}
+				root.className = size;
+				win.SIZE = size;        
+			})(document, window);
+		});
+		if (window.SIZE == 'S') {
+			console.log("移动端")
+		} else {
+			console.log("PC端");
+		}
+	</script>
+	<style>h1{text-align: center;}</style>
+</head>
+<body>
+<!-- 标签 -->
+	<style>
+		.check{
+			width: 100px;
+			height: 50px;
+			border: 1px solid currentColor;
+			margin: 10px auto;
+			font-size: 16px;
+			color: #B3B3B3;
+			line-height: 50px;
+			text-align: center;
+			cursor:pointer;
+			-webkit-user-select:none;
+		}
+		.check-active{
+			position: relative;
+			border-color: currentColor;
+			color: #FF852E;
+		}
+		.check-active:after{
+			content:"";
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			border:10px solid transparent;
+			border-right: 30px solid currentColor;
+			border-bottom-width: 0;
+		}
+	</style>
+	<div class="check">点我</div><br><br>
+	<script>
+		$(".check").click(function(){
+			$(this).toggleClass("check-active").text() == "点我" ? $(this).text("点中") : $(this).text("点我")
+		});
+	</script>
+
+	<!-- 晃动动画 -->
+	<style>
+		#div2{
+			color:#f00;position: relative;left:50%;transform:translate3d(-50%,-50%,0);
+		}
+	</style>
+	<h1 id='div2'>晃动动画</h1>
+	<script>
+		var odiv=document.querySelector('#div2');
+		var arr=[];
+		var chz=odiv.offsetLeft;
+		var timer=null;
+		for(var i=20;i>0;i=i-2){
+			arr.push(i,-i);
+		}
+		arr.push(0);
+		odiv.onclick=function(){
+			var num=0;
+			timer=setInterval(function(){
+				odiv.style.left=chz+arr[num]+'px';
+				num++;
+				if(num==arr.length){
+					clearInterval(timer);
+				}
+			},30);
+		}
+	</script>
+	<!-- 自适应文本框 -->
+	<style>
+		#contentedit{
+			padding: 5px;
+			min-height: 50px;
+			width:300px;
+			border:1px solid #ccc;
+			overflow-x:hidden;
+			overflow-y:auto;
+			word-wrap:break-word;
+			resize:both;
+		}
+	</style>
+	<h1>自适应文本框</h1>
+	<textarea placeholder="项目明细" class="form-control" onpropertychange="this.style.height=this.scorllHeight+'px';" oninput="this.style.height=this.scrollHeight+'px';" style="overflow-y:hidden;width:100%"></textarea>
+	<div id="contentedit" contenteditable="true"></div>
+
+	<!-- 标签分页按钮 -->
+	<style>
+		.page{
+			width: 120px;height: 40px;
+			margin: 3% auto;
+			background: -webkit-linear-gradient(90deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
+			background: linear-gradient(0deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
+			border-radius: 20px 0 0 20px;
+			border: 1px solid currentColor;
+			border-right: none;
+			color: #ccc;
+			font-size:14px;
+			line-height: 40px;
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		.page:before{
+			content: "";
+			border: 6px solid transparent;
+			border-right-color: currentColor;
+			position: absolute;
+			left: 5px;
+			top:14px;
+		}
+		.page:after{
+			content: "";
+			width: 19px;height: 38px;
+			background-color: #fff;
+			border: 1px solid currentColor;
+			border-right:none;
+			border-radius:38px 0 0 38px;
+			position: absolute;
+			right:0px;
+			top:-1px;
+		}
+		.page p{
+			width: 80px;
+			text-align: right;
+		}
+	</style>
+	<div class="page"><p>上一页</p></div><br><br>
+
+	<!-- 浮动Demo -->
+	<style>
+		.left{
+			background-color: #f00;
+			margin-right: 300px;
+		}
+		.right{
+			float: right;
+			width: 300px;
+			background-color: #ff0;
+		}
+		.con{
+			margin-top: 5px;
+			margin-left: 100px;
+			margin-right: 300px;
+		}
+		.left1{
+			float: left;
+			width: 100px;
+			margin-left:-moz-calc(-100% - 100px);
+			margin-left:-webkit-calc(-100% - 100px);
+			margin-left:calc(-100% - 100px);
+			background: #ff0;
+		}
+		.right1{
+			float: right;
+			width: 300px;
+			background: #f00;
+			margin-right: -300px;
+		}
+		.center{
+			float: left;
+			width: 100%;
+			background: #E5E5E5;
+		}
+	</style>
+	<h1>浮动Demo</h1>
+	<div class="main clearfix">
+		<div class="right">右边</div>
+		<div class="left">左边自适应</div>
+	</div><br><br>
+	<div class="con">
+		<ul class="clearfix">
+			<li class="center">中间先显示，自适应</li>
+			<li class="left1">左边</li>
+			<li class="right1">右边</li>
+		</ul>
+	</div><br><br><br><br>
+	<div style="width:100px;float:left;background:#f00">100px</div>
+	<div style="margin-left:100px;background:#eee">自适应</div><br><br>
+
+	<!-- 垂直居中 -->
+	<style>
+		.justify{
+			width:500px;
+			height: 500px;
+			border: 1px solid #f00;
+			text-align: center;
+			margin: 50px auto;
+		}
+		.justify-b::before{
+			content: '';
+			height: 100%;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.justify>*{
+			width: 50%;
+			display:inline-block;vertical-align: middle;
+		}
+	</style>
+	<h1>垂直居中</h1>
+	<div class="justify" style="display: table-cell;vertical-align: middle;">
+		<span style="height: 20px;background-color: #ccc;"></span>
+	</div>
+
+
+<!-- 	<div class="wra">
+		<div class="wra-1">
+			<div class="wra-11">1111111111111111</div>
+			<div class="wra-11">1</div>
+			<div class="wra-22">2</div>
+		</div>
+		<div class="wra-33">3</div>
+		<p>ppppp</p>
+	</div><br>
+	<script>
+		$(".wra").click(function(){
+			console.log($(this).children("p"));
+		});
+		var i=document.querySelector(".wra-22"),
+		b=document.querySelector(".wra-33");
+		var c=document.createElement("div"),
+		node=document.createTextNode("这是新div。");
+		c.appendChild(node);
+		document.querySelector(".wra-1").removeChild(i);
+		b.parentNode.removeChild(b);
+		document.querySelector(".wra-33").innerHTML="<div class='wra-33'>555</div>";
+	</script> -->
+</body>
+</html>

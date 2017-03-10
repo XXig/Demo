@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>png变色</title>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<style>
+		.icon {
+			display: inline-block;
+			width: 40px; height: 40px;
+			margin: 10%;
+			overflow: hidden;
+		}
+		.icon >.icon{
+			margin: 0;
+			position: relative;
+			left: -40px;
+			border-right: 40px solid transparent;
+			-webkit-filter: drop-shadow(#f00 40px 0px); 
+			filter: drop-shadow(#f00 40px 0px); 
+			background: url(../images/loading.png) no-repeat center;
+		}
+	</style>
+</head>
+<body>
+	<i class="icon"><i class="icon"></i></i>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉菜单</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing:border-box;
+			list-style:none
+		}
+		.box{
+			position: relative;
+			width: 600px;
+			margin:10% auto;
+		}
+		.nav{
+			display: block;
+			width: 200px;
+			color:#fff;
+		}
+		.nav:hover .nav-m{
+			height: 160px;
+		}
+		.nav:hover .nav-t::after{
+			transform:translate3d(-50%,-50%,0) rotate(-135deg)
+		}
+		.nav-t{
+			position: relative;
+			height: 40px;
+			line-height: 40px;
+			background: #00b0ff;
+			text-indent: 20px;
+			cursor: pointer;
+		}
+		.nav-t::after{
+			content: '';
+			width: 5px;
+			height: 5px;
+			position: absolute;
+			top:50%;
+			right: 10px;
+			border: 2px solid currentColor;
+			border-top: none;
+			border-left: none;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+			-webkit-transform:translate3d(-50%,-50%,0) rotate(45deg);
+			transform:translate3d(-50%,-50%,0) rotate(45deg);
+		}
+		.nav-m{
+			background: rgba(0,176,255,.75);
+			text-indent: 30px;
+			height:0;
+			overflow: hidden;
+			-webkit-transition: all .2s linear;
+			transition: all .2s linear;
+		}
+		.nav-m li{
+			position: relative;
+		}
+		.nav-m li::after{
+			content: '';
+			width: 5px;
+			height: 5px;
+			position: absolute;
+			top:50%;
+			right: 10px;
+			border: 2px solid currentColor;
+			border-left: none;
+			border-bottom: none;
+			-webkit-transform:translate3d(-50%,-50%,0) rotate(45deg);
+			transform:translate3d(-50%,-50%,0) rotate(45deg);
+		}
+		.nav-m a{
+			display: block;
+			height: 40px;
+			line-height: 40px;
+			color:#fff;
+			font-size: 14px;
+			text-decoration: none;
+		}
+		.nav-m li:hover{
+			opacity: .75
+		}
+		.main{
+			width: 400px;
+			height: 200px;
+			line-height: 200px;
+			position: absolute;
+			top:0;
+			right: 0;
+			border:1px solid #00b0ff;
+			border-left: none;
+			color:#ccc;
+			text-align: center;
+			display:none
+		}
+		#content1:target,#content2:target,#content3:target,#content4:target{
+			display:block
+		}
+		#content1:target ~ .nav-m li:nth-child(1){
+			opacity: .75
+		}
+		#content2:target ~ .nav-m li:nth-child(2){
+			opacity: .75
+		}
+		#content3:target ~ .nav-m li:nth-child(3){
+			opacity: .75
+		}
+		#content4:target ~ .nav-m li:nth-child(4){
+			opacity: .75
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<nav class="nav">
+			<ul class="nav-t">
+				<li>主菜单</li>
+			</ul>
+			<ul class="main" id="content1">内容1</ul>
+			<ul class="main" id="content2">内容2</ul>
+			<ul class="main" id="content3">内容3</ul>
+			<ul class="main" id="content4">内容4</ul>
+			<ul class="nav-m">
+				<li><a href="#content1">子菜单1</a></li>
+				<li><a href="#content2">子菜单2</a></li>
+				<li><a href="#content3">子菜单3</a></li>
+				<li><a href="#content4">子菜单4</a></li>
+			</ul>
+		</nav>	
+	</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>波纹</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="screen-orientation" content="portrait">
+	<meta name="x5-orientation" content="portrait">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<style>
+		.thumbnail-top {
+			width: 30%;height: 100px;
+			margin: 10% auto;
+			position: relative;
+			overflow: hidden;
+			/*border-radius: 50% / 100% 100% 0 0;
+			border-radius:100% 0 0 100% / 50%;
+			border-radius: 0 100% 100% 0 / 50%;
+			border-radius: 100% 0 0 0;*/
+			background-color:#404040;
+			/*-webkit-clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+			clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+			-webkit-transition:all 1s ease-in-out;
+			transition:all 1s ease-in-out;*/
+		}
+		.thumbnail-top:hover {
+			-webkit-clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+			clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+		}
+		.thumbnail-top:hover .curve {
+			-webkit-animation: curveout .3s ease-in-out;
+			animation: curveout .3s ease-in-out;
+			-webkit-transform: scaleY(1);
+			transform: scaleY(1);
+		}
+		.thumbnail-top .curve {
+			-webkit-animation: curvein 1s ease;
+			animation: curvein 1s ease;
+			-webkit-transform: scaleY(.01);
+			transform: scaleY(.01);
+			position: absolute;
+			bottom: -9px;
+			left: 50%;
+			margin-left: -71px;
+			text-rendering: geometricPrecision;
+		}
+		@-webkit-keyframes curvein {
+			0% {
+				-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+				bottom: -9px;
+			}
+			50%,70% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scaleY(.1);
+				transform: scaleY(.1);
+				opacity: 0;
+				bottom: -15px;
+			}
+		}
+		@keyframes curvein {
+			0% {
+				-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+				bottom: -9px;
+			}
+			50%,70% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scaleY(.1);
+				transform: scaleY(.1);
+				opacity: 0;
+				bottom: -15px;
+			}
+		}
+		@-webkit-keyframes curveout {
+			0% {
+				-webkit-transform: scaleY(.1);
+				transform: scaleY(.1);
+				bottom: -15px;
+			}
+			70% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+				opacity: 1;
+				bottom: -9px;
+			}
+		}
+		@keyframes curveout {
+			0% {
+				-webkit-transform: scaleY(.1);
+				transform: scaleY(.1);
+				bottom: -15px;
+			}
+			70% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+				opacity: 1;
+				bottom: -9px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="thumbnail-top">
+		<p class="curve">
+			<svg width="142px" height="20px" viewBox="0 0 142 20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<path d="M0.11477601,19.9881541 C51.1249994,19.9881535 48.8228391,-1.73143571e-16 71.5246747,2.55439526e-16 C94.2517989,6.81292127e-16 92.1249994,19.9881535 142,19.9881541 L0.11477601,19.9881541 Z" stroke-width="1" fill="#FFF"></path>
+			</svg>
+		</p>
+	</div>
+</body>
+</html>

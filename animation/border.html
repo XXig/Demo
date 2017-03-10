@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>选区</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="screen-orientation" content="portrait">
+	<meta name="x5-orientation" content="portrait">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<style>
+		.marching-ants {
+			width: 30%;height: 3em;
+			margin: 30px auto;
+			border: 1px solid transparent;
+			background:
+			linear-gradient(white, white) padding-box,
+			repeating-linear-gradient(-45deg,black 0, black 25%, white 0, white 50%) 0 / .6em .6em;
+			animation: ants 12s linear infinite;
+		}
+		@keyframes ants { to { background-position: 100% } }
+	</style>
+</head>
+<body>
+	<div class="marching-ants "></div>
+</body>
+</html>

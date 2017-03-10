@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Author" content="阮家友">
+    <meta name="Keywords" content="HTML,model,test">
+    <style type="text/css">
+        html,body{font-size:14px;margin:0px;padding:0px;}
+        li {list-style:none;}
+        img {border:0px;}
+        a {text-decoration:none;}
+        .clear {clear:both;}
+        
+        #center {width:800px;margin:0 auto;padding-top:50px;}
+        #c1 {background-color:#333;}
+    </style>
+</head>
+<body>
+    <div id="center">
+        <canvas id="c1" width="600" height="400px"></canvas><br/>
+        <button id="btn1">start</button>
+        <button id="btn2">stop</button>
+        <button id="btn3">clear</button>
+    </div>
+    <script type="text/javascript">
+    function CreateCanvasObject(canvasId,func)
+    {
+        //返回的对象 包含节点Node 绘图环境GC 等属性 和 clear 等方法
+        var obj = new Object();
+        var ocanvas = document.getElementById(canvasId);
+        //这里要做判断 是否获取到canvas标签 否则返回 null
+        
+        //获取画布绘图环境
+        var ocanvasGC = ocanvas.getContext('2d');
+        obj = 
+        {
+            Node:ocanvas,
+            GC:ocanvasGC,
+            timer:'',
+            bContinue:false,
+            fun:func,
+            clear:function(){this.GC.clearRect(0,0,this.Node.width,this.Node.height);},
+            start:function(){
+                var oThis = this;
+                if(oThis.timer)
+                {
+                    oThis.stop();
+                }
+                oThis.bContinue = true;
+                var loop = function()
+                {
+                    oThis.fun(oThis);
+                    if(oThis.bContinue)
+                    {
+                        oThis.timer = setTimeout(loop,10);
+                    }
+                }
+                loop();
+            },
+            stop:function(){clearTimeout(this.timer);this.bContinue = false;}
+        }
+        return obj;
+    }
+    Vector2 = function(x, y) { this.x = x; this.y = y; };
+    Vector2.prototype = {
+        copy : function() { return new Vector2(this.x, this.y); },
+        length : function() { return Math.sqrt(this.x * this.x + this.y * this.y); },
+        sqrLength : function() { return this.x * this.x + this.y * this.y; },
+        normalize : function() { var inv = 1/this.length(); return new Vector2(this.x * inv, this.y * inv); },
+        negate : function() { return new Vector2(-this.x, -this.y); },
+        add : function(v) { return new Vector2(this.x + v.x, this.y + v.y); },
+        subtract : function(v) { return new Vector2(this.x - v.x, this.y - v.y); },
+        multiply : function(f) { return new Vector2(this.x * f, this.y * f); },
+        divide : function(f) { var invf = 1/f; return new Vector2(this.x * invf, this.y * invf); },
+        dot : function(v) { return this.x * v.x + this.y * v.y; }
+    };
+    //初始位置
+    var position = new Vector2(300,200);
+    //初始方向和速度
+    var velocity = new Vector2(10,-20);
+    var dt=0.1;
+    //角度变化量
+    var degree=0;
+    //绘图函数(循环)
+    function action(obj)
+    {
+        //var ctx = obj.GC;
+        obj.clear();
+        //最外围5px
+        //ring(obj.GC,position.x,position.y,60,55,'#4689bd',"#333",0,Math.PI*2,false);
+        ring(obj.GC,position.x,position.y,60,55,'#4689bd',"#333",0,Math.PI*2,false);
+        //间隔10px 切割环
+        obj.GC.strokeStyle = "#333";
+        obj.GC.lineWidth=10;
+        obj.GC.save();
+        obj.GC.translate(position.x,position.y);
+        obj.GC.rotate(Math.PI*degree/180);
+        for(var i=0;i<2;i++){
+            obj.GC.rotate(Math.PI/2);
+            obj.GC.beginPath();
+            obj.GC.moveTo(0,-61);
+            obj.GC.lineTo(0,61);
+            obj.GC.closePath();
+            obj.GC.stroke();
+        }        
+        obj.GC.restore();
+        
+        //次外围10px
+        ring(obj.GC,position.x,position.y,50,40,'#3f9bd0',"#333",0,Math.PI*2,false);
+        //间隔5px
+        obj.GC.lineWidth=5;
+        obj.GC.save();
+        obj.GC.translate(position.x,position.y);
+        obj.GC.rotate(-Math.PI*degree/180);
+        for(var i=0;i<4;i++)
+        {
+            obj.GC.rotate(Math.PI/4);
+            obj.GC.beginPath();
+            obj.GC.moveTo(0,-50);
+            obj.GC.lineTo(0,50);
+            obj.GC.closePath();
+            obj.GC.stroke();
+        }
+        obj.GC.restore();
+        //内层15px
+        ring(obj.GC,position.x,position.y,35,20,'#83dbff',"#333",0,Math.PI*2,false)
+        //间隔2px
+        obj.GC.lineWidth=2;
+        obj.GC.save();
+        obj.GC.translate(position.x,position.y);
+        obj.GC.rotate(Math.PI*degree/180);
+        for(var i=0;i<24;i++)
+        {
+            obj.GC.rotate(Math.PI/12);
+            obj.GC.beginPath();
+            obj.GC.moveTo(0,-35);
+            obj.GC.lineTo(0,35);
+            obj.GC.closePath();
+            obj.GC.stroke();
+        }
+        obj.GC.restore();
+        
+        degree+=2;
+        if(position.x > obj.Node.width-60 || position.x < 60)
+        {
+            //velocity.x=-velocity.x;
+        }
+        if(position.y > obj.Node.height-60 || position.y < 60)
+        {
+            //velocity.y=-velocity.y;
+        }
+        //position = position.add(velocity.multiply(dt));
+    }
+    //画环函数
+    function ring(gc,posX,posY,R1,R2,color1,color2,degree1,degree2,bClockwise)
+    {
+        gc.beginPath();
+        gc.fillStyle=color1;
+        gc.arc(posX,posY,R1,degree1,degree2,bClockwise);
+        gc.closePath();
+        gc.fill();
+        //清空
+        gc.beginPath();
+        gc.fillStyle=color2;
+        gc.arc(posX,posY,R2,degree1,degree2,bClockwise);
+        gc.closePath();
+        gc.fill();
+    }
+    //创建对象实例
+    var obj1 = CreateCanvasObject('c1',action);
+    //开始绘图
+    //obj1.start();
+    //obj1.stop();
+    
+    //按钮事件
+    var ostart = document.getElementById('btn1');
+    var ostop = document.getElementById('btn2');
+    var oclear = document.getElementById('btn3');
+    ostart.onclick = function()
+    {
+        obj1.start();
+    }
+    ostop.onclick = function()
+    {
+        obj1.stop();
+    }
+    oclear.onclick = function()
+    {
+        obj1.clear();
+    }
+	
+    function test()
+    {
+        switch(arguments.length)
+        {
+            case 0:console.log('no arguments');break;
+            case 1:console.log(arguments[0]);break;
+            case 2:console.log(arguments[1]);break;
+            default:console.log('more than 2 arguments!');break;
+        }
+    }
+    test();
+    test('args 1');
+    test('args 1','args 2');
+    test('args 1','args 2','args 3');
+    </script>
+</body>
+</html>

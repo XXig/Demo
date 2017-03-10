@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>手机端六位密码输入</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<script src="js/zepto.min.js"></script>
+	<style>
+		*{margin:0;padding:0;box-sizing:border-box}
+		.pwd-box{
+			width:80%;
+			margin: 25% auto;
+			border: 1px solid #9f9fa0;
+			border-radius: 3px;
+			position: relative;
+			overflow:hidden
+		}
+		.pwd-box input[type="tel"]{
+			width: 100%;
+			height:100%;
+			border: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			color: transparent;
+			/*letter-spacing: 35px;*/
+			opacity: 0;
+		}
+		.fake-box{
+			display: flex;
+			height: 100%;
+		}
+		.fake-box input{
+			width: 16.66667%;
+			border: none;
+			border-right: 1px solid #e5e5e5;
+			font-size: 30px;
+			text-align: center;
+		}
+		.fake-box input:last-child{
+			border:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="pwd-box">
+		<input type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+		<div class="fake-box">
+			<input type="password" readonly="">
+			<input type="password" readonly="">
+			<input type="password" readonly="">
+			<input type="password" readonly="">
+			<input type="password" readonly="">
+			<input type="password" readonly="">
+		</div>
+	</div>
+	<script>
+		var $input = $(".fake-box input");
+		$("#pwd-input").on("input", function() {
+			var pwd = $(this).val().trim();
+			for (var i = 0, len = pwd.length; i < len; i++) {
+				$input.eq("" + i + "").val(pwd[i]);
+			};
+			$input.each(function() {
+				var index = $(this).index();
+				if (index >= len) {
+					$(this).val("");
+				}
+			}),
+			len == 6&&(
+				console.log('success')
+				)
+		});
+	</script>
+</body>
+</html>
