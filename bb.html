@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包测试</title>
+	<script type="text/javascript">
+// 		function foo(x) {
+// 			var tmp = 3;
+// 			return function (y) {
+// 				console.log(y);
+// 				document.write(x + y + (++tmp));
+// 			}
+// 		}
+// 		var bar = foo(2); // bar 现在是一个闭包
+// 		bar(10);
+// 		var db = (function() {
+// 		// 创建一个隐藏的object, 这个object持有一些数据
+// 		// 从外部是不能访问这个object的
+// 		var data = {};
+// // 创建一个函数, 这个函数提供一些访问data的数据的方法
+// return function(key, val) {
+//     if (val === undefined) { return data[key] } // get
+//     else { return data[key] = val } // set
+//   }
+// // 我们可以调用这个匿名方法
+// // 返回这个内部函数，它是一个闭包
+// })();
+// db('x'); // 返回 undefined
+// db('x', 1); // 设置data['x']为1
+// db('x'); // 返回 1
+// // 我们不可能访问data这个object本身
+// // 但是我们可以设置它的成员
+</script>
+<style>
+	*{margin: 0;padding: 0;list-style: none;-webkit-box-sizing:border-box;box-sizing:border-box;}
+</style>
+</head>
+<body>
+	<!-- <button onclick="foo(2)" value="点我"></button> -->
+	<p id="text"></p>
+	<button id="someElement">点我</button>
+	<script type="text/javascript">
+		// 　　var name = "The Window";   
+		// 　　var object = {   
+		// 	　　　　name : "My Object",   
+		// 	　　　　getNameFunc : function(){   
+		// 		　　　　　　return function(){   
+		// 			　　　　　　　　return this.name;   
+		// 		　　　　　};   
+		// 	　　　　}   
+		// };   
+		// console.log(object.getNameFunc()()); 
+
+		// function assignHandler(){ 
+		// 	var element=document.getElementById("someElement"); 
+		// 	var id=element.id; 
+		// 	element.onclick=function(){ 
+		// 		alert(id); 
+		// 	}; 
+		// 	element=null;
+		// }
+		// assignHandler();
+
+		// function outerFun()
+		// {
+		// 	var a=0;  //内部变量
+		// 	// a =0; 无var全局变量
+		// 	alert(a);  
+		// }
+		// var a=4;
+		// outerFun();
+		// console.log(a);
+
+
+		// function a() { 
+		// 	var i = 0; 
+		// 	function b() { alert(++i); } 
+		// 	return b;
+		// }
+		// var c = a();
+		// c();
+
+
+
+		// "use strict"; 
+		// var scope = "global"; 
+		// function f() { 
+		// 	console.log(scope); 
+		// 	var scope = "local"; 
+		// 	console.log(scope); 
+		// } 
+		// f();
+
+
+		// var name="global";  
+		// if(true){  
+		// 	var name="local";  
+		// 	console.log(name)  
+		// }  
+		// console.log(name); 
+
+
+		name="lwy";
+		function t(){
+			var name="tlwy";
+			function s(){
+				var name="slwy";
+				console.log(name);//slwy
+			}
+			function ss(){
+				console.log(name);//tlwy
+			}
+			s();
+			ss();
+		}
+		t();
+	</script>
+</body>
+</html>
