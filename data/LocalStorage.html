@@ -17,7 +17,7 @@
 		.btn{
 			width: 50%;
 			height: 50px;
-			margin: 50% auto 0;
+			margin: 20% auto 0;
 			border-bottom: 5px solid #9e9e9e;
 			border-radius: 999rem;
 			background: linear-gradient(30.96376deg, #9e9e9e 0, #6d6667 100%);
@@ -43,13 +43,11 @@
 	</style>
 </head>
 <body>
-<!-- 	<div>
+	<!-- <h1>留言功能</h1> 
+	<div>
 		<textarea id="t1"></textarea>
-		<br/>
 		<input type="button" class="button" onclick="addInfo()" value="留言" />
 		<input type="button" class="button" onclick="cleanInfo()" value="清空" />
-		<br/>
-		<hr/>
 		<div id="show"></div>
 	</div> -->
 	<div class="btn">马上抢资格</div>
@@ -57,21 +55,36 @@
 </html>
 <script type="text/javascript" src="../js/zepto.min.js"></script>
 <script type="text/javascript">
-	var a=1,b=document.querySelector(".btn"),
-	c=b.className +=" on",
-	t=null!== document.ontouchstart?"click":"touchstart";
-	function upbtn() {
-		localStorage.btntext?(b.innerHTML=localStorage.btntext,b.className=localStorage.btnclass):
-		(b.innerHTML = "马上抢资格",b.className="btn");
-		console.log(a);
-	}
-	b.addEventListener(t,function(){
-		a&&(!localStorage.btntext&&(localStorage.btntext="查看流程",localStorage.btnclass=c),
-			upbtn())
-		a=0;
-	},false)
+	var	a=null!== document.ontouchstart?"click":"touchstart",
+	b=$(".btn"),c="on",t="查看流程";
+	function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
+	b.on(a,function(){
+		!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
+		window.location.href="http://hjh.xxig.com.cn/ten/html/index.html";
+		upbtn()
+	})
 	upbtn();
 
+	// var a=1,b=document.querySelector(".btn"),
+	// c=b.className +=" on",
+	// t=null!== document.ontouchstart?"click":"touchstart";
+	// function upbtn() {
+	// 	localStorage.btntext?(b.innerHTML=localStorage.btntext,b.className=localStorage.btnclass):
+	// 	(b.innerHTML = "马上抢资格",b.className="btn");
+	// 	console.log(a);
+	// }
+	// b.addEventListener(t,function(){
+	// 	a&&(!localStorage.btntext&&(
+	// 		localStorage.btntext="查看流程",
+	// 		localStorage.btnclass=c
+	// 		),
+	// 		upbtn())
+	// 	a=0;
+	// },false)
+	// upbtn();
+
+
+	// 留言、展示功能
 	// function upInfo() {
 	// 	var show = document.getElementById("show");
 	// 	if (localStorage.myBoard) {
