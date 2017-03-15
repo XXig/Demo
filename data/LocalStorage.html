@@ -7,8 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="renderer" content="webkit">
-	<meta http-equiv="Cache-Control" content="no-siteapp">
-	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -20,22 +18,22 @@
 			width: 50%;
 			height: 50px;
 			margin: 50% auto 0;
-			border-bottom: 5px solid #ec1d3e;
+			border-bottom: 5px solid #9e9e9e;
 			border-radius: 999rem;
-			background: -webkit-linear-gradient(59.03624deg, #ff657c 0, #ff2242 100%);
-			background: -moz-linear-gradient(30.96376deg, #ff657c 0, #ff2242 100%);
-			background: linear-gradient(30.96376deg, #ff657c 0, #ff2242 100%);
-			background-position: 50% 50%;
+			background: linear-gradient(30.96376deg, #9e9e9e 0, #6d6667 100%);
 			color: #fff;
 			font-size: 22px;
 			font-weight: bold;
 			text-align: center;
 			line-height:45px;
-			text-shadow: 0 2px 4px rgba(255, 35, 67, 0.8);
 			-webkit-user-select: none;
 		}
 		.btn:active{
 			opacity: .8;
+		}
+		.on{
+			border-bottom: 5px solid #ec1d3e;
+			background: linear-gradient(30.96376deg, #ff657c 0, #ff2242 100%);
 		}
 		textarea {
 			width: 100%;
@@ -45,8 +43,7 @@
 	</style>
 </head>
 <body>
-	<div class="btn" onclick="myClick()">马上抢资格</div>
-	<div>
+<!-- 	<div>
 		<textarea id="t1"></textarea>
 		<br/>
 		<input type="button" class="button" onclick="addInfo()" value="留言" />
@@ -54,64 +51,52 @@
 		<br/>
 		<hr/>
 		<div id="show"></div>
-	</div>
+	</div> -->
+	<div class="btn">马上抢资格</div>
 </body>
 </html>
-<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
 <script type="text/javascript">
-	function upInfo() {
-		var show = document.getElementById("show");
-		if (localStorage.myBoard) {
-			show.innerHTML = localStorage.myBoard;
-		}
-		else {
-			show.innerHTML = "还没有留言";
-		}
+	var a=1,b=document.querySelector(".btn"),
+	c=b.className +=" on",
+	t=null!== document.ontouchstart?"click":"touchstart";
+	function upbtn() {
+		localStorage.btntext?(b.innerHTML=localStorage.btntext,b.className=localStorage.btnclass):
+		(b.innerHTML = "马上抢资格",b.className="btn");
+		console.log(a);
 	}
-	function addInfo() {
-		var info = document.getElementById("t1");
-		if (localStorage.myBoard) {
-			var date = new Date();
-			localStorage.myBoard += t1.value + "\n发表时间：" + date.toLocaleString() + "<br/><hr/>";
-		}
-		else {
-			var date = new Date();
-			localStorage.myBoard = t1.value + "\n发表时间：" + date.toLocaleString() + "<br/><hr/>";
-		}
-		upInfo();
-		info.value="";
-	}
-	function cleanInfo() {
-		localStorage.removeItem("myBoard");
-		upInfo();
-	}
-	upInfo();
+	b.addEventListener(t,function(){
+		a&&(!localStorage.btntext&&(localStorage.btntext="查看流程",localStorage.btnclass=c),
+			upbtn())
+		a=0;
+	},false)
+	upbtn();
 
-	function myClick(){
-		document.querySelector('.btn').innerHTML ="查看流程";
-		return false;
-	}
-
-	var myclick = {
-		page: function() {
-			$('.btn').one("touchstart",function(){
-				$(this).html("查看流程")
-			});
-		}
-	}
-	// if (localStorage.pagecount)
-	// {
-	// 	localStorage.pagecount=myclick.page()
+	// function upInfo() {
+	// 	var show = document.getElementById("show");
+	// 	if (localStorage.myBoard) {
+	// 		show.innerHTML = localStorage.myBoard;
+	// 	}
+	// 	else {
+	// 		show.innerHTML = "还没有留言";
+	// 	}
 	// }
-	// else
-	// {
-	// 	localStorage.pagecount=1;
+	// function addInfo() {
+	// 	var info = document.getElementById("t1");
+	// 	if (localStorage.myBoard) {
+	// 		var date = new Date();
+	// 		localStorage.myBoard += t1.value + "\n发表时间：" + date.toLocaleString() + "<br/><hr/>";
+	// 	}
+	// 	else {
+	// 		var date = new Date();
+	// 		localStorage.myBoard = t1.value + "\n发表时间：" + date.toLocaleString() + "<br/><hr/>";
+	// 	}
+	// 	upInfo();
+	// 	info.value="";
 	// }
-	// document.innerHTML(localStorage.pagecount);
-
-	// if(window.localStorage){
-
-	// }else{
-	// 	console.log('不支持');
+	// function cleanInfo() {
+	// 	localStorage.removeItem("myBoard");
+	// 	upInfo();
 	// }
+	// upInfo();
 </script>
