@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>本地存储</title>
+	<title>localStorage和sessionStorage</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -55,28 +55,37 @@
 </html>
 <script type="text/javascript" src="../js/zepto.min.js"></script>
 <script>
-	var	a=null!== document.ontouchstart?"click":"touchstart",
-	b=$(".btn"),c="on",t="查看流程";
-	function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
-	b.on(a,function(){
-		!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
-		window.location.href="http://hjh.xxig.com.cn/ten/html/index.html";
-		upbtn()
-	})
-	upbtn();
-
+	(function(){
+		var	a=null!== document.ontouchstart?"click":"touchstart",
+		b=$(".btn"),c="on",t="查看流程";
+		if(window.localStorage){
+			function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
+			b.on(a,function(){
+				!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
+				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html",
+				upbtn();
+			})
+			upbtn()
+		}
+		else{
+			b.text(t).addClass(c).on(a,function(){
+				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html"
+			})
+		}
+	})()
+	// sessionStorage-重新打开消失，刷新不会，只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁
 	// var a=1,b=document.querySelector(".btn"),
 	// c=b.className +=" on",
 	// t=null!== document.ontouchstart?"click":"touchstart";
 	// function upbtn() {
-	// 	localStorage.btntext?(b.innerHTML=localStorage.btntext,b.className=localStorage.btnclass):
+	// 	sessionStorage.btntext?(b.innerHTML=sessionStorage.btntext,b.className=sessionStorage.btnclass):
 	// 	(b.innerHTML = "马上抢资格",b.className="btn");
 	// 	console.log(a);
 	// }
 	// b.addEventListener(t,function(){
-	// 	a&&(!localStorage.btntext&&(
-	// 		localStorage.btntext="查看流程",
-	// 		localStorage.btnclass=c
+	// 	a&&(!sessionStorage.btntext&&(
+	// 		sessionStorage.btntext="查看流程",
+	// 		sessionStorage.btnclass=c
 	// 		),
 	// 		upbtn())
 	// 	a=0;
