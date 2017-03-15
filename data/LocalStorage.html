@@ -12,6 +12,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no, email=no">
 	<meta name="msapplication-tap-highlight" content="no">
+	<script type="text/javascript" src="../js/zepto.min.js"></script>
 	<style>
 		body,html,*{margin:0;padding:0;}
 		.btn{
@@ -41,8 +42,31 @@
 			margin:10px auto;
 		}
 	</style>
+	<script>
+		$(document).ready(function(){
+			!function(){
+				var	a=null!== document.ontouchstart?"click":"touchstart",
+				b=$(".btn"),c="on",t="查看流程";
+				if(window.localStorage){
+					function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
+					b.on(a,function(){
+						!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
+						window.location.href="http://hjh.xxig.com.cn/ten/html/index.html",
+						upbtn();
+					})
+					upbtn()
+				}
+				else{
+					b.text(t).addClass(c).on(a,function(){
+						window.location.href="http://hjh.xxig.com.cn/ten/html/index.html"
+					})
+				}
+			}()
+		})
+	</script>
 </head>
 <body>
+	<div class="btn">马上抢资格</div>
 	<!-- <h1>留言功能</h1> 
 	<div>
 		<textarea id="t1"></textarea>
@@ -50,29 +74,9 @@
 		<input type="button" class="button" onclick="cleanInfo()" value="清空" />
 		<div id="show"></div>
 	</div> -->
-	<div class="btn">马上抢资格</div>
 </body>
 </html>
-<script type="text/javascript" src="../js/zepto.min.js"></script>
 <script>
-	(function(){
-		var	a=null!== document.ontouchstart?"click":"touchstart",
-		b=$(".btn"),c="on",t="查看流程";
-		if(window.localStorage){
-			function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
-			b.on(a,function(){
-				!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
-				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html",
-				upbtn();
-			})
-			upbtn()
-		}
-		else{
-			b.text(t).addClass(c).on(a,function(){
-				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html"
-			})
-		}
-	})()
 	// sessionStorage-重新打开消失，刷新不会，只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁
 	// var a=1,b=document.querySelector(".btn"),
 	// c=b.className +=" on",
