@@ -44,6 +44,7 @@
 	<script type="text/javascript" src="../js/zepto.min.js"></script>
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script>
+		// browser-sync start --server --files "E:/GitHub/Demo/**/*"
 		function player(audio,musicbtn){
 			this._btn     =$(musicbtn);
 			this._audio   =$(audio)[0];
@@ -52,7 +53,10 @@
 		}
 		player.prototype = {
 			__wechat:function(){
-				var ua=navigator.userAgent.toLowerCase();"micromessenger"==ua.match(/MicroMessenger/i)&&(console.log("wechat"),true);
+				var ua=navigator.userAgent.toLowerCase();
+				if ("micromessenger"==ua.match(/MicroMessenger/i)) 
+					return console.log("wechat"),true
+				// var ua=navigator.userAgent.toLowerCase();"micromessenger"==ua.match(/MicroMessenger/i)&&(console.log("wechat"),true);
 			},
 			__onplay:function(){
 				this._btn.addClass("on");
@@ -73,7 +77,9 @@
 				this._btn.on(clickEvent,function(){
 					me._playing?me._audio.pause():me._audio.play();
 				});
-				this.__wechat()?($(document).on("WeixinJSBridgeReady",function(){me._audio.play(),$(document).off("WeixinJSBridgeReady")})):this._audio.play();
+				this.__wechat()?($(document).on("WeixinJSBridgeReady",function(){
+					me._audio.play(),$(document).off("WeixinJSBridgeReady")
+				}),this._audio.play()):this._audio.play();
 			}
 		};
 		new player('#bgm','#btnm')
