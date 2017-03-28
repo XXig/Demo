@@ -1,56 +1,60 @@
-"use strict"
-// 禁止滑动
-function cancleDocumentScroll () {
-	document.addEventListener('touchmove', function (e) {
-		e.preventDefault();
-		return false;
-	}, false);
-}
-!function(win, option) {
-	var count = 0, 
-	designWidth = option.designWidth, 
-	designHeight = option.designHeight || 0, 
-	designFontSize = option.designFontSize || 20, 
-	callback = option.callback || null,
-	root = document.documentElement,
-	body = document.body,
-	rootWidth, newSize, t, self;
-	function _getNewFontSize() {
-		var scale = designHeight !== 0 ? Math.min(win.innerWidth / designWidth, win.innerHeight / designHeight) : win.innerWidth / designWidth;
-		return parseInt( scale * 10000 * designFontSize ) / 10000;
-	}
-	!function () {
-		rootWidth = root.getBoundingClientRect().width;
-		self = self ? self : arguments.callee;
-	    //如果此时屏幕宽度不准确，就尝试再次获取分辨率，只尝试20次，否则使用win.innerWidth计算
-	    if( rootWidth !== win.innerWidth &&  count < 20 ) {
-	    	win.setTimeout(function () {
-	    		count++;
-	    		self();
-	    	}, 0);
-	    } else {
-	    	newSize = _getNewFontSize();
-	      //如果css已经兼容当前分辨率就不管了
-	      if( newSize + 'px' !== getComputedStyle(root)['font-size'] ) {
-	      	root.style.fontSize = newSize + "px";
-	      	return callback && callback(newSize);
-	      };
-	    };
-	  }();
-	  //横竖屏切换的时候改变fontSize，根据需要选择使用
-	  win.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {
-	  	clearTimeout(t);
-	  	t = setTimeout(function () {
-	  		self();
-	  	}, 200);
-	  }, false);
-	}(window, {
-		designWidth: 640, 
-		designHeight: 1040,
-		designFontSize: 100,
-		callback: function (argument) {
-		}
-	});
+document.documentElement.style.fontSize = $(document.documentElement).width()/3.75 + 'px';
+$(window).on('resize', function() {
+	document.documentElement.style.fontSize = $(document.documentElement).width()/3.75 + 'px';
+});
+// "use strict"
+// // 禁止滑动
+// function cancleDocumentScroll () {
+// 	document.addEventListener('touchmove', function (e) {
+// 		e.preventDefault();
+// 		return false;
+// 	}, false);
+// }
+// !function(win, option) {
+// 	var count = 0, 
+// 	designWidth = option.designWidth, 
+// 	designHeight = option.designHeight || 0, 
+// 	designFontSize = option.designFontSize || 20, 
+// 	callback = option.callback || null,
+// 	root = document.documentElement,
+// 	body = document.body,
+// 	rootWidth, newSize, t, self;
+// 	function _getNewFontSize() {
+// 		var scale = designHeight !== 0 ? Math.min(win.innerWidth / designWidth, win.innerHeight / designHeight) : win.innerWidth / designWidth;
+// 		return parseInt( scale * 10000 * designFontSize ) / 10000;
+// 	}
+// 	!function () {
+// 		rootWidth = root.getBoundingClientRect().width;
+// 		self = self ? self : arguments.callee;
+// 	    //如果此时屏幕宽度不准确，就尝试再次获取分辨率，只尝试20次，否则使用win.innerWidth计算
+// 	    if( rootWidth !== win.innerWidth &&  count < 20 ) {
+// 	    	win.setTimeout(function () {
+// 	    		count++;
+// 	    		self();
+// 	    	}, 0);
+// 	    } else {
+// 	    	newSize = _getNewFontSize();
+// 	      //如果css已经兼容当前分辨率就不管了
+// 	      if( newSize + 'px' !== getComputedStyle(root)['font-size'] ) {
+// 	      	root.style.fontSize = newSize + "px";
+// 	      	return callback && callback(newSize);
+// 	      };
+// 	    };
+// 	  }();
+// 	  //横竖屏切换的时候改变fontSize，根据需要选择使用
+// 	  win.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {
+// 	  	clearTimeout(t);
+// 	  	t = setTimeout(function () {
+// 	  		self();
+// 	  	}, 200);
+// 	  }, false);
+// 	}(window, {
+// 		designWidth: 640, 
+// 		designHeight: 1040,
+// 		designFontSize: 100,
+// 		callback: function (argument) {
+// 		}
+// 	});
 
 
 // !function(e){function t(a){if(i[a])return i[a].exports;var n=i[a]={exports:{},id:a,loaded:!1};return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var i={};return t.m=e,t.c=i,t.p="",t(0)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=window;t["default"]=i.flex=function(e,t){var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),l=o.match(/U3\/((\d+|\.){5,})/i),c=l&&parseInt(l[1].split(".").join(""),10)>=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&&d[1]>534||c||(s=1);var u=1/s,m=r.querySelector('meta[name="viewport"]');m||(m=r.createElement("meta"),m.setAttribute("name","viewport"),r.head.appendChild(m)),m.setAttribute("content","width=device-width,user-scalable=no,initial-scale="+u+",maximum-scale="+u+",minimum-scale="+u),r.documentElement.style.fontSize=a/2*s*n+"px"},e.exports=t["default"]}]);  flex(100, 1);
@@ -259,72 +263,72 @@ function cancleDocumentScroll () {
 // resize();
 
 
-!function(a, b) {
-	function s() {
-		var b = d.getBoundingClientRect().width;
-		b / g > 540 && (b = 540 * g);
-		var c = b / 10;
-		d.style.fontSize = c + "px",
-		j.rem = a.rem = c
-	}
-	var i, c = a.document,
-	d = c.documentElement,
-	e = c.querySelector('meta[name="viewport"]'),
-	f = c.querySelector('meta[name="flexible"]'),
-	g = 0,
-	h = 0,
-	j = b.flexible || (b.flexible = {});
-	if (e) {
-		var k = e.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
-		k && (h = parseFloat(k[1]), g = parseInt(1 / h))
-	} else if (f) {
-		var l = f.getAttribute("content");
-		if (l) {
-			var m = l.match(/initial\-dpr=([\d\.]+)/),
-			n = l.match(/maximum\-dpr=([\d\.]+)/);
-			m && (g = parseFloat(m[1]), h = parseFloat((1 / g).toFixed(2))),
-			n && (g = parseFloat(n[1]), h = parseFloat((1 / g).toFixed(2)))
-		}
-	}
-	if (!g && !h) {
-		var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
-		q = a.devicePixelRatio;
-		g = p ? q >= 3 && (!g || g >= 3) ? 3 : q >= 2 && (!g || g >= 2) ? 2 : 1 : 1,
-		h = 1 / g
-	}
-	if (d.setAttribute("data-dpr", g), !e) if (e = c.createElement("meta"), e.setAttribute("name", "viewport"), e.setAttribute("content", "initial-scale=" + h + ", maximum-scale=" + h + ", minimum-scale=" + h + ", user-scalable=no"), d.firstElementChild) d.firstElementChild.appendChild(e);
-	else {
-		var r = c.createElement("div");
-		r.appendChild(e),
-		c.write(r.innerHTML)
-	}
-	a.addEventListener("resize",
-		function() {
-			clearTimeout(i),
-			i = setTimeout(s, 300)
-		},!1),
-	a.addEventListener("pageshow",
-		function(a) {
-			a.persisted && (clearTimeout(i), i = setTimeout(s, 300))
-		},!1),
-	"complete" === c.readyState ? c.body.style.fontSize = 12 * g + "px": c.addEventListener("DOMContentLoaded",
-		function(a) {
-			c.body.style.fontSize = 12 * g + "px"
-		},!1),
-	s(),
-	j.dpr = a.dpr = g,
-	j.refreshRem = s,
-	j.rem2px = function(a) {
-		var b = parseFloat(a) * this.rem;
-		return "string" == typeof a && a.match(/rem$/) && (b += "px"),
-		b
-	},
-	j.px2rem = function(a) {
-		var b = parseFloat(a) / this.rem;
-		return "string" == typeof a && a.match(/px$/) && (b += "rem"),
-		b
-	}
-} (window, window.lib || (window.lib = {}));
+// !function(a, b) {
+// 	function s() {
+// 		var b = d.getBoundingClientRect().width;
+// 		b / g > 540 && (b = 540 * g);
+// 		var c = b / 10;
+// 		d.style.fontSize = c + "px",
+// 		j.rem = a.rem = c
+// 	}
+// 	var i, c = a.document,
+// 	d = c.documentElement,
+// 	e = c.querySelector('meta[name="viewport"]'),
+// 	f = c.querySelector('meta[name="flexible"]'),
+// 	g = 0,
+// 	h = 0,
+// 	j = b.flexible || (b.flexible = {});
+// 	if (e) {
+// 		var k = e.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+// 		k && (h = parseFloat(k[1]), g = parseInt(1 / h))
+// 	} else if (f) {
+// 		var l = f.getAttribute("content");
+// 		if (l) {
+// 			var m = l.match(/initial\-dpr=([\d\.]+)/),
+// 			n = l.match(/maximum\-dpr=([\d\.]+)/);
+// 			m && (g = parseFloat(m[1]), h = parseFloat((1 / g).toFixed(2))),
+// 			n && (g = parseFloat(n[1]), h = parseFloat((1 / g).toFixed(2)))
+// 		}
+// 	}
+// 	if (!g && !h) {
+// 		var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+// 		q = a.devicePixelRatio;
+// 		g = p ? q >= 3 && (!g || g >= 3) ? 3 : q >= 2 && (!g || g >= 2) ? 2 : 1 : 1,
+// 		h = 1 / g
+// 	}
+// 	if (d.setAttribute("data-dpr", g), !e) if (e = c.createElement("meta"), e.setAttribute("name", "viewport"), e.setAttribute("content", "initial-scale=" + h + ", maximum-scale=" + h + ", minimum-scale=" + h + ", user-scalable=no"), d.firstElementChild) d.firstElementChild.appendChild(e);
+// 	else {
+// 		var r = c.createElement("div");
+// 		r.appendChild(e),
+// 		c.write(r.innerHTML)
+// 	}
+// 	a.addEventListener("resize",
+// 		function() {
+// 			clearTimeout(i),
+// 			i = setTimeout(s, 300)
+// 		},!1),
+// 	a.addEventListener("pageshow",
+// 		function(a) {
+// 			a.persisted && (clearTimeout(i), i = setTimeout(s, 300))
+// 		},!1),
+// 	"complete" === c.readyState ? c.body.style.fontSize = 12 * g + "px": c.addEventListener("DOMContentLoaded",
+// 		function(a) {
+// 			c.body.style.fontSize = 12 * g + "px"
+// 		},!1),
+// 	s(),
+// 	j.dpr = a.dpr = g,
+// 	j.refreshRem = s,
+// 	j.rem2px = function(a) {
+// 		var b = parseFloat(a) * this.rem;
+// 		return "string" == typeof a && a.match(/rem$/) && (b += "px"),
+// 		b
+// 	},
+// 	j.px2rem = function(a) {
+// 		var b = parseFloat(a) / this.rem;
+// 		return "string" == typeof a && a.match(/px$/) && (b += "rem"),
+// 		b
+// 	}
+// } (window, window.lib || (window.lib = {}));
 
 // var dpr, rem, scale;
 // var docEl = document.documentElement;
