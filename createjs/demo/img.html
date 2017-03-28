@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+	<title>createjs</title>
+	<meta name="viewport" content="width=750, user-scalable=no,target-densitydpi=device-dpi">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+	<script src="img.js"></script>
+	<style>
+		html,body{margin:0;padding:0;box-sizing:border-box;overflow: hidden;}
+	</style>
+	<script>
+		var canvas, stage, exportRoot;
+		// 初始化
+		var model=new createjs.EventDispatcher();//监听动画，命名与fla中脚本一致
+		var currentD=1;//当前播放到第几组动画
+		function init() {
+
+			canvas = document.getElementById("canvas");
+			images = images||{};
+			ss = ss||{};
+
+			var loader = new createjs.LoadQueue(false);
+			loader.addEventListener("fileload", handleFileLoad);
+			// 预加载
+			loader.addEventListener("progress", loadProgressHandler)
+			loader.addEventListener("complete", handleComplete);
+			loader.loadFile({src:"images/img_atlas_P_.json", type:"spritesheet", id:"img_atlas_P_"}, true);
+			loader.loadManifest(lib.properties.manifest);
+
+			function loadProgressHandler(evt){
+				// 加载进度
+				var loadnum=Math.floor(evt.progress*100);
+				// document.getElementById("loadnum").innerHTml=loadnum + "%";
+				console.log(loadnum + "%");
+				if(evt.progress>=1){
+					console.log("success");
+					// document.getElementById("loading").style.display="none";
+				}
+			}
+		}
+
+		function handleFileLoad(evt) {
+			if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+		}
+
+		function handleComplete(evt) {
+			var queue = evt.target;
+			ss["img_atlas_P_"] = queue.getResult("img_atlas_P_");
+			exportRoot = new lib.index();
+
+			// 初始化动画
+			var view1=new lib.view1();
+			var view2=new lib.view2();
+			var view3=new lib.view3();
+
+			stage = new createjs.Stage(canvas);
+			stage.addChild(view1);//修改，添加第一组动画
+			stage.update();
+
+			// 动画依次播放
+			model.addEventListener('complete',function(){
+				console.log(currentD+'complete')
+				var currentTemp=eval('view'+currentD);
+				currentD++;
+				if(currentD<4){
+					var nextTemp=eval('view'+currentD);
+
+					stage.removeChild(currentTemp);//移除改组动画
+					stage.addChild(nextTemp);//添加下一组动画
+					stage.update();//更新舞台
+				}
+				if (currentD==1) {
+					console.log('第一画面');
+				}
+				if (currentD==3) {
+					console.log('第三画面');
+				}
+			})
+			
+
+			createjs.Ticker.setFPS(lib.properties.fps);
+			createjs.Ticker.addEventListener("tick", stage);
+		}
+
+		// 再看一遍
+		function replay(){
+			stage.removeChild(view3)
+			stage.update();
+
+			// 重置动画信息
+			var view1=new lib.view1();
+			var view2=new lib.view2();
+			var view3=new lib.view3();
+
+			stage.addChild(view1);
+			stage.update();
+
+			currentD=1;
+		}
+	</script>
+
+
+</head>
+<body onload="init();">
+	<canvas id="canvas" width="750" height="1206"></canvas>
+</body>
+</html>
