@@ -45,31 +45,42 @@
 		}
 	</style>
 	<script>
-		$(document).ready(function(){
-			!function(){
-				var	a=null!== document.ontouchstart?"click":"touchstart",
-				b=$(".btn:nth-child(1)"),c="on",t="查看流程";
-				if(window.localStorage){
-					function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
-					b.on(a,function(){
-						!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
-						window.location.href="http://hjh.xxig.com.cn/ten/html/index.html",
-						upbtn();
-					}),
-					$('.btn+.btn').on(a,function(){
-						localStorage.removeItem("bs");
-						b.text("马上抢资格").removeClass(c);
-					}),
-					upbtn()
-				}
-				else{
-					b.text(t).addClass(c).on(a,function(){
-						window.location.href="http://hjh.xxig.com.cn/ten/html/index.html"
-					})
-				}
-			}()
-		})
-	</script>
+	// 基本语法
+	// Create
+	var user = { name: 'Ire Aderinokun', age: 25 }  
+	localStorage.setItem('user', JSON.stringify(user));
+	console.log( JSON.parse(localStorage.getItem('user')) )
+	// Update
+	var updatedUser = { name: 'Ire Aderinokun', age: 24 }  
+	localStorage.setItem('user', JSON.stringify(updatedUser));
+	// Delete
+	localStorage.removeItem('user');
+
+$(document).ready(function(){
+	!function(){
+		var	a=null!== document.ontouchstart?"click":"touchstart",
+		b=$(".btn:nth-child(1)"),c="on",t="查看流程";
+		if(window.localStorage){
+			function upbtn() {localStorage.bs&&b.text(t).addClass(c)}
+			b.on(a,function(){
+				!localStorage.bs?(localStorage.bs=1,b.text(t).addClass(c)):
+				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html",
+				upbtn();
+			}),
+			$('.btn+.btn').on(a,function(){
+				localStorage.removeItem("bs");
+				b.text("马上抢资格").removeClass(c);
+			}),
+			upbtn()
+		}
+		else{
+			b.text(t).addClass(c).on(a,function(){
+				window.location.href="http://hjh.xxig.com.cn/ten/html/index.html"
+			})
+		}
+	}()
+})
+</script>
 </head>
 <body>
 	<div class="btn">马上抢资格</div>
