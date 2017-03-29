@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>樱花时节</title>
+<meta name="apple-touch-fullscreen" content="YES">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="pragram" content="no-cache">
+<script type="text/javascript" src="files/jweixin-1.0.0.js"></script>
+<link rel="stylesheet" type="text/css" href="files/reset.css">
+<script type="text/javascript" src="files/jquery.min.js"></script>
+<script type="text/javascript" src="files/three.js"></script>
+<script type="text/javascript">
+    var jsVer = 22;
+    var phoneWidth = parseInt(window.screen.width);
+    var phoneScale = phoneWidth/640;
+    var ua = navigator.userAgent;
+    if (/Android (\d+\.\d+)/.test(ua)){
+        document.write('<meta name="viewport" content="width=640, initial-scale = '+phoneScale+', minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+    } else {
+        document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <canvas id="stage" width="1920" height="918" style="width: 1536px; height: 735px;"></canvas>
+    </div>
+    <script type="text/javascript" src="files/common.js" time="120" style="light"></script>
+    <script type="text/javascript" src="files/sakura4.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?9ac7e8da7370165abc84ae3164217e8b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+</body>
+</html>
