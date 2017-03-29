@@ -20,7 +20,7 @@
 	<script>
 		var canvas, stage, exportRoot;
 		// 初始化
-		var model=new createjs.EventDispatcher();//监听动画，命名与fla中脚本一致
+		var model=new createjs.EventDispatcher();//监听动画，命名model与fla中脚本一致
 		var currentD=1;//当前播放到第几组动画
 		function init() {
 
@@ -30,14 +30,13 @@
 
 			var loader = new createjs.LoadQueue(false);
 			loader.addEventListener("fileload", handleFileLoad);
-			// 预加载
 			loader.addEventListener("progress", loadProgressHandler)
 			loader.addEventListener("complete", handleComplete);
 			loader.loadFile({src:"images/img_atlas_P_.json", type:"spritesheet", id:"img_atlas_P_"}, true);
 			loader.loadManifest(lib.properties.manifest);
 
+			// 预加载
 			function loadProgressHandler(evt){
-				// 加载进度
 				var loadnum=Math.floor(evt.progress*100);
 				// document.getElementById("loadnum").innerHTml=loadnum + "%";
 				console.log(loadnum + "%");
