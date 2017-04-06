@@ -22,7 +22,7 @@
 	<script src="../js/zepto.min.js"></script>
 	<script>
 		window.onload =function() {
-			var $canvas = document.querySelectorAll(".canvas"); 
+			var canvas = document.querySelectorAll(".canvas"); 
 		}
 	</script>
 	<script>
@@ -59,6 +59,20 @@
 		ltx.lineTo(80,260); 
 		ltx.strokeStyle = "#ccc"; 
 		ltx.stroke();
+
+		ltx.beginPath();
+		pic = new Image();   //创建图片对象，或者 pic = document.createElement('img')
+		pic.src = "http://images.cnblogs.com/cnblogs_com/vajoy/558870/o_5.jpg"; 
+    pic.onload = patternFill;     //在图片加载完成时执行绘图函数
+    function patternFill() {
+    	var redTexture = ltx.createPattern(pic, "repeat");   
+    	ltx.strokeStyle = redTexture; 
+    	ltx.moveTo(80,10);
+    	ltx.lineTo(10,90);
+    	ltx.lineWidth = 8;
+    	ltx.stroke();
+    	line.width = line.width; line.height = line.height;
+    }
 
 		ltx.clearRect(20,20,150,50);  //擦除以（20,20）为起点，宽高为150*50的区域，保留之前定义过的样式、画笔位置等绘制信息
 		ltx.fillRect(10,20,60,60);  //重新绘制一个，保留样式
@@ -132,6 +146,32 @@
 		ritx.strokeStyle = "blue";
 		ritx.stroke();  
 		ring.width = ring.width; ring.height = ring.height; 
-</script>
+	</script>
+	<canvas id="txt" class="canvas">文字</canvas>
+	<script>
+		var txt = document.getElementById("txt");
+		var ttx = txt.getContext("2d");
+		var gradient=ttx.createLinearGradient(0,0,txt.width,txt.height); //定义线性渐变对象，(起始点x,起始点y,结束点x,结束点y)
+		gradient.addColorStop("0","green"); //定义渐变线起点颜色
+		gradient.addColorStop("1","rgba(200,255,10,.5)"); //定义渐变线结束点的颜色，0.5可表示中间点
+		ttx.fillStyle=gradient;//将渐变对象赋值给fillStyle
+		ttx.strokeStyle= "#f00";
+		ttx.font="italic 30px Arial bold";//定义字体样式
+		ttx.textBaseline="top"; //设置文本的垂直方向的对齐方式
+		//http://images.cnitblog.com/blog/561179/201409/251508364359867.jpg
+		ttx.textAlign="start";//设置文本在水平方向的对齐方式
+		// http://images.cnitblog.com/blog/561179/201409/251522022484582.jpg
+		
+		ttx.shadowColor = "blue";  //定义投影颜色为蓝色，默认黑色
+		ttx.shadowBlur = 15; 
+		ttx.shadowOffsetX = 10;//X轴偏移量
+		ttx.shadowOffsetY = -40;//Y轴偏移量
+		// ttx.fillText("XXig",50,10);//描边文字，坐标
+		ttx.strokeText("Lemon",50,70);//实心文字，坐标
+
+		// var thetext = "Lemon" , x = 50;;
+		// var twidth = ttx.measureText(thetext).width; //获得文本宽度
+		// (x + twidth <= txt.width) && ttx.strokeText(thetext,x,60)//如果文本不超出画布则绘制文本
+	</script>
 </body>
 </html>
