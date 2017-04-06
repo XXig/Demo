@@ -7,46 +7,131 @@
 	<style>
 		html,body{width:100%;height:100%;overflow:hidden}
 		*{margin:0;padding:0;list-style:none}
-		canvas{
+		.canvas{
+			top:50%;
+			left:50%;
+			transform:translate3d(-50%,-50%,0);
+			position: fixed;
+			/*display: block;*/
 		}
 	</style>
 </head>
 <body>
 	<!-- 宽高需在属性里面设置或js不能使用css -->
-	<canvas id="myCanvas">您的浏览器不支持canvas</canvas>
+	<canvas id="line" class="canvas">线段</canvas>
 	<script src="../js/zepto.min.js"></script>
 	<script>
-		window.onload =function() { }
-		var c = document.getElementById("myCanvas");
+		window.onload =function() {
+			var $canvas = document.querySelectorAll(".canvas"); 
+		}
+	</script>
+	<script>
+		var line = document.getElementById("line");
 		var resetcanvas = function(){ 
-			w = window.innerWidth, h = window.innerHeight;
+			w = window.innerWidth;
+			h = window.innerHeight;
 			console.log(w + "/" + h);
-			c.width=w;
-			c.height=h;
+			// line.width=w;
+			// line.height=h;
+			line.width=200;
+			line.height=200;
 		}
 		resetcanvas();
-		$(window).on("resize",resetcanvas);  
-		var ctx = c.getContext("2d"); //获取该canvas的2D绘图环境对象
-		ctx.moveTo(0,0);   //定义绘画开始的位置,坐标是相对canvas而不是浏览器窗口，对canvas来说最左上角的点的坐标是(0,0)
-		ctx.lineTo(150,50);  //从上个点(0,0)画一条直线，结束点坐标是(150,50)
-		ctx.lineTo(20,100);  //从上个点(150,50)继续画一条直线，结束点坐标是(20,100)
-		ctx.moveTo(90,90);   //咱把“画笔”移到坐标(90,90)，只要开始画路径就需要moveTo先
-		ctx.lineTo(80,150);  //从上个点(60,60)继续画一条直线，结束点坐标是(80,150)
-		ctx.strokeStyle = "#f0c";    //设定描边颜色，只要写在.stroke()方法前面即可
-		ctx.lineWidth = 5 ;//设定描边粗细
-		ctx.lineCap="round";//设定线段端点的形状（线帽）butt默认，即线条端点为平直的边缘
+		// $(window).on("resize",resetcanvas);  
+		var ltx = line.getContext("2d"); //获取该canvas的2D绘图环境对象
+		ltx.moveTo(0,0);   //定义绘画开始的位置,坐标是相对canvas而不是浏览器窗口，对canvas来说最左上角的点的坐标是(0,0)
+		ltx.lineTo(150,50);  //从上个点(0,0)画一条直线，结束点坐标是(150,50)
+		ltx.lineTo(20,100);  //从上个点(150,50)继续画一条直线，结束点坐标是(20,100)
+		ltx.moveTo(90,90);   //咱把“画笔”移到坐标(90,90)，只要开始画路径就需要moveTo先
+		ltx.lineTo(80,150);  //从上个点(60,60)继续画一条直线，结束点坐标是(80,150)
+		ltx.strokeStyle = "#f0c";    //设定描边颜色，只要写在.stroke()方法前面即可
+		ltx.lineWidth = 5 ;//设定描边粗细
+		ltx.lineCap="round";//设定线段端点的形状（线帽）butt默认，即线条端点为平直的边缘
 		// round   线条端点为圆角线帽
 		// square 	为线条端点添加正方形线帽
-		ctx.lineJoin="bevel";//设定折线的交接处的外角类型 miter默认，折线交接处为尖角
+		ltx.lineJoin="bevel";//设定折线的交接处的外角类型 miter默认，折线交接处为尖角
 		// round   折线交接处为圆角
 		// bevel   折线交接处为斜角
-		ctx.stroke();  //描边
+		ltx.stroke();  //描边
 
-		ctx.beginPath();  //告诉canvas咱们要重新绘制一条全新的路径了，之前画的东西从此再无关系,还可以做到上述的隔离路径绘制效果的作用，防止之前写的效果被污染。
-		ctx.moveTo(100,90); 
-		ctx.lineTo(80,260); 
-		ctx.strokeStyle = "#ccc"; 
-		ctx.stroke();
+		ltx.beginPath();  //告诉canvas咱们要重新绘制一条全新的路径了，之前画的东西从此再无关系,还可以做到上述的隔离路径绘制效果的作用，防止之前写的效果被污染。
+		ltx.moveTo(100,90); 
+		ltx.lineTo(80,260); 
+		ltx.strokeStyle = "#ccc"; 
+		ltx.stroke();
+
+		ltx.clearRect(20,20,150,50);  //擦除以（20,20）为起点，宽高为150*50的区域，保留之前定义过的样式、画笔位置等绘制信息
+		ltx.fillRect(10,20,60,60);  //重新绘制一个，保留样式
+		line.width = line.width; line.height = line.height; //清空画布、样式，可写为 xx.attr("width", c.width());  
+		ltx.fillRect(10,20,60,60);  //重新绘制一个，没有样式
+		line.width = line.width; line.height = line.height;
 	</script>
+	<canvas id="rect" class="canvas">矩形</canvas>
+	<script>
+		var rect = document.getElementById("rect");
+		var rtx = rect.getContext("2d");
+		rtx.fillRect(10,10,50,50);   //从(10,10)坐标点为起始点，绘制一个宽高均为50px的fillRect实心矩形
+		rtx.strokeRect(70,10,50,50);   //从(70,10)坐标点为起始点，绘制一个宽高均为50px的strokeRect描边矩形
+
+		rtx.rect(20,20,150,100);  //创建矩形路径
+		rtx.strokeStyle = "#f00";
+		rtx.stroke();    //描边，默认黑色，可以strokeStyle设置颜色
+		rtx.beginPath();  
+		rtx.rect(50,90,50,50);  //创建矩形路径
+		rtx.fillStyle = "#ff0";
+		rtx.fill();    //填充，默认黑色，可以fillStyle设置颜色
+
+		//绘制多边形
+		rtx.fillStyle = "blue";   
+		rtx.strokeStyle = "red";
+		rtx.lineWidth = "8";
+		rtx.lineJoin = "round";
+		rtx.moveTo(10,10);
+		rtx.lineTo(100,30);
+		rtx.lineTo(120,80);
+		rtx.lineTo(60,60);
+		rtx.lineTo(10,10);//跟第一个坐标一致
+		rtx.closePath();  //闭合多边形路径
+		rtx.stroke();
+		rtx.fill();  
+		rect.width = rect.width; rect.height = rect.height; 
+
+	</script>
+	<canvas id="ring" class="canvas">弧形</canvas>
+	<script>
+		var ring = document.getElementById("ring");
+		var ritx = ring.getContext("2d");
+		// ritx.arc( 80, 80, 40, 1/6*Math.PI, 1/2*Math.PI);//绘制一个圆心坐标为(80,80)，半径为40，开始角度为30度，结束角度为90度，顺时针的=> ( 十字架右下象限开始，0>90>180>270>360 )。负值表示逆时针
+		ritx.moveTo(80,40)
+		ritx.lineTo(80,120)
+		ritx.moveTo(40,80)
+		ritx.lineTo(120,80)
+		ritx.strokeStyle = "rgba(255,0,0,.5)"; 
+		ritx.stroke();
+
+		ritx.beginPath();
+		ritx.arc( 80, 80, 40, -1/6*Math.PI, -1/2*Math.PI);//-30度到-90度
+		ritx.strokeStyle = "#333"; 
+		ritx.stroke();  
+
+		ritx.beginPath();
+		ritx.arc( 180, 80, 40, 0, 2*Math.PI);//完整的圆形
+		ritx.lineWidth = 3;  
+		ritx.strokeStyle = "yellow";
+		ritx.stroke();  
+		ritx.fillStyle = "rgba(256,265,147,.6)";
+		ritx.fill(); 
+
+		ritx.beginPath();
+		ritx.moveTo(20,20);
+		ritx.lineTo(60,20);
+		ritx.arcTo(100,20,100,60,40); // 创建圆弧路径，注意是--切线坐标--
+		// xx.arcTo( 起点切线末端x坐标, 起点切线末端y坐标, 终点x坐标, 终点y坐标, 圆的半径r );
+		// arc() 不会影响画笔的位置，而 arcTo() 会把画笔移到圆弧线的终点位置。
+		ritx.lineTo(100,100);
+		ritx.strokeStyle = "blue";
+		ritx.stroke();  
+		ring.width = ring.width; ring.height = ring.height; 
+</script>
 </body>
 </html>
