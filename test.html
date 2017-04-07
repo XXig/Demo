@@ -236,6 +236,7 @@
 	</div><br><br><br><br>
 	<div style="width:100px;float:left;background:#f00">100px</div>
 	<div style="margin-left:100px;background:#eee">自适应</div><br><br>
+
 	<!-- 垂直居中 -->
 	<style>
 		.justify{
@@ -259,9 +260,11 @@
 	<h1>垂直居中</h1>
 	<div class="justify" style="display: table-cell;vertical-align: middle;">
 		<span style="height: 20px;background-color: #ccc;"></span>
-	</div>
+	</div><br><br>
+
+	<!-- css选择器 -->
 	<style>
-	.nth li:nth-child(-n+4){
+		.nth li:nth-child(-n+4){
 			background-color: #f00;
 		}
 		.nth li:nth-last-child(-n+4){
@@ -278,7 +281,23 @@
 		<li>6</li>
 		<li>7</li>
 		<li>8</li>
-	</div>
+	</div><br><br>
+	<style>
+		.txt-omg{
+			width: 20%;
+			margin: 20px auto;
+			border:1px solid #ccc;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	</style>
+
+	<!-- 文字隐藏 -->
+	<h1>文字隐藏</h1>
+	<div class="txt-omg">文字隐藏文字隐藏文字隐藏文字隐藏1111111111111111111111</div><br><br>
 <!-- 	<div class="wra">
 		<div class="wra-1">
 			<div class="wra-11">1111111111111111</div>
@@ -301,8 +320,6 @@
 		b.parentNode.removeChild(b);
 		document.querySelector(".wra-33").innerHTML="<div class='wra-33'>555</div>";
 	</script> -->
-	
-	<!-- master -->
-
+	<br><br><br>
 </body>
 </html>
