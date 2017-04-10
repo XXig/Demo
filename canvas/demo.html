@@ -12,6 +12,7 @@
 			left:50%;
 			transform:translate3d(-50%,-50%,0);
 			position: fixed;
+			background-color: #ccc;
 			/*display: block;*/
 		}
 	</style>
@@ -172,6 +173,69 @@
 		// var thetext = "Lemon" , x = 50;;
 		// var twidth = ttx.measureText(thetext).width; //获得文本宽度
 		// (x + twidth <= txt.width) && ttx.strokeText(thetext,x,60)//如果文本不超出画布则绘制文本
+		txt.width = txt.width; txt.height = txt.height; 
 	</script>
+	<canvas id="cimg" class="canvas" width="300" height="300">图片</canvas>
+	<script>
+		var cimg = document.getElementById("cimg");
+		var imgtx = cimg.getContext("2d");
+
+		//实现蒙板
+		imgtx.arc( 70, 80, 30, 0, 2*Math.PI); //绘制裁剪区域
+		// imgtx.clip(); //设置上一个闭合路径为裁剪蒙板
+
+		var img = new Image();
+		img.src = "http://images.cnblogs.com/cnblogs_com/vajoy/558869/o_avatar.jpg";
+		img.onload = function(){
+
+    imgtx.globalAlpha = 0.3;  //设置全局透明度
+    imgtx.drawImage(img,0,0); 
+    imgtx.scale(1.2,1.2);//放大1.2倍，1表示不变，其缩放中心点是画布(0,0)的坐标原点。任何变形方法，均是以画布(0,0)坐标点为变形中心点的。
+    imgtx.rotate(1/6*Math.PI);//旋转，也可以负值
+    imgtx.translate(50,-30);  //在x轴方向做50px的向右位移，在y轴方向做30px的向上位移，是整个画布系统在做位移，而不是图像
+    imgtx.transform(0.5,1,0,0.5,0,50); //变形
+    imgtx.drawImage(img,0,0); 
+    imgtx.scale(1.2,1.2);
+    imgtx.setTransform(0.5,0,0,0.5,0,0); //变形，再要求缩小至0.5倍
+    // 重置、覆盖掉之前设置过的 scale()、translate()、transform() 变形数值。
+    
+    // imgtx.drawImage(img,30,30);  //在画布坐标（30,30）的位置绘制图片
+    // imgtx.drawImage(img,30,30,250,150);  //在画布坐标（30,30）的位置绘制一张宽度为250，高度为150的图片
+    imgtx.drawImage(img,10,20,300,300,30,30,250,150);  //在画布坐标（30,30）的位置绘制一张宽度为250、高度150的图片，这种图片是在img上坐标为（10,20）的位置所裁剪出来的宽高为300*300的区域
+    //可以实现类似css sprite的效果
+  }
+
+  var imgData=imgtx.createImageData(200,100); //创建一个宽为200，高为100的ImageData对象
+  for (var i=0,t=255;i<imgData.data.length;i+=4)  //遍历像素点，并给它们上色
+  {
+  	// 每个都赋值RGBA(255,100,0,255)
+  	imgData.data[i+0]=255;
+  	imgData.data[i+1]=100;
+  	imgData.data[i+2]=0;
+  	imgData.data[i+3]=255;
+
+  	// 多彩的
+  	t<=0&&(t=255);
+  	imgData.data[i+0]=255-t;
+  	imgData.data[i+1]=t;
+  	imgData.data[i+2]=255-t;
+  	imgData.data[i+3]=255;
+  	--t;
+  }
+	imgtx.putImageData(imgData,50,60);  //将上述创建的ImageData对象放到画布坐标（50,60）的位置
+	imgtx.putImageData(imgData,60,60,50,0,100,100);  //裁剪imgData上坐标为(50,0)且宽高均为100px的矩形区域，并在画布（60,60）的坐标上画出来
+
+	var imgData2=imgtx.createImageData(imgData); //新建一个尺寸与已有的imgData一致的新ImageData对象，注意是不会复制其像素数据的
+	for (var i=0;i<imgData2.data.length;i+=4) 
+  {
+      imgData2.data[i+0]=155;
+      imgData2.data[i+1]=200;
+      imgData2.data[i+2]=155;
+      imgData2.data[i+3]=155;
+  }
+	imgtx.putImageData(imgData2,50,160); 
+
+	console.log("imgData有宽高值：宽度是" + imgData.width + "，高度是" + imgData.height );  //输出其宽高
+</script>
 </body>
 </html>
