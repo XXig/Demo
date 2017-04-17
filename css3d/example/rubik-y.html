@@ -1,30 +1,30 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-   <title>web</title>
-   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-   <meta name="renderer" content="webkit">
-   <meta http-equiv="Cache-Control" content="max-age=99999999999" />
-   <meta http-equiv="Expires" content="Fri,15 Dec 2026 16:00:00 GMT">
-   <meta name="mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-   <meta name="format-detection" content="telephone=no, email=no">
-   <meta name="msapplication-tap-highlight" content="no">
-   <link rel="stylesheet" type="text/css" href="../../css/base.css">
-   <script>
-    document.documentElement.style.fontSize=window.screen.width/3.75 + 'px';
-</script>
-<style>
+ <title>web</title>
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <meta name="renderer" content="webkit">
+ <meta http-equiv="Cache-Control" content="max-age=99999999999" />
+ <meta http-equiv="Expires" content="Fri,15 Dec 2026 16:00:00 GMT">
+ <meta name="mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+ <meta name="format-detection" content="telephone=no, email=no">
+ <meta name="msapplication-tap-highlight" content="no">
+ <link rel="stylesheet" type="text/css" href="../../css/base.css">
+ <script>document.documentElement.style.fontSize=window.screen.width/3.75 + 'px'</script>
+ <style>
     #wrap{
        /* position: fixed;
         bottom: 0;
         width: 100%;
         height: 100%;*/
     }
-    #wrap>div:last-child{
+    #wrap>div{
+        z-index: 1;
+        /*pointer-events none;*/
     }
     .bg >div{
         background-repeat: no-repeat;
@@ -74,95 +74,101 @@
 
         var rem=window.screen.width/3.75,
         w=rem*3.2,//背景宽度
-        auto=!0,//自动转动
+        auto=!1,//自动转动
         r=0.2,//自动转动速度
         d=0,//上下转动最大角度
         e=0;//左右转动最大角度
 
         var icon = [
-    {link:'cz',url:'images/icon-bag.png',w:.9,x:0,y:0,z:w/2,_x:0,_y:0,_z:0,page:"f"},// 正面
-    {link:'cz',url:'images/icon-bag.png',w:.9,x:0,y:w/2,z:0,_x:-90,_y:0,_z:0,page:"d"},// 下面
-    {link:'cz',url:'images/icon-bag.png',w:.9,x:0,y:0,z:-w/2,_x:180,_y:0,_z:0,page:"b"},// 后面
-    {link:'cz',url:'images/icon-bag.png',w:.9,x:0,y:-w/2,z:0,_x:90,_y:0,_z:0,page:"u"}]; // 上面
-    var B = new C3D.Box();  
-    B.size(w).position(0, 0, 0).material({  
-       front:{image:"images/mouse.jpg"},down:{image:"images/mouse.jpg"},
-       back:{image:"images/mouse.jpg"},up:{image:"images/mouse.jpg"},
-       left:{image:"images/mouse.jpg"},right :{image:"images/mouse.jpg"}
-   }).name("bg").class("bg").update();  
-    sp.addChild(B); 
-    var I = new C3D.Sprite;
-    I.name("icon").position(0, 0, 0).update();
-    sp.addChild(I);
-    for (var F = 0; F < icon.length; F++) {
-        var i = new C3D.Plane;
-        i.size(icon[F].w*rem).position(icon[F].x, icon[F].y, icon[F].z).rotation(icon[F]._x, icon[F]._y, icon[F]._z).material({
-            image: icon[F].url,
-            bothsides: !1
-        }).name("icon" + icon[F].page).class("icon").id(icon[F].link).update(),
-        I.addChild(i)
-    }
+        {page:"f-0",url:'cz',img:'images/icon-bag.png',w:.9,x:0,y:0,
+        z:w/2/rem,_x:0,_y:0,_z:0},
+        {page:"f-1",url:'wp',img:'images/icon-bag.png',w:.9,x:1,y:.1,
+        z:w/2/rem,_x:0,_y:0,_z:0,},
+        {page:"b-0",url:'cz',img:'images/icon-bag.png',w:.9,x:0,y:0,
+        z:-w/2/rem,_x:180,_y:0,_z:0},
+        {page:"d-0",url:'cz',img:'images/icon-bag.png',w:.9,x:.6,z:.5,
+        y:w/2/rem,_x:-90,_y:0,_z:0},
+        {page:"u-0",url:'cz',img:'images/icon-bag.png',w:.9,x:0,z:0,
+        y:-w/2/rem,_x:90,_y:0,_z:0}]; 
+        var B = new C3D.Box();  
+        B.size(w).position(0, 0, 0).material({  
+         front:{image:"images/mouse.jpg"},down:{image:"images/mouse.jpg"},
+         back:{image:"images/mouse.jpg"},up:{image:"images/mouse.jpg"},
+         left:{image:"images/mouse.jpg"},right:{image:"images/mouse.jpg"}
+     }).name("bg").class("bg").update();  
+        sp.addChild(B); 
+        var I = new C3D.Sprite;
+        I.position(0, 0, 0).name("icon").update();
+        sp.addChild(I);
+        for (var F = 0; F < icon.length; F++) {
+            var i = new C3D.Plane;
+            i.size(icon[F].w*rem).position(icon[F].x*rem, icon[F].y*rem, icon[F].z*rem).rotation(icon[F]._x, icon[F]._y, icon[F]._z).material({
+                image: icon[F].img,
+                bothsides: !1
+            }).name(icon[F].page).class("icon").id(icon[F].url).update(),
+            I.addChild(i)
+        }
 
-    function resize() {wrap.size(window.innerWidth, window.innerHeight).update()}
-    window.onresize = function () {resize()};
-    resize();
-    requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
-    function (callback) {setTimeout(callback, 1000 / 60)};
-    var lastMouseX = 0;
-    var lastMouseY = 0;
-    var curMouseX = 0;
-    var curMouseY = 0;
-    var lastAngleX = 0;
-    var lastAngleY = 0;
-    var angleX = 0;
-    var angleY = 0;
-    document.addEventListener("touchstart", mouseDownHandler);
-    document.addEventListener("touchend", mouseUpHandler);
-    function mouseDownHandler(evt) {
-     lastMouseX = evt.targetTouches[0].pageX;
-     lastMouseY = evt.targetTouches[0].pageY;
-     lastAngleX = angleX;
-     angleY = -sp.rotationX;
-     lastAngleY = angleY;
-     curMouseX = evt.targetTouches[0].pageX;
-     curMouseY = evt.targetTouches[0].pageY;
-     lastMouseX = evt.targetTouches[0].pageX;
-     lastMouseY = event.targetTouches[0].pageY;
-     document.addEventListener("touchmove", mouseMoveHandler);
-     auto=!1;
- }
- function mouseMoveHandler(evt) {
-    curMouseX = evt.changedTouches[0].pageX;
-    curMouseY = evt.changedTouches[0].pageY;
-}
-function mouseUpHandler(evt) {
-    curMouseX = evt.changedTouches[0].pageX;
-    curMouseY = evt.changedTouches[0].pageY;
-    document.removeEventListener("touchmove", mouseMoveHandler);
-}
-function go() {
-    pageclass.scroll();
-    if (auto) {
-     d?(sp.rotationX<=d?sp.rotate(r, 0, 0).updateT():sp.rotate(0, 0, 0).updateT()):sp.rotate(r, 0, 0).updateT()
- }
- else{
-    d?(angleY += (curMouseY - lastMouseY + lastAngleY - angleY)*0.3,angleY = Math.max(-d, Math.min(0, angleY))):angleY += (curMouseY - lastMouseY + lastAngleY - angleY)*0.3;
-    angleX += (curMouseX - lastMouseX + lastAngleX - angleX)*0.3;
-    angleX = Math.max(-e, Math.min(e, angleX));
-    sp.rotation(-angleY, angleX,0).updateT();
-}
-if (sp.rotationX>=360) {
-    sp.rotationX=sp.rotationX-360
-}
-else if (sp.rotationX<=-360) {
-    sp.rotationX=sp.rotationX+360
-}
-requestAnimationFrame(go);
+        function resize() {wrap.size(window.innerWidth, window.innerHeight).update()}
+        window.onresize = function () {resize()};
+        resize();
+        requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+        function (callback) {setTimeout(callback, 1000 / 60)};
+        var lasttouchX = 0;
+        var lasttouchY = 0;
+        var curtouchX = 0;
+        var curtouchY = 0;
+        var lastAngleX = 0;
+        var lastAngleY = 0;
+        var angleX = 0;
+        var angleY = 0;
+        document.addEventListener("touchstart", touchDownHandler);
+        document.addEventListener("touchend", touchUpHandler);
+        function touchDownHandler(evt) {
+           lasttouchX = evt.targetTouches[0].pageX;
+           lasttouchY = evt.targetTouches[0].pageY;
+           lastAngleX = angleX;
+           angleY = -sp.rotationX;
+           lastAngleY = angleY;
+           curtouchX = evt.targetTouches[0].pageX;
+           curtouchY = evt.targetTouches[0].pageY;
+           lasttouchX = evt.targetTouches[0].pageX;
+           lasttouchY = event.targetTouches[0].pageY;
+           document.addEventListener("touchmove", touchMoveHandler);
+           auto=!1;
+       }
+       function touchMoveHandler(evt) {
+        curtouchX = evt.targetTouches[0].pageX;
+        curtouchY = evt.targetTouches[0].pageY;
+    }
+    function touchUpHandler(evt) {
+        curtouchX = evt.changedTouches[0].pageX;
+        curtouchY = evt.changedTouches[0].pageY;
+        document.removeEventListener("touchmove", touchMoveHandler);
+    }
+    function go() {
+        pageclass.scroll();
+        if (auto) {
+           d?(sp.rotationX<=d?sp.rotate(r, 0, 0).updateT():sp.rotate(0, 0, 0).updateT()):sp.rotate(r, 0, 0).updateT()
+       }
+       else{
+        d?(angleY += (curtouchY - lasttouchY + lastAngleY - angleY)*0.3,angleY = Math.max(-d, Math.min(0, angleY))):angleY += (curtouchY - lasttouchY + lastAngleY - angleY)*0.3;
+        angleX += (curtouchX - lasttouchX + lastAngleX - angleX)*0.3;
+        angleX = Math.max(-e, Math.min(e, angleX));
+        sp.rotation(-angleY, angleX,0).updateT();
+    }
+    if (sp.rotationX>=360) {
+        sp.rotationX=sp.rotationX-360
+    }
+    else if (sp.rotationX<=-360) {
+        sp.rotationX=sp.rotationX+360
+    }
+    requestAnimationFrame(go);
 }
 requestAnimationFrame(go);
 var pageclass={
     add:function(a){
-        $('div[data-name|=icon'+a+']').addClass("onicon").siblings().removeClass("onicon");
+        $("div[data-name|=" + a + "]").addClass("onicon");
     },
     scroll:function(){
         var rx=sp.rotationX;
