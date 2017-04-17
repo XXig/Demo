@@ -593,7 +593,7 @@
                 this.el.style.width = '0px';
                 this.el.style.height = '0px';
             }
-            this.el.style[prefix + 'Perspective'] = '800px';
+            // this.el.style[prefix + 'Perspective'] = '800px';
             this.el.style[prefix + 'TransformStyle'] = 'flat';
             this.el.style[prefix + 'Transform'] = '';
             this.el.style.overflow = 'hidden';
@@ -614,7 +614,7 @@
         },
         updateT: function () {
             this.fov = fixed0(0.5 / Math.tan((this.camera.fov * 0.5) / 180 * Math.PI) * this.height);
-            this.el.style[prefix + 'Perspective'] = this.fov + 'px';
+            // this.el.style[prefix + 'Perspective'] = this.fov + 'px';
             this.__rfix.position(fixed0(this.width / 2), fixed0(this.height / 2), this.fov).rotation(-this.camera.rotationX, -this.camera.rotationY, -this.camera.rotationZ).updateT();
             this.__pfix.position(-this.camera.x, -this.camera.y, -this.camera.z).updateT();
             return this;
