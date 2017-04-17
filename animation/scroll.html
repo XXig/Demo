@@ -100,7 +100,7 @@
 </head>
 <body>
     <div class="fixed">
-    <div id="one">-</div><div id="two">-</div><div id="three">-</div>
+        <div id="one">-</div><div id="two">-</div><div id="three">-</div>
     </div>
     <article>
         <section class="visible"></section>
@@ -146,33 +146,30 @@
             }
         }
     }
-    !function(){
-        var lastY;
-        document.body.addEventListener('touchstart',function(e){
-           lastY=e.changedTouches[0].clientY;
-           document.getElementById("one").innerHTML="LY="+lastY;
-       })
-        var sh=document.body.scrollHeight - document.documentElement.clientHeight;
-        document.body.addEventListener('touchmove',function(e){
-            var y = e.changedTouches[0].clientY;
-            var st = $(this).scrollTop(); 
-            var stt = document.body.scrollTop;
-            if (y >= lastY && st <= 10 || stt==sh) {
-                lastY = y;
-                event.preventDefault();
-            }
-            lastY = y;
-            // if (stt==sh) {
-            //     event.preventDefault();
-            // }
-            document.getElementById("two").innerHTML="Y="+lastY;
-            document.getElementById("three").innerHTML="滚动条="+stt;
-            console.log( "浏览器滚动部分高度stt："+ document.body.scrollTop);
-            console.log( "网页可见区域高："+document.documentElement.clientHeight);
-            console.log( "网页正文全文高："+document.body.scrollHeight);
-        })
-        
-    }()
+    // !function(){
+    //     var lastY;
+    //     document.body.addEventListener('touchstart',function(e){
+    //      lastY=e.changedTouches[0].clientY;
+    //      document.getElementById("one").innerHTML="LY="+lastY;
+    //  })
+    //     var sh=document.body.scrollHeight - document.documentElement.clientHeight;
+    //     document.body.addEventListener('touchmove',function(e){
+    //         var y = e.changedTouches[0].clientY;
+    //         var st = $(this).scrollTop(); 
+    //         if (y >= lastY && st <= 10) {
+    //             lastY = y;
+    //             event.preventDefault();
+    //         }
+    //         else if(st==sh ){
+    //             lastY = y;
+    //             event.preventDefault();
+    //         }
+    //         lastY = y;
+    //         document.getElementById("two").innerHTML="Y="+lastY;
+    //         document.getElementById("three").innerHTML="滚动条="+st;
+    //     })
+
+    // }()
 </script>
 </body>
 </html>
