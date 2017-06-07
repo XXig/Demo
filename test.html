@@ -62,6 +62,12 @@
 	<style>h1{text-align: center;}</style>
 </head>
 <body>
+	<!-- 单位 100vh（视窗高） 100vw（视窗宽）vmin（vw和vh中较小的那个） vmax（vw和vh中较大的那个） -->
+	<span style="font-size:10vh">10vh=视窗高/10=字体大小</span>
+	<span style="font-size:10vw">字</span>
+	<span style="font-size:10vmin">字</span>
+	<span style="font-size:10vmax">字</span>
+	<span style="font-size:36px">字</span>
 	<!-- 标签 -->
 	<style>
 		.check{
@@ -97,7 +103,6 @@
 			$(this).toggleClass("check-active").text() == "点我" ? $(this).text("点中") : $(this).text("点我")
 		});
 	</script>
-
 	<!-- 晃动动画 -->
 	<style>
 		#div2{
