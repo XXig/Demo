@@ -1,3 +1,30 @@
+function dialog_alert_Mes(){
+    document.body.style.background="#eeeeee",shade(),window.scrollTo(0,0)
+}
+function hide_gg(){
+    $("#gggg").remove()
+}
+function is_ios(){
+    return u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)?!0:!1
+}
+var u=navigator.userAgent;
+document.addEventListener("WeixinJSBridgeReady",function(){WeixinJSBridge.call("hideOptionMenu")});
+var doc=$(document),_touches_point1=0,_touches_point2=0;
+addEventListener("touchstart",function(e){_touches_point1=e.touches[0].pageY}),
+addEventListener("touchmove",function(e){
+    _touches_point2=e.touches[0].pageY,
+    doc.scrollTop()<=0&&_touches_point2>_touches_point1&&(
+        e.preventDefault(),$("#_domain_display").length<=0&&$("body").prepend(
+            is_ios()?'<div id="_domain_display" style="font-size: 0.7rem;text-align:center;background-color:#272b2e;color:#878790;height:0px;padding:15px 0;line-height:36px;overflow:hidden;letter-spacing:1px;"><p>网页由 mp.weixin.qq.com 提供</p></div>':'<div id="_domain_display" style="font-size: 0.7rem;text-align:center;background-color:#272b2e;color:#878790;height:0px;padding:15px 0;line-height:36px;overflow:hidden;letter-spacing:1px;"><p>网页由 mp.weixin.qq.com 提供</p><p style="margin-top: -10px;" id="tech">QQ浏览器X5内核提供技术支持</p></div>'
+            ),
+        $("#_domain_display").height(_touches_point2-_touches_point1)
+        )
+}),
+addEventListener("touchend",function(){
+    $("#_domain_display").slideUp("normal",function(){$("#_domain_display").remove()})
+});
+
+
 $(function() {
 
 	'use strict';
