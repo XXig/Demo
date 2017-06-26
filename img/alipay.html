@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>XXig</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<style type="text/css">
+		html,body{width:100%;height:100%;background-color:#333;overflow:hidden;-webkit-touch-callout:none;-webkit-user-select:none}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{border-radius:5px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.5)}.btn{width:100%;padding:3.5% 0;position:fixed;z-index:1;bottom:0;left:0;background-color:rgba(0,0,0,.3);display:-webkit-flex;display:flex;justify-content:space-around}.btn>div{height:48px;color:#fff;font-size:14px;text-align:center;border-radius:3px;background-color:rgb(86,180,255);overflow:hidden}.btn>div:active{opacity:.85}.btn-fl{width:50%;position:relative}.btn-fl::after{content:'上传图片';width:100%;height:100%;position:absolute;top:0;left:0;font-size:16px;line-height:48px;pointer-events:none}.btn-fl>input{width:100%;height:48px;-webkit-appearance:none;outline:0 none;opacity:0}.btn-up,.btn-down{line-height:48px;width:20%}.box{height:100%;width:100%;position:relative;background-size:100%;background-repeat:no-repeat;background-position:0 -150px;overflow:hidden}.box>img{display:block;width:100%;position:absolute;top:-150px;left:0;mix-blend-mode:screen}.box>span{display:block;padding-top:15%;color:#a5a5a5;font-size:12px;text-align:center}
+	</style>
+</head>
+<body>
+	<div class="box" id="boximg">
+		<img src="">
+		<span>上传图片，上下按钮调整图片</span>
+	</div>
+	<div class="btn">
+		<div class="btn-up">∧</div>
+		<div class="btn-fl"><input type="file" id="flimg"></div>
+		<div class="btn-down">∨</div>
+	</div>
+	<script>
+		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);var bt=-150,bi=document.querySelector("#boximg"),oimg=bi.querySelector("img");document.querySelector("#flimg").addEventListener("change",function(){var b=this,a;if(b.files.length>0){a=new FileReader();a.onload=function(c){oimg.src=this.result;bi.style.backgroundImage="url("+this.result+")";oimg.style.top=(bt+3)+"px"};a.readAsDataURL(b.files[0])}},false);var bu=document.querySelector(".btn-up"),bd=document.querySelector(".btn-down"),clickEvent=(document.ontouchstart!==null)?"click":"touchstart";bu.addEventListener(clickEvent,function(){bt=bt=0?0:--bt;oimg.style.top=bt+"px"});bd.addEventListener(clickEvent,function(){++bt;oimg.style.top=bt+"px"});document.addEventListener("keydown",function(a){a.stopPropagation();switch(a.keyCode){case 38:++bt;break;case 40:bt=bt=0?0:--bt;break}oimg.style.top=bt+"px"},false);
+	</script>
+</body>
+</html>
