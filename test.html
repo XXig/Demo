@@ -335,6 +335,20 @@
 	<!-- 文字隐藏 -->
 	<h1>文字隐藏</h1>
 	<div class="txt-omg">文字隐藏文字隐藏文字隐藏文字隐藏1111111111111111111111</div><br><br>
+
+	<!-- 阻止冒泡到父元素 -->
+	<div id="parent" style="background:#f00">
+		<span id="child">点我</span>
+	</div>
+	<script>
+		document.getElementById('parent').onclick=function(){
+			console.log('父元素');
+		}
+		document.getElementById('child').onclick=function(event){
+			event.stopPropagation();
+			console.log('子元素');
+		}
+	</script>
 <!-- 	<div class="wra">
 		<div class="wra-1">
 			<div class="wra-11">1111111111111111</div>
