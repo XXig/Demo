@@ -76,37 +76,38 @@
 			data: {},
 			success: function (data) {
 				var ele=data.name;
+				console.log(ele[0]);
 				for (var i = 0; i < ele.length; i++) {
 					var eles=ele[i];
 					var uid=eles.uid;
 					var name=eles.name;
-					var cont=eles.cont;
-					var faburen=eles.faburen;
 					var timed = new Date(eles.tiemd);
 					var time = new Date(timed.getTime() + 1*60*1000);
 					var str = ''; 
-					str +="<li id=" + uid + "><p>" + name + "</p><span>" + time.getFullYear() + '/'+ time.getMonth()+ '/'+ time.getDay() + "</span></li>" ;  
+					str +="<li onclick=detail(" + uid + ")><p>" + name + "</p><span>" + time.getFullYear() + '/'+ time.getMonth()+ '/'+ time.getDay() + "</span></li>" ;  
 					$(".content").append(str);
 				}
-				$(".content li").on("click",function(){
-					window.location.href="/"+$(this).attr("id")
-					console.log($(this).attr("id"));
-				})
 			},
 			async: false
 		})
-
-		$.ajax({
-			type: "post",
-			cache: false,
-			url: "http://47.92.145.129:8001/users/xiang",
-			dataType: "json",
-			data: {},
-			success: function (data) {
-				console.log(data);
-			},
-			async: false
-		})
+		function detail(a){
+			$.ajax({
+				type: "post",
+				cache: false,
+				url: "http://47.92.145.129:8001/users/xiang",
+				dataType: "json",
+				data: {uid: a},//传入的参数
+				success: function (data) {
+					var ele=data.name;
+					var eles=ele[0];
+					var name=eles.name;
+					var cont=eles.cont;
+					var faburen=eles.faburen;
+					$(".content").html(cont);
+				},
+				async: false
+			})
+		}
 	</script>
 </body>
 </html>
