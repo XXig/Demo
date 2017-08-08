@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+	<title>筛选工具-XXig</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="renderer" content="webkit">
+	<meta name="author" content="xxig.me@qq.com">
+	<!-- build:css ../css/base.min.css?rev=@@hash -->
+	<link rel="stylesheet" type="text/css" href="../css/base.css?rev=@@hash">
+	<!-- endbuild -->
+</head>
+<body>
+	<div class="alert xycenter"></div>
+	<div class="wrap" id="app">
+		<div class="main">
+			<ul class="txt">
+				<li>原&nbsp; 数&nbsp;据：<input type="txt" v-model="base.data" placeholder="请输入数据" @keyup="keycode($event)"/></li>
+				<li>对比数据：<input type="txt" v-model="compare.data" placeholder="请输入数据" @keyup="keycode($event)"/></li>
+				<a class="btn" href="#" title="立即筛选" @click.stop.prevent="createcomparedata">立即筛选</a>
+			</ul>
+			<div class="data-box">
+				<ul>
+					<table>
+						<thead><tr><th>原数据</th></tr></thead>
+						<tr v-show="yes"><td>暂无数据</td></tr>
+						<tr v-show="no" v-for="datas in basedata">
+							<td>{{datas}}</td>
+						</tr>
+					</table>
+				</ul>
+				<ul>
+					<table>
+						<thead><tr><th>对比数据</th></tr></thead>
+						<tr v-show="yes"><td>暂无数据</td></tr>
+						<tr v-show="no" v-for="datas in comparedata">
+							<td>{{datas}}</td>
+						</tr>
+					</table>
+				</ul>
+			</div>
+		</div>
+		<div class="result-box">
+			<table>
+				<thead><tr><th>筛选结果</th></tr></thead>
+				<tr v-show="yes"><td>暂无数据</td></tr>
+				<tr v-show="no" v-for="datas in resultdata">
+					<td>{{datas}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- build:js ../js/main.min.js?rev=@@hash -->
+	<script src="../js/vue.js?rev=@@hash"></script>
+	<script src="../js/style.js?rev=@@hash"></script>
+	<!-- endbuild -->
+</body>
+</html>
