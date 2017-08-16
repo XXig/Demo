@@ -71,7 +71,7 @@
 
 	<!-- 标签 -->
 	<style>
-		.check{
+		.check,.drag{
 			width: 100px;
 			height: 50px;
 			border: 1px solid currentColor;
@@ -97,6 +97,10 @@
 			border-right: 30px solid currentColor;
 			border-bottom-width: 0;
 		}
+		.drag{
+			position: relative;
+			cursor: move;
+		}
 	</style>
 	<div class="check">点我</div><br><br>
 	<script>
@@ -105,250 +109,319 @@
 		});
 	</script>
 
-	<!-- 晃动动画 -->
-	<style>
-		#div2{
-			color:#f00;position: relative;left:50%;transform:translate3d(-50%,-50%,0);
-		}
-	</style>
-	<h1 id='div2'>晃动动画</h1>
+	<!-- 拖拽 -->
+	<div id="drag" class="drag">拖拽</div><br><br>
 	<script>
-		var odiv=document.querySelector('#div2');
-		var arr=[];
-		var chz=odiv.offsetLeft;
-		var timer=null;
-		for(var i=20;i>0;i=i-2){
-			arr.push(i,-i);
+		var params = {
+			left: 0,
+			top: 0,
+			currentX: 0,
+			currentY: 0,
+			flag: false
+		};
+	//o是移动对象
+	var getCss = function(o,key){
+		return o.currentStyle? o.currentStyle[key] : document.defaultView.getComputedStyle(o,false)[key]; 	
+	};
+	// bar触发拖拽对象（例如一个弹框标题bar），target被拖拽对象（整个弹框），可以是同一个
+	var startDrag = function(bar, target, callback){
+		if(getCss(target, "left") !== "auto"){
+			params.left = getCss(target, "left");
 		}
-		arr.push(0);
-		odiv.onclick=function(){
-			var num=0;
-			timer=setInterval(function(){
-				odiv.style.left=chz+arr[num]+'px';
-				num++;
-				if(num==arr.length){
-					clearInterval(timer);
-				}
-			},30);
+		if(getCss(target, "top") !== "auto"){
+			params.top = getCss(target, "top");
 		}
-	</script>
-	
-	<!-- 自适应文本框 -->
-	<style>
-		#contentedit{
-			padding: 5px;
-			min-height: 50px;
-			width:300px;
-			border:1px solid #ccc;
-			overflow-x:hidden;
-			overflow-y:auto;
-			word-wrap:break-word;
-			resize:both;
+		bar.onmousedown = function(event){
+			params.flag = true;
+			if(!event){
+				event = window.event;
+			//防止IE文字选中
+			bar.onselectstart = function(){
+				return false;
+			}  
 		}
-	</style>
-	<h1>自适应文本框</h1>
-	<textarea placeholder="项目明细" class="form-control" onpropertychange="this.style.height=this.scorllHeight+'px';" oninput="this.style.height=this.scrollHeight+'px';" style="overflow-y:hidden;width:100%"></textarea>
-	<div id="contentedit" contenteditable="true"></div>
+		var e = event;
+		params.currentX = e.clientX;
+		params.currentY = e.clientY;
+	};
+	document.onmouseup = function(){
+		params.flag = false;	
+		if(getCss(target, "left") !== "auto"){
+			params.left = getCss(target, "left");
+		}
+		if(getCss(target, "top") !== "auto"){
+			params.top = getCss(target, "top");
+		}
+	};
+	document.onmousemove = function(event){
+		var e = event ? event: window.event;
+		if(params.flag){
+			var nowX = e.clientX, nowY = e.clientY;
+			var disX = nowX - params.currentX, disY = nowY - params.currentY;
+			target.style.left = parseInt(params.left) + disX + "px";
+			target.style.top = parseInt(params.top) + disY + "px";
+			if (event.preventDefault) {
+				event.preventDefault();
+			}
+			console.log(nowX+"\n"+disX);
+			return false;
+		}
+		
+		if (typeof callback == "function") {
+			callback(parseInt(params.left) + disX, parseInt(params.top) + disY);
+		}
+	}	
+};
+var oBox = document.getElementById("drag");
+startDrag(oBox, oBox);
+</script>
+<div class="drag" draggable="true">拖拽</div><br><br>
 
-	<!-- 标签分页按钮 -->
-	<style>
-		.page{
-			width: 120px;height: 40px;
-			margin: 3% auto;
-			background: -webkit-linear-gradient(90deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
-			background: linear-gradient(0deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
-			border-radius: 20px 0 0 20px;
-			border: 1px solid currentColor;
-			border-right: none;
-			color: #ccc;
-			font-size:14px;
-			line-height: 40px;
-			position: relative;
-			overflow: hidden;
-			cursor: pointer;
-		}
-		.page:before{
-			content: "";
-			border: 6px solid transparent;
-			border-right-color: currentColor;
-			position: absolute;
-			left: 5px;
-			top:14px;
-		}
-		.page:after{
-			content: "";
-			width: 19px;height: 38px;
-			background-color: #fff;
-			border: 1px solid currentColor;
-			border-right:none;
-			border-radius:38px 0 0 38px;
-			position: absolute;
-			right:0px;
-			top:-1px;
-		}
-		.page p{
-			width: 80px;
-			text-align: right;
-		}
-	</style>
-	<div class="page"><p>上一页</p></div><br><br>
 
-	<!-- 浮动Demo -->
-	<style>
-		.left{
-			background-color: #f00;
-			margin-right: 300px;
-		}
-		.right{
-			float: right;
-			width: 300px;
-			background-color: #ff0;
-		}
-		.con{
-			margin-top: 5px;
-			margin-left: 100px;
-			margin-right: 300px;
-			overflow: hidden;
-		}
-		.left1{
-			float: left;
-			width: 100px;
-			margin-left:-moz-calc(-100% - 100px);
-			margin-left:-webkit-calc(-100% - 100px);
-			margin-left:calc(-100% - 100px);
-			background: #ff0;
-		}
-		.right1{
-			float: right;
-			width: 300px;
-			background: #f00;
-			margin-right: -300px;
-		}
-		.center{
-			float: left;
-			width: 100%;
-			background: #E5E5E5;
-		}
-	</style>
-	<h1>浮动Demo</h1>
-	<div class="main clearfix">
-		<div class="right">右边</div>
-		<div class="left">左边自适应</div>
-	</div><br><br>
-	<div class="con">
-		<ul class="clearfix">
-			<li class="center">中间先显示，自适应</li>
-			<li class="left1">左边</li>
-			<li class="right1">右边</li>
-		</ul>
-	</div><br><br><br><br>
-	<div style="float: left;width: 200px;background-color: #ff0">左</div>
-	<div style="float: right;width: 200px;background-color: #f00">右</div>
-	<div style="width: 100%;margin:0 -200px;background-color: #ccc">中</div>
-	<br><br><br><br>
-	<div style="width:100px;float:left;background:#f00">100px</div>
-	<div style="margin-left:100px;background:#eee">自适应</div><br><br>
-	<style>
-		.flex-main{
-			width:90%;
-			margin:0 auto;
-			display: flex;
-			flex-flow: row wrap;
-			justify-content:space-between;
-		}
-		.flex-main>p{
-			flex:0 1 calc(50% - 15px);
-			margin-bottom: 10px;
-		}
-		.flex-main>p:nth-child(odd){
-			background-color: #f00;
-		}
-		.flex-main>p:nth-child(even){
-			background-color: #ff0;
-		}
-	</style>
-	<div class="flex-main">
-		<p>1</p>
-		<p>2</p>
-		<p>3</p>
-		<p>4</p>
-	</div>
+<!-- 晃动动画 -->
+<style>
+	#div2{
+		color:#f00;position: relative;left:50%;transform:translate3d(-50%,-50%,0);
+	}
+</style>
+<h1 id='div2'>晃动动画</h1>
+<script>
+	var odiv=document.querySelector('#div2');
+	var arr=[];
+	var chz=odiv.offsetLeft;
+	var timer=null;
+	for(var i=20;i>0;i=i-2){
+		arr.push(i,-i);
+	}
+	arr.push(0);
+	odiv.onclick=function(){
+		var num=0;
+		timer=setInterval(function(){
+			odiv.style.left=chz+arr[num]+'px';
+			num++;
+			if(num==arr.length){
+				clearInterval(timer);
+			}
+		},30);
+	}
+</script>
 
-	<!-- 垂直居中 -->
-	<style>
-		.justify{
-			width:500px;
-			height: 500px;
-			border: 1px solid #f00;
-			text-align: center;
-			margin: 50px auto;
-		}
-		.justify-b::before{
-			content: '';
-			height: 100%;
-			display: inline-block;
-			vertical-align: middle;
-		}
-		.justify>*{
-			width: 50%;
-			display:inline-block;vertical-align: middle;
-		}
-	</style>
-	<h1>垂直居中</h1>
-	<div class="justify" style="display: table-cell;vertical-align: middle;">
-		<span style="height: 20px;background-color: #ccc;"></span>
-	</div><br><br>
+<!-- 自适应文本框 -->
+<style>
+	#contentedit{
+		padding: 5px;
+		min-height: 50px;
+		width:300px;
+		border:1px solid #ccc;
+		overflow-x:hidden;
+		overflow-y:auto;
+		word-wrap:break-word;
+		resize:both;
+	}
+</style>
+<h1>自适应文本框</h1>
+<textarea placeholder="项目明细" class="form-control" onpropertychange="this.style.height=this.scorllHeight+'px';" oninput="this.style.height=this.scrollHeight+'px';" style="overflow-y:hidden;width:100%"></textarea>
+<div id="contentedit" contenteditable="true"></div>
 
-	<!-- css选择器 -->
-	<style>
-		.nth li:nth-child(-n+4){
-			background-color: #f00;
-		}
-		.nth li:nth-last-child(-n+4){
-			background-color: #ccc;
-		}
-	</style>
-	<h1>css选择器</h1>
-	<div class="nth">
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
-		<li>5</li>
-		<li>6</li>
-		<li>7</li>
-		<li>8</li>
-	</div><br><br>
-	<style>
-		.txt-omg{
-			width: 20%;
-			margin: 20px auto;
-			border:1px solid #ccc;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-		}
-	</style>
+<!-- 标签分页按钮 -->
+<style>
+	.page{
+		width: 120px;height: 40px;
+		margin: 3% auto;
+		background: -webkit-linear-gradient(90deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
+		background: linear-gradient(0deg, #e5e5e5 0, #e5e5e5 1%, rgba(255,255,255,1) 100%);
+		border-radius: 20px 0 0 20px;
+		border: 1px solid currentColor;
+		border-right: none;
+		color: #ccc;
+		font-size:14px;
+		line-height: 40px;
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	.page:before{
+		content: "";
+		border: 6px solid transparent;
+		border-right-color: currentColor;
+		position: absolute;
+		left: 5px;
+		top:14px;
+	}
+	.page:after{
+		content: "";
+		width: 19px;height: 38px;
+		background-color: #fff;
+		border: 1px solid currentColor;
+		border-right:none;
+		border-radius:38px 0 0 38px;
+		position: absolute;
+		right:0px;
+		top:-1px;
+	}
+	.page p{
+		width: 80px;
+		text-align: right;
+	}
+</style>
+<div class="page"><p>上一页</p></div><br><br>
 
-	<!-- 文字隐藏 -->
-	<h1>文字隐藏</h1>
-	<div class="txt-omg">文字隐藏文字隐藏文字隐藏文字隐藏1111111111111111111111</div><br><br>
+<!-- 浮动Demo -->
+<style>
+	.left{
+		background-color: #f00;
+		margin-right: 300px;
+	}
+	.right{
+		float: right;
+		width: 300px;
+		background-color: #ff0;
+	}
+	.con{
+		margin-top: 5px;
+		margin-left: 100px;
+		margin-right: 300px;
+		overflow: hidden;
+	}
+	.left1{
+		float: left;
+		width: 100px;
+		margin-left:-moz-calc(-100% - 100px);
+		margin-left:-webkit-calc(-100% - 100px);
+		margin-left:calc(-100% - 100px);
+		background: #ff0;
+	}
+	.right1{
+		float: right;
+		width: 300px;
+		background: #f00;
+		margin-right: -300px;
+	}
+	.center{
+		float: left;
+		width: 100%;
+		background: #E5E5E5;
+	}
+</style>
+<h1>浮动Demo</h1>
+<div class="main clearfix">
+	<div class="right">右边</div>
+	<div class="left">左边自适应</div>
+</div><br><br>
+<div class="con">
+	<ul class="clearfix">
+		<li class="center">中间先显示，自适应</li>
+		<li class="left1">左边</li>
+		<li class="right1">右边</li>
+	</ul>
+</div><br><br><br><br>
+<div style="float: left;width: 200px;background-color: #ff0">左</div>
+<div style="float: right;width: 200px;background-color: #f00">右</div>
+<div style="width: 100%;margin:0 -200px;background-color: #ccc">中</div>
+<br><br><br><br>
+<div style="width:100px;float:left;background:#f00">100px</div>
+<div style="margin-left:100px;background:#eee">自适应</div><br><br>
+<style>
+	.flex-main{
+		width:90%;
+		margin:0 auto;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content:space-between;
+	}
+	.flex-main>p{
+		flex:0 1 calc(50% - 15px);
+		margin-bottom: 10px;
+	}
+	.flex-main>p:nth-child(odd){
+		background-color: #f00;
+	}
+	.flex-main>p:nth-child(even){
+		background-color: #ff0;
+	}
+</style>
+<div class="flex-main">
+	<p>1</p>
+	<p>2</p>
+	<p>3</p>
+	<p>4</p>
+</div>
 
-	<!-- 阻止冒泡到父元素 -->
-	<div id="parent" style="background:#f00">
-		<span id="child">点我</span>
-	</div>
-	<script>
-		document.getElementById('parent').onclick=function(){
-			console.log('父元素');
-		}
-		document.getElementById('child').onclick=function(event){
-			event.stopPropagation();
-			console.log('子元素');
-		}
-	</script>
+<!-- 垂直居中 -->
+<style>
+	.justify{
+		width:500px;
+		height: 500px;
+		border: 1px solid #f00;
+		text-align: center;
+		margin: 50px auto;
+	}
+	.justify-b::before{
+		content: '';
+		height: 100%;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.justify>*{
+		width: 50%;
+		display:inline-block;vertical-align: middle;
+	}
+</style>
+<h1>垂直居中</h1>
+<div class="justify" style="display: table-cell;vertical-align: middle;">
+	<span style="height: 20px;background-color: #ccc;"></span>
+</div><br><br>
+
+<!-- css选择器 -->
+<style>
+	.nth li:nth-child(-n+4){
+		background-color: #f00;
+	}
+	.nth li:nth-last-child(-n+4){
+		background-color: #ccc;
+	}
+</style>
+<h1>css选择器</h1>
+<div class="nth">
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	<li>6</li>
+	<li>7</li>
+	<li>8</li>
+</div><br><br>
+<style>
+	.txt-omg{
+		width: 20%;
+		margin: 20px auto;
+		border:1px solid #ccc;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+</style>
+
+<!-- 文字隐藏 -->
+<h1>文字隐藏</h1>
+<div class="txt-omg">文字隐藏文字隐藏文字隐藏文字隐藏1111111111111111111111</div><br><br>
+
+<!-- 阻止冒泡到父元素 -->
+<div id="parent" style="background:#f00">
+	<span id="child">点我</span>
+</div>
+<script>
+	document.getElementById('parent').onclick=function(){
+		console.log('父元素');
+	}
+	document.getElementById('child').onclick=function(event){
+		event.stopPropagation();
+		console.log('子元素');
+	}
+</script>
 <!-- 	<div class="wra">
 		<div class="wra-1">
 			<div class="wra-11">1111111111111111</div>
