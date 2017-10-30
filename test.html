@@ -110,11 +110,11 @@
 				$(this._box).eq(0).show().siblings().hide(),this._i=0;
 			},
 			bind:function(){
-				var tid,me=this;
+				var t,me=this;
 				$(this._btn).on("touchstart",function(){
 					me.onshow();
 					var time=me._time?me._time:100;
-					tid=setInterval(function(){
+					t=setInterval(function(){
 						(me._i)++;
 						if (me._i>me._length){
 							return me.onhide();
@@ -125,7 +125,7 @@
 					},time)
 				})
 				$(this._btn).on("touchend",function(){
-					clearInterval(tid);
+					clearInterval(t);
 				})
 			}
 		};
