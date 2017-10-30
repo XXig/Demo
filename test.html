@@ -81,33 +81,33 @@
 		}
 	</style>
 	<div id="box-show">
-		<p hidden="" data="no">1</p>
-		<p hidden="" data="no">2</p>
-		<p hidden="" data="no">3</p>
-		<p hidden="" data="no">4</p>
-		<p hidden="" data="no">5</p>
-		<p hidden="" data="no">6</p>
-		<p hidden="" data="no">7</p>
-		<p hidden="" data="no">8</p>
-		<p hidden="" data="no">9</p>
-		<p hidden="" data="no">10</p>
+		<p hidden="">1</p>
+		<p hidden="">2</p>
+		<p hidden="">3</p>
+		<p hidden="">4</p>
+		<p hidden="">5</p>
+		<p hidden="">6</p>
+		<p hidden="">7</p>
+		<p hidden="">8</p>
+		<p hidden="">9</p>
+		<p hidden="">10</p>
 	</div>
 	<div class="btn">按住</div>
 	<script>
 		function showhide(btn,box,time){
 			this._btn     =$(btn);
 			this._box     =$(box);
-			this._length  =$(box).length;
+			this._length  =$(box).length-1;
 			this._time    =time;
 			this._i 			=0;
 			this.bind();
 		}
 		showhide.prototype = {
 			onshow:function(){
-				$(this._box).eq(this._i).show().attr("data","yes").siblings().hide().attr("data","no");
+				$(this._box).eq(this._i).show().siblings().hide();
 			},
 			onhide:function(){
-				$(this._box).eq(0).show().attr("data","yes").siblings().hide().attr("data","no"),this._i=0;
+				$(this._box).eq(0).show().siblings().hide(),this._i=0;
 			},
 			bind:function(){
 				var tid,me=this;
@@ -116,7 +116,7 @@
 					var time=me._time?me._time:100;
 					tid=setInterval(function(){
 						(me._i)++;
-						if (me._i>(me._length-1)){
+						if (me._i>me._length){
 							return me.onhide();
 						}
 						else{
