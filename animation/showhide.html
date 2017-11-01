@@ -48,6 +48,12 @@
 		img{
 			display: block;
 			width: 100%;
+			transition: all .25s;
+		}
+		.on img{
+			-webkit-filter: contrast(200%) brightness(150%);
+			filter: contrast(200%) brightness(150%);
+			transform:translate3d(-30px,10px,0);
 		}
 	</style>
 </head>
@@ -64,9 +70,11 @@
 		</div>
 		<div class="btn">按住</div>
 	</div>
+	<script type="text/javascript" src="../js/zepto.min.js"></script>
 	<script>
 		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);
 		function showhide(btn,box,time){
+			this._playing =true;
 			this._btn     =$(btn);
 			this._box     =$(box);
 			this._length  =$(box).length-1;
@@ -76,22 +84,28 @@
 		}
 		showhide.prototype = {
 			onshow:function(){
-				return this._box.eq(this._i).show().siblings().hide(),this._i;
+				return this._box.eq(this._i).show().addClass("on").siblings().removeClass("on").hide(),this._i;
 			},
 			onhide:function(){
-				return this._box.eq(0).show().siblings().hide(),this._i=0;
+				return this._box.eq(0).show().addClass("on").siblings().removeClass("on").hide(),this._i=0;
 			},
 			bind:function(){
-				var t,me=this;
+				var t,me=this,
+				time=this._time?this._time:100;
 				this._btn.on("touchstart",function(){
-					me.onshow();
-					var time=me._time?me._time:100;
-					t=setInterval(function(){
-						(me._i)++;
-						(me._i>me._length)?me.onhide():me.onshow();
-					},time)
+					if (me._playing) {
+						me._playing=false,
+						me.onshow();
+						t=setInterval(function(){
+							(me._i)++;
+							(me._i>me._length)?me.onhide():me.onshow();
+						},time)
+					}
 				}).on("touchend",function(){
-					clearInterval(t);
+					setTimeout(function(){
+						me._playing=true,
+						clearInterval(t);
+					},time)
 				})
 			}
 		};
