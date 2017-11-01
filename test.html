@@ -62,75 +62,6 @@
 	<style>h1{text-align: center;}</style>
 </head>
 <body>
-	<!-- 按住显示隐藏 -->
-	<style>
-		#box-show{
-			font-size: 16px;
-			text-align: center;
-		}
-		.btn{
-			width: 100px;
-			padding: 10px 0;
-			margin: 10px auto;
-			background: #f00;
-			border-radius: 5px;
-			color: #fff;
-			font-size: 16px;
-			text-align: center;
-			cursor: pointer;
-		}
-	</style>
-	<div id="box-show">
-		<p hidden="">1</p>
-		<p hidden="">2</p>
-		<p hidden="">3</p>
-		<p hidden="">4</p>
-		<p hidden="">5</p>
-		<p hidden="">6</p>
-		<p hidden="">7</p>
-		<p hidden="">8</p>
-		<p hidden="">9</p>
-		<p hidden="">10</p>
-	</div>
-	<div class="btn">按住</div>
-	<script>
-		function showhide(btn,box,time){
-			this._btn     =$(btn);
-			this._box     =$(box);
-			this._length  =$(box).length-1;
-			this._time    =time;
-			this._i 			=0;
-			this.bind();
-		}
-		showhide.prototype = {
-			onshow:function(){
-				$(this._box).eq(this._i).show().siblings().hide();
-			},
-			onhide:function(){
-				$(this._box).eq(0).show().siblings().hide(),this._i=0;
-			},
-			bind:function(){
-				var t,me=this;
-				$(this._btn).on("touchstart",function(){
-					me.onshow();
-					var time=me._time?me._time:100;
-					t=setInterval(function(){
-						(me._i)++;
-						if (me._i>me._length){
-							return me.onhide();
-						}
-						else{
-							return me.onshow(),me._i;
-						}
-					},time)
-				})
-				$(this._btn).on("touchend",function(){
-					clearInterval(t);
-				})
-			}
-		};
-		new showhide('.btn','#box-show p')
-	</script>
 
 	<!-- 单位 100vh（视窗高） 100vw（视窗宽）vmin（vw和vh中较小的那个） vmax（vw和vh中较大的那个） -->
 	<span style="font-size:10vh">10vh=视窗高/10=字体大小</span>
@@ -446,14 +377,34 @@ startDrag(oBox, oBox);
 <style>
 	.nth li:nth-child(-n+4){
 		background-color: #f00;
+		color:#fff;
 	}
 	.nth li:nth-last-child(-n+4){
 		background-color: #ccc;
 	}
+	/*
+	margin叠加现象
+	1.外层padding
+  2.透明边框border:1pxsolidtransparent;
+	3.绝对定位postion:absolute:
+	4.外层overflow:hidden;
+	5.内层加float:left;display:inline;
+	6.外层有时会用到zoom:1;
+	*/
+	.nth>li{
+		margin: 10px auto;
+		/*border:1px solid transparent;*/
+		/*overflow: hidden;*/
+	}
+	.nth span{
+		display: block;
+		background: #ff0;
+		margin: 20px auto;
+	}
 </style>
 <h1>css选择器</h1>
 <div class="nth">
-	<li>1</li>
+	<li><span>margin叠加现象</span></li>
 	<li>2</li>
 	<li>3</li>
 	<li>4</li>
