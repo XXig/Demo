@@ -15,44 +15,15 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no, email=no">
 	<meta name="msapplication-tap-highlight" content="no">
-	<link rel="stylesheet" type="text/css" href="../css/odometer-theme-car.css">
-	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
-	<script src="../js/odometer.js"></script>
 	<style>
 		@import url(../css/base.css);
-		.box {
-			font-size: 60px;
-		}
-		.odometer-formatting-mark{
-			display:none
-		}
 	</style>
-	<script>
-		window.odometerOptions = {
-			// format: '(ddd).dd'
-			format: 'd'
-		};
-	</script>
+</head>
+<body>
 	<div class="box">
 		<div class="odometer">1000</div>
 	</div>
 	<script>
-		function num(){
-			var t = new Date,
-			n = formatTime(t.getHours()).toString(),
-			r = formatTime(t.getMinutes()).toString(),
-			i = formatTime(t.getSeconds()).toString();
-			// var a = Math.floor(Math.random() * 10000 + 1);
-			// while (a<1000)
-			// {
-			// var a = Math.floor(Math.random() * 100000 + 1);
-			// 	return a;
-			// }
-			$('.odometer').html(n + r+i);
-		}
-		num()
-		setInterval("num()", 1000);
-		function formatTime(a) {
-			return 10 > a && a >= 0 ? "0" + a: a
-		}
 	</script>
+</body>
+</html>
