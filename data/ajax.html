@@ -115,6 +115,70 @@
 				async: false
 			})
 		}
+
+		// window.onload=function(){
+		// 	跨域问题
+		// 	var iframe = document.getElementById('ifr');  
+		// 	var win = iframe.contentWindow;  
+		// 	console.log(win.document.getElementById("app"));
+		// 	console.log(win.$("#app").html() );
+		// }
+
+
+		// $(function () {
+
+		// 	回调
+		// 	function callback( data ){
+		// 		console.log( data );
+		// 	}
+
+		// 	getJSON方法
+		// 	$.getJSON(url, 
+		// 		function (data) {
+		// 			console.log(data);
+		// 		});
+
+		// 	$.ajax({
+		// 		url:url,
+		// 		type:"get",
+		// 		data:JSON.stringify(JSON),
+		// 		dataType:"jsonp",
+		// 		success: function(data) {
+		// 			console.log(data);    
+		// 		},
+		// 		error: function() {
+		// 			console.log("加载失败，请重试");
+		// 		},
+		// 	})
+
+		// 	$.ajax({
+		// 		crossDomain: true,
+		// 		type:"GET",
+		// 		contentType: "application/json; charset=utf-8",
+		// 		async:false,
+		// 		url: url,
+		// 		dataType: "jsonp",                
+		// 		jsonpCallback: 'callback'
+		// 	});
+
+		// 	$.ajax({  
+		// 		async: true,  
+		// 		type: "GET",  
+		// 		jsonp: 'callback',  
+		// 		jsonpCallback: 'callbackfunction',  
+		// 		url: "http://open.iciba.com/dsapi/",  
+		// 		data: '',
+		// 		dataType: 'jsonp', //请求的文件类型 
+		// 		traditional: true,
+		// 		timeout: 3000,  
+		// 		contentType: "application/json;utf-8", 
+		// 		success: function(data) { 
+		// 			var data = $.parseJSON(data); 
+		// 			console.log(data);
+		// 		}
+		// 	});
+
+		// }) 
 	</script>
 </body>
 </html>
