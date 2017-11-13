@@ -15,15 +15,92 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no, email=no">
 	<meta name="msapplication-tap-highlight" content="no">
+	<script>document.documentElement.style.fontSize=window.screen.width/3.75 + 'px'</script>
 	<style>
 		@import url(../css/base.css);
+		html,body{
+			background: url(../images/bg-num.png) top center/cover;
+			overflow: hidden;
+		}
+		.num{
+			width: 90%;
+			height: .6rem;
+			padding-left: 1.13rem;
+			position: fixed;
+			top:3rem;
+			left: 50%;
+			transform:translate3d(-50%,-50%,0);
+			overflow: hidden;
+			display: flex;
+			color: #fff247;
+			font-size: .6rem;
+			font-weight: bolder;
+		}
+		@font-face{font-family:'Agency FB';src:url(../css/AgencyFB.ttf) format("truetype")}
+		.num-txt{
+			font-family: 'Agency FB';
+		}
+		.num span{
+			width: .3rem;
+			vertical-align: middle;
+			writing-mode: vertical-rl;
+			text-orientation: upright;
+			animation:numscroll .8s ease-out;
+			transition: all .8s ease-out;
+		}
+		.num span:nth-child(2){
+			animation-delay:.2s;
+		}
+		.num span:nth-child(3){
+			text-indent: .2rem;
+		}
+		.num span:nth-child(4){
+			animation-delay:.1s;
+		}
+		@keyframes numscroll {
+			0%{
+				transform:translate3d(0,0em,0);
+			}
+			30%{
+				transform:translate3d(0,1em,0);
+			}
+			70%{
+				transform:translate3d(0,-10em,0);
+			}
+			100% { 
+				transform:translate3d(0,-9em,0);
+			}
+		}
 	</style>
 </head>
 <body>
-	<div class="box">
-		<div class="odometer">1000</div>
+	<div class="num" data-num="2459">
+		<span class="num-txt">0123456789</span>
+		<span class="num-txt">0123456789</span>
+		<span>&#x2e;</span>
+		<span class="num-txt">0123456789</span>
+		<span class="num-txt">0123456789</span>
 	</div>
+	<script src="../js/zepto.min.js"></script>
 	<script>
+		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);
+		function animate(){
+			var arr = [];
+			var $div = $(".num-txt");
+			// var data=$('.num').attr("data-num");
+			var data=String(parseInt(1000*Math.random()));
+			for (var i = 0; i < $div.length; i++) {
+				arr.push(data.substring(i, i+1));
+			}
+			$div.eq(0).css('transform','translate3d(0,'+ arr[0]*-.67 +'rem,0)')
+			$div.eq(1).css('transform','translate3d(0,'+ arr[1]*-.67 +'rem,0)')
+			$div.eq(3).css('transform','translate3d(0,'+ arr[2]*-.67 +'rem,0)')
+			$div.eq(4).css('transform','translate3d(0,'+ arr[3]*-.67 +'rem,0)')
+		}
+		animate()
+		setInterval(function(){
+			animate()
+		},5000)
 	</script>
 </body>
 </html>
