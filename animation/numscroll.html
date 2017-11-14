@@ -231,9 +231,7 @@
 		var $ul=$('.redbag'),$ulnum=$ul.length;
 		function redscroll(){
 			for (var i = 0; i < $ulnum; i++) {
-				$ul.eq(i).addClass('on').css('animation-delay',time*i+'s');
-				$ul.eq(i).find("span").addClass('on').css('animation-delay',time*i+'s');
-				$ul.eq(i).find("i").addClass('on').css('animation-delay',time*i+'s');
+				$ul.eq(i).addClass('on').css('animation-delay',time*i+'s').find("span,i").addClass('on').css('animation-delay',time*i+'s');
 			}
 			numscroll()
 			var c=1,
