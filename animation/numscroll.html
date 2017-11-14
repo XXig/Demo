@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数字滚动</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="flexible" content="initial-dpr=2,maximum-dpr=3" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<script>document.documentElement.style.fontSize=window.screen.width/3.75 + 'px'</script>
+	<style>
+		html,body{width:100%;height:100%;background: url(../images/bg-num.png) top center/cover no-repeat;overflow: hidden;}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;list-style:none}
+		@font-face{font-family:'Agency FB';src:url(../css/AgencyFB.ttf) format("truetype")}
+		.btn{
+			width: 45%;
+			height: .65rem;
+			border-radius: 50px;
+			background-color: #fffff9;
+			box-shadow: 0 .2rem .2rem rgba(187,6,25,.8);
+			position: fixed;
+			top:73%;
+			left: 50%;
+			transform:translate3d(-50%,-50%,0);
+			color: #d80f24;
+			font-size:.24rem;
+			font-weight: bolder;
+			text-align: center;
+			line-height: .65rem;
+			opacity: 0;
+			animation:fadeIn .8s .5s ease-out forwards;
+		}
+		@keyframes fadeIn {
+			0%{
+				opacity: 0;
+			}
+			100% { 
+				opacity: 1;
+			}
+		}
+		.start.btn{
+			animation:btn .3s ease-out forwards;
+		}
+		@keyframes btn {
+			0% { 
+				margin-top: 0;
+				opacity: 1;
+			}
+			100% { 
+				margin-top: 1rem;
+				opacity: 0;
+			}
+		}
+		.num{
+			height: .95rem;
+			position: fixed;
+			top:53%;
+			left: 50%;
+			transform:translate3d(-50%,-50%,0);
+			display: flex;
+			overflow: hidden;
+		}
+		.num:before{
+			content: '';
+			width: 2rem;
+			height: 100%;
+			background: rgba(0,0,0,0);
+			background: linear-gradient(#d70c24,rgba(215,12,36,.1) 35% ,rgba(215,12,36,.1) 65% ,#d70c24 100%);
+			position: absolute;
+			top:50%;
+			left: 50%;
+			transform:translate3d(-50%,-50%,0);
+			z-index: 1;
+		}
+		.num-txt{
+			color: #fff247;
+			font:normal bolder .8rem 'Agency FB';
+			transition: transform .8s ease-out;
+		}
+		.num-txt p{
+			height: .95rem;
+		}
+		.num-txt:nth-child(2){
+			animation-delay:.4s;
+		}
+		.num-txt:nth-child(4){
+			animation-delay:.25s;
+		}
+		.num-txt:nth-child(5){
+			animation-delay:.3s;
+		}
+		@keyframes numscroll {
+			0%{
+				transform:translate3d(0,0,0);
+			}
+			30%{
+				transform:translate3d(0,.95em,0);
+			}
+			70%{
+				transform:translate3d(0,-9.5rem,0);
+			}
+			100% { 
+				transform:translate3d(0,-8.55rem,0);
+			}
+		}
+		.redbag-list{
+			width: 90%;
+			min-height: .8rem;
+			padding: .2rem;
+			border-radius: 10px;
+			background-color: rgba(132,3,162,.5);
+			position: relative;
+			top:100%;
+			left: 50%;
+			transform:translate3d(-50%,-.8rem,0);
+		}
+		.redbag{
+			height: 1rem;
+			margin-bottom: .2rem;
+			border-radius: 10px;
+			background-color: #fff;
+			position: relative;
+			color:#ccc;
+			font-size:.16rem;
+			text-align: center;
+			line-height: 1rem;
+			opacity: .5;
+			transition: all .3s linear;
+		}
+		.redbag.on{
+			animation:listscroll .3s ease-in-out forwards;
+		}
+		@keyframes listscroll {
+			100% { 
+				margin-top: -1.2rem;
+				opacity:1;
+				transform:scale3d(1.05,1.05,1.05);
+			}
+		}
+		.redbag span{
+			display: block;
+			width: 98%;
+			height: 1rem;
+			border-radius: 10px;
+			background-color: #fff247;
+			position: absolute;
+			top:-.1rem;
+			left: 50%;
+			transform:translate3d(-50%,0,0);
+			opacity: 0;
+		}
+		span.on{
+			animation:listbg .7s ease-in forwards;
+		}
+		@keyframes listbg {
+			0%{
+				opacity: 0;
+				transform:translate3d(-50%,0,0);
+			}
+			50% { 
+				opacity:.8;
+				transform:translate3d(-50%,0,0);
+			}
+			100% { 
+				opacity: 0;
+				transform:translate3d(-50%,-.1rem,0) scale3d(1.15,1.15,1.15);
+			}
+		}
+		.redbag i{
+			display: block;
+			transform:translate3d(0,0,0);
+			color: #fff247;
+			font:normal bolder .15rem 'Agency FB';
+		}
+		i.on{
+			animation:readtxt .5s ease-in forwards;
+		}
+		@keyframes readtxt {
+			0%{
+				transform:translate3d(0,0,0);
+			}
+			50%{
+				transform:translate3d(.1rem,0,0);
+			}
+			100% { 
+				transform:translate3d(-.1rem,-.38rem,0) scale3d(1.4,1.4,1.4);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="num">
+		<ul class="num-txt">
+			<p>0</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+		</ul>
+		<ul class="num-txt">
+			<p>0</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+		</ul>
+		<ul class="num-txt">&#x2e;</ul>
+		<ul class="num-txt">
+			<p>0</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+		</ul>
+		<ul class="num-txt">
+			<p>0</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+		</ul>
+	</div>
+	<div class="btn">马上开奖</div>
+	<div class="redbag-list">
+		<ul class="redbag">红包列表1<span><i>+3.11</i></span></ul>
+		<ul class="redbag">红包列表2<span><i>+40.51</i></span></ul>
+		<ul class="redbag">红包列表3<span><i>+21.04</i></span></ul>
+		<ul class="redbag">红包列表4<span><i>+5.43</i></span></ul>
+		<ul class="redbag">红包列表5<span><i>+2.00</i></span></ul>
+		<ul class="redbag">红包列表6<span><i>+10.11</i></span></ul>
+	</div>
+	<script src="../js/zepto.min.js"></script>
+	<script>
+		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);
+		var time=1;
+		$('.btn').on('touchstart',function(){
+			$(this).addClass('start');
+			redscroll();
+		})
+		var $ul=$('.redbag'),$ulnum=$ul.length;
+		function redscroll(){
+			for (var i = 0; i < $ulnum; i++) {
+				$ul.eq(i).addClass('on').css('animation-delay',time*i+'s');
+				$ul.eq(i).find("span").addClass('on').css('animation-delay',time*i+'s');
+				$ul.eq(i).find("i").addClass('on').css('animation-delay',time*i+'s');
+			}
+			numscroll()
+			var c=1,
+			t=setInterval(function(){
+				numscroll()
+				c++;
+				(c==$ulnum)&&clearInterval(t);
+			},time*1000);
+		}
+		function numscroll(){
+			var arr = [],$p = $(".num-txt"),$pnum=$p.length;
+			var data=String(parseInt(1000*Math.random()));
+			for (var i = 0; i < $pnum; i++) {
+				arr.push(data.substring(i,i+1));
+			}
+			$p.eq(0).css('transform','translateY('+ arr[0]*-.95 +'rem)')
+			$p.eq(1).css('transform','translateY('+ arr[1]*-.95 +'rem)')
+			$p.eq(3).css('transform','translateY('+ arr[2]*-.95 +'rem)')
+			$p.eq(4).css('transform','translateY('+ arr[3]*-.95 +'rem)')
+		}
+	</script>
+</body>
+</html>
