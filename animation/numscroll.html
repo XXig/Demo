@@ -82,10 +82,8 @@
 		.num-txt{
 			color: #fff247;
 			font:normal bolder .8rem 'Agency FB';
-			transition: transform .8s ease-out;
-		}
-		.num-txt p{
-			height: .95rem;
+			transition: transform .3s ease-out;
+			animation:numscroll .5s ease-in-out;
 		}
 		.num-txt:nth-child(2){
 			animation-delay:.4s;
@@ -110,6 +108,10 @@
 				transform:translate3d(0,-8.55rem,0);
 			}
 		}
+		.num-txt p{
+			height: .95rem;
+			text-align: center;
+		}
 		.redbag-list{
 			width: 90%;
 			min-height: .8rem;
@@ -132,10 +134,9 @@
 			text-align: center;
 			line-height: 1rem;
 			opacity: .5;
-			transition: all .3s linear;
 		}
 		.redbag.on{
-			animation:listscroll .3s ease-in-out forwards;
+			animation:listscroll .2s ease-in-out forwards;
 		}
 		@keyframes listscroll {
 			100% { 
@@ -146,18 +147,18 @@
 		}
 		.redbag span{
 			display: block;
-			width: 98%;
+			width: 100%;
 			height: 1rem;
 			border-radius: 10px;
 			background-color: #fff247;
 			position: absolute;
-			top:-.1rem;
+			top:0;
 			left: 50%;
 			transform:translate3d(-50%,0,0);
 			opacity: 0;
 		}
 		span.on{
-			animation:listbg .7s ease-in forwards;
+			animation:listbg .6s ease-in forwards;
 		}
 		@keyframes listbg {
 			0%{
@@ -213,44 +214,47 @@
 	</div>
 	<div class="btn">马上开奖</div>
 	<div class="redbag-list">
-		<ul class="redbag">红包列表1<span><i>+3.11</i></span></ul>
-		<ul class="redbag">红包列表2<span><i>+40.51</i></span></ul>
-		<ul class="redbag">红包列表3<span><i>+21.04</i></span></ul>
-		<ul class="redbag">红包列表4<span><i>+5.43</i></span></ul>
-		<ul class="redbag">红包列表5<span><i>+2.00</i></span></ul>
-		<ul class="redbag">红包列表6<span><i>+10.11</i></span></ul>
+		<ul class="redbag">红包列表1<span><i>+10.32</i></span></ul>
+		<ul class="redbag">红包列表2<span><i>+1.43</i></span></ul>
+		<ul class="redbag">红包列表3<span><i>+2.91</i></span></ul>
+		<ul class="redbag">红包列表4<span><i>+3.55</i></span></ul>
+		<ul class="redbag">红包列表5<span><i>+4.23</i></span></ul>
+		<ul class="redbag">红包列表6<span><i>+5.02</i></span></ul>
+		<ul class="redbag">红包列表7<span><i>+6.95</i></span></ul>
+		<ul class="redbag">红包列表8<span><i>+7.11</i></span></ul>
+		<ul class="redbag">红包列表9<span><i>+8.01</i></span></ul>
+		<ul class="redbag">红包列表10<span><i>+9.10</i></span></ul>
 	</div>
 	<script src="../js/zepto.min.js"></script>
 	<script>
 		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);
-		var time=.8;
+		var time=.6,$ul=$('.redbag'),$ulnum=$ul.length,n;
 		$('.btn').on('touchstart',function(){
 			$(this).addClass('start');
-			redscroll();
-		})
-		var $ul=$('.redbag'),$ulnum=$ul.length;
-		function redscroll(){
+			var scroll=function(a,b){
+				return a.addClass('on').css('animation-delay',b+'s');
+			};
 			for (var i = 0; i < $ulnum; i++) {
-				$ul.eq(i).addClass('on').css('animation-delay',time*i+'s').find("span,i").addClass('on').css('animation-delay',time*i+'s');
-			}
-			numscroll()
-			var c=1,
-			t=setInterval(function(){
-				numscroll()
+				scroll($ul.eq(i),time*i);
+				scroll($ul.eq(i).find("span,i"),time*i);
+			};
+			var datanum=function(a){
+				return n=$ul.eq(a).find("i").text().split("+")[1];
+			};
+			n=datanum(0),numscroll()
+			var c=1,t=setInterval(function()
+			{
+				n=Number(n)+Number(datanum(c)),numscroll();
 				c++;
 				(c==$ulnum)&&clearInterval(t);
 			},time*1000);
-		}
+		});
 		function numscroll(){
 			var arr = [],$p = $(".num-txt"),$pnum=$p.length;
-			var data=String(parseInt(1000*Math.random()));
 			for (var i = 0; i < $pnum; i++) {
-				arr.push(data.substring(i,i+1));
+				arr.push(String(n).substring(i,i+1));
+				$p.eq(i).css('transform','translateY('+ arr[i]*-.95 +'rem)')
 			}
-			$p.eq(0).css('transform','translateY('+ arr[0]*-.95 +'rem)')
-			$p.eq(1).css('transform','translateY('+ arr[1]*-.95 +'rem)')
-			$p.eq(3).css('transform','translateY('+ arr[2]*-.95 +'rem)')
-			$p.eq(4).css('transform','translateY('+ arr[3]*-.95 +'rem)')
 		}
 	</script>
 </body>
