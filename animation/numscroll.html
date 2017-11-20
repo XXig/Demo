@@ -228,12 +228,13 @@
 	<script src="../js/zepto.min.js"></script>
 	<script>
 		document.body.addEventListener("touchmove",function(a){a.preventDefault()},!1);
-		var time=.6,$ul=$('.redbag'),$ulnum=$ul.length,n;
+		var time=.6,n;
 		$('.btn').on('touchstart',function(){
 			$(this).addClass('start');
 			var scroll=function(a,b){
 				return a.addClass('on').css('animation-delay',b+'s');
 			};
+			var $ul=$('.redbag'),$ulnum=$ul.length;
 			for (var i = 0; i < $ulnum; i++) {
 				scroll($ul.eq(i),time*i);
 				scroll($ul.eq(i).find("span,i"),time*i);
