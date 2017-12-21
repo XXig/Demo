@@ -23,8 +23,8 @@
 			exit ("<script>alert('请填写完整信息！')</script>");
 		}
 		if($pass!== null){
-			$content = $name.'+'.$pass.'+'.$mail;
-			$of = fopen('dir.txt','w');
+			$content = $name.'+'.$pass.'+'.$mail."\n";
+			$of = fopen('dir.txt','a+');
 			if($of){
 				fwrite($of,$content);
 			}
