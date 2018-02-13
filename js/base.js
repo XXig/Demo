@@ -2,6 +2,22 @@ document.documentElement.style.fontSize = $(document.documentElement).width()/3.
 $(window).on('resize', function() {
 	document.documentElement.style.fontSize = $(document.documentElement).width()/3.75 + 'px';
 });
+// function modifileRootRem () {
+//     var root = window.document.documentElement;
+//     var fontSize = parseFloat(root.style.fontSize);
+//     var finalFontSize = parseFloat(window.getComputedStyle(root).getPropertyValue("font-size"));
+//     if(finalFontSize === fontSize) return;
+//     root.style.fontSize = fontSize+(fontSize-finalFontSize) + "px";
+// }
+// if(typeof window.onload === 'function'){
+//     var oldFun = window.onload;
+//     window.onload = function(){
+//         oldFun();
+//         modifileRootRem();
+//     }
+// }else{
+//     window.onload = modifileRootRem;
+// }
 // "use strict"
 // // 禁止滑动
 // function cancleDocumentScroll () {
