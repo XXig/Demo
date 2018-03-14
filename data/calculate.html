@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>开奖号码</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="flexible" content="initial-dpr=2,maximum-dpr=3" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<style>
+		@import url(css/base.css);
+		html,body {background-color: #f5f5f5}
+		.box{
+			width: 50%;
+			min-width: 320px;
+			max-width:480px;
+			margin: 0 auto;
+			position: relative;
+			top:30%;
+			-webkit-transform:translate3d(0,-50%,0);
+			transform:translate3d(0,-50%,0);
+			padding: 2%;
+			text-align: center;
+		}
+		.box-text li{
+			margin-bottom: 5%;
+			position: relative;
+		}
+		.box .btn-reset{
+			display: inline-block;
+			width: 20px;height: 20px;
+			border-radius: 50%;
+			background-color: #f5f5f5;
+			color: #fff;
+			font-size: 18px;
+			line-height: 20px;
+			position: absolute;
+			top:50%;
+			right: 10px;
+			-webkit-transform:translate3d(0,-50%,0);
+			transform:translate3d(0,-50%,0);
+			opacity: 0;
+		}
+		.box h1{
+			height:40px;
+			line-height: 40px;
+			color: #828282;
+		}
+		.box input{
+			border-color: #eee;
+			font-size: 16px;
+			text-indent: 1em;
+		}
+		.box .btn{
+			padding: 3% 0;
+			border-radius: 5px;
+			background-color: #2196F3;
+			color: #fff;
+			font-size: 18px;
+		}
+		.box-box{
+			width: 80%;height: 30px;
+			margin: 0 auto;
+			border-radius: 5px;
+			opacity: .7;
+			color: #A4A4A4;
+			font-size: 14px;
+			line-height: 30px;
+		}
+		.box-box span{
+			-webkit-user-select:initial;
+			color: #2196F3;
+			text-decoration: underline;
+		}
+		.tip{
+			width: 100px;
+			height: 60px;
+			border-radius: 5px 5px 3px 3px;
+			background-color: rgba(0,0,0,.8);
+			color: #fff;
+			font-size: 15px;
+			text-align: center;
+			line-height:60px;
+			position: fixed;
+			left: 50%;
+			top:70%;
+			z-index: 9999999;
+			opacity: 0;
+		}
+		.tip-show{
+			-webkit-animation: tipS 1.3s;
+			animation: tipS 1.3s;
+		}
+		@-webkit-keyframes tipS {
+			50%{opacity: 1}
+		}
+		@keyframes tipS {
+			50%{opacity: 1}
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="box-text img">
+			<li><h1><span class="num"></span></h1></li>
+			<li><input placeholder="数值A" id="num-a" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"><span class="btn-reset">&times;</span></li>
+			<li><input placeholder="数值B" id="num-b" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"><span class="btn-reset">&times;</span></li>
+			<li><input placeholder="商品所需人次" id="num-man" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"><span class="btn-reset">&times;</span></li>
+			<li class="btn">立即计算</li>
+		</ul>
+		<ul class="box-box" id="okay"></ul>
+	</div>
+	<div class="tip xycenter">请输入数据</div>
+	<script src="../js/zepto.min.js"></script>
+	<script>
+		document.body.ontouchmove = function(a) {a.preventDefault()}
+		!function(){
+			function api(){
+				$.ajax({
+					url: 'http://f.apiplus.cn/cqssc-1.json',
+					dataType: 'jsonp',
+					type: 'POST',
+					timeout: 5000,
+					cache: false,
+					jsonp: 'callback',
+					success: function(result) {
+						$html=$('<li>第' + result.data[0].expect.substr() +'期开奖号码 <span>' + (result.data[0].opencode).replace(/,/g,'') +'</span></li>');
+						$("#okay").append($html);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$("#okay").append('<li>加载彩票数据出错</li>');
+					}
+				});
+			}
+			api()
+			setInterval(function(){
+				api()
+				$("#okay li").remove()
+			},5000)
+			$("input").focus(function(){
+				$(this).next().css({"opacity":"1","cursor": "pointer"}).one("click",function(){
+					$(this).prev().val("")
+				});
+			}).blur(function(){
+				$(this).next().css("opacity","0");
+			});
+			$(".btn").on("click",function(){
+				numkj()
+			})
+			document.onkeydown=function(event){
+				var e = event || window.event || arguments.callee.caller.arguments[0];         
+				if(e && e.keyCode==13){ 
+					numkj()
+				}
+			}; 
+			var isBegin = false;
+			function numkj(){
+				if(isBegin) return false;
+				if ($('input').val()!=="") {
+					var a=parseInt($("#num-a").val()),b=parseInt($("#num-b").val()),c=parseInt($("#num-man").val()),d=parseInt(10000001);
+					$(".num").html((a+b)%c+d);
+				}
+				else{
+					isBegin = true;
+					$(".tip").addClass("tip-show"), 
+					setTimeout(function() {
+						isBegin = false,
+						$(".tip").removeClass("tip-show");
+					},1300)
+				}
+			}
+		}();
+	</script>
+</body>
+</html>
