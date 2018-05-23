@@ -2,7 +2,7 @@ function alerttxt(t,showhide){
 	this._t     =t;
 	this.showhide =showhide;
 	this.bind();
-}
+};
 alerttxt.prototype = {
 	bind:function(){
 		var me=this,
@@ -43,6 +43,9 @@ if (xjl) {
 else if (dbr) {
 	datasele='dbr';
 }
+else if (kp) {
+	datasele='kp';
+}
 else{
 	datasele=!1;
 }
@@ -65,7 +68,6 @@ switch(datasele) {
 	datashow('xjl');
 	var data=xjl.result.record;
 	for (var i = 0; i < data.length; i++) {
-	// for (i in data) {
 		var num=data[i].contract_number,
 		man=data[i].bp_name,
 		price=data[i].pmt,
@@ -83,8 +85,28 @@ switch(datasele) {
 		numbb=data[i].last_contract_number;
 		numbb=numbb ? numbb : '<span>无数据</span>',
 		str = ''; 
-		str+="<tr><td width='50%'>" + name + "</td><td width='50%'>" + numbb + "</td><td>";
+		str+="<tr><td width='50%'>" + name + "</td><td width='50%'>" + numbb + "</td></tr>";
 		$('#dbr').append(str);
+	}  
+	break;
+	case 'kp':
+	datashow('kp');
+	var data=kp.result.record;
+	for (var i = 0; i < data.length; i++) {
+		var num=data[i].contract_number,
+		kpgz=data[i].billing_method_desc,
+		kpname=data[i].billing_object_name,
+		fptt=data[i].invoice_title,
+		nsrnum=data[i].object_tax_registry_num,
+		email=data[i].email,
+		empemail=data[i].emp_email;
+		fptt=fptt ? fptt : '<span>无数据</span>';
+		nsrnum=nsrnum ? nsrnum : '<span>无数据</span>';
+		email=email ? email : '<span>无数据</span>';
+		empemail=empemail ? empemail : '<span>无数据</span>';
+		str = ''; 
+		str+="<tr><td width='150px'>" + num + "</td><td>" + kpgz + "</td><td width='300px'>" + kpname + "</td><td width='300px'>" + fptt + "</td><td>" + nsrnum + "</td><td>" + email + "</td><td>" + empemail + "</td></tr>";
+		$('#kp').append(str);
 	}  
 	break;
 }
