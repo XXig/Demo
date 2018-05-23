@@ -122,9 +122,9 @@ function datashow(a){
 	}
 }
 
-// contract_number =>合同编号
-// bp_name =>承租人
-// pmt =>每期还款金额
+// 合同编号 =>contract_number
+// 承租人 =>bp_name
+// 每期还款金额 =>pmt
 
 // 商业伙伴名称 =>bp_name
 // 合同号 =>last_contract_number
