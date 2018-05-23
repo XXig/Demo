@@ -126,10 +126,15 @@ function datashow(a){
 // bp_name =>承租人
 // pmt =>每期还款金额
 
-// var url="http://ls.cf-finance.com/hlsprod/autocrud/cont.CON500.con_contract_v/query?pagesize=1&pagenum=1&_fetchall=false&_autocount=true";
-
 // 商业伙伴名称 =>bp_name
 // 合同号 =>last_contract_number
 // "bp_type" =>"GUTA_NP",
 // "bp_type_desc" =>"自然人保证",
-// http://ls.cf-finance.com/hlsprod/autocrud/hls.HLS212.hls_bp_master_all_data_v/query?pagesize=1&pagenum=1&_fetchall=false&_autocount=true
+
+//合同编号 =>contract_number 
+//开票规则 =>billing_method_desc
+//开票对象名称 =>billing_object_name
+//发票抬头 =>invoice_title
+//纳税人识别号 =>object_tax_registry_num
+//邮箱 =>email
+//客户经理邮箱 =>emp_email
