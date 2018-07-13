@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Document</title>
+	<style>
+		*{margin:0;padding:0;box-sizing:border-box}
+		/*容器*/
+		#grid {
+			display: grid;
+			background-color: orange;
+			/*分为两列: */
+			/*第一列尺寸由内容大小控制auto*/
+			/*第二列使用剩余空间，但大小从不会小于游戏主机板和控制区域最小宽度minmax(min-content, 1fr)*/
+			grid-definition-columns: auto minmax(min-content, 1fr);/*列控*/
+			/*第一行和最后一行的大小根据内容决定*auto xx auto/
+			/*中间一行可以使用剩余空间，但从来不会小于游戏主面板的最小高度*/
+			grid-definition-rows: auto minmax(min-content, 1fr) auto;/*行控*/
+		}
+		/*每一部分都是通过网格线来定义的，
+		每个部分都在其占的行中，
+		如果哪个部分占有的行数多于一行，需要使用跨行来决定
+		*/
+		#title{ 
+			grid-column: 1; 
+			grid-row: 1 ;
+			background-color: red;
+		}
+		#score{ 
+			grid-column: 1; 
+			grid-row: 3;
+			background-color:green;
+		}
+		#stats{ 
+			grid-column: 1; 
+			grid-row: 2; 
+			justify-self: start ;
+			background-color:#e9f;
+		}
+		#board{ 
+			grid-column: 2; 
+			grid-row: 1 / span 2; 
+			background-color: #ccc;
+		}
+		#controls { 
+			grid-column: 2; 
+			grid-row: 3; 
+			align-self: center;
+			background-color: yellow;
+		} 
+	</style>
+</head>
+<body>
+	<div id="grid">
+		<div id="title">Game Title</div>
+		<div id="score">Score</div>
+		<div id="stats">Stats</div>
+		<div id="board">Board</div>
+		<div id="controls">Controls</div>
+	</div>  
+</body>
+</html>
