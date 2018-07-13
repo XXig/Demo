@@ -11,6 +11,8 @@ body {
   overflow: hidden; }
 
 * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 ul, ol, li {
@@ -111,35 +113,59 @@ input {
   font-size: 14px;
   line-height: 28px;
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between; }
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  -webkit-flex-flow: wrap-reverse;
+  -moz-box-orient: vertical;
+  -moz-box-direction: reverse;
+  -ms-flex-flow: wrap-reverse;
+  flex-flow: wrap-reverse; }
 
 .main {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 40%;
-  flex: 0 0 40%;
+  min-width: 200px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -moz-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
+  -webkit-flex-flow: column nowrap;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap; }
+  flex-flow: column nowrap;
+  margin-right: 10px; }
   .main .txt {
     -webkit-box-flex: 0;
+    -webkit-flex: 0 0 260px;
+    -moz-box-flex: 0;
     -ms-flex: 0 0 260px;
     flex: 0 0 260px;
     display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
+    -webkit-flex-flow: column nowrap;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
     -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between; }
     .main .txt li {
@@ -178,23 +204,32 @@ input {
         opacity: .7; }
   .main .data-box {
     margin-top: 30px;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 500px;
-    flex: 0 0 500px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+    -moz-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
     border: 1px solid #ddd;
     overflow-y: auto;
     display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
     display: -ms-flexbox;
     display: flex; }
     .main .data-box ul {
       -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -moz-box-flex: 1;
       -ms-flex: 1;
       flex: 1; }
 
 .result-box {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 58%;
-  flex: 0 0 58%;
+  min-width: 200px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -moz-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
   border: 1px solid #ddd;
   overflow-x: hidden;
   overflow-y: auto; }

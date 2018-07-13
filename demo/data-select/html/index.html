@@ -19,39 +19,36 @@
 			<ul class="txt">
 				<li>原&nbsp; 数&nbsp;据：<input type="txt" v-model="base.data" placeholder="请输入数据" @keyup="keycode($event)"/></li>
 				<li>对比数据：<input type="txt" v-model="compare.data" placeholder="请输入数据" @keyup="keycode($event)"/></li>
-				<a class="btn" href="#" title="立即筛选" @click.stop.prevent="createcomparedata">立即筛选</a>
+				<a class="btn" title="立即筛选" @click.stop.prevent="createcomparedata">立即筛选</a>
 			</ul>
 			<div class="data-box">
 				<ul>
-					<table>
-						<thead><tr><th>原数据</th></tr></thead>
-						<tr v-show="yes"><td>暂无数据</td></tr>
-						<tr v-show="no" v-for="datas in basedata">
-							<td>{{datas}}</td>
-						</tr>
-					</table>
+					<!-- :listdata、:bool 表示绑定在实例上（有冒号的） -->
+					<!-- tit 组件中定义 -->
+					<tablelist :listdata='basedata' :bool='yes' tit="原数据"></tablelist>
 				</ul>
 				<ul>
-					<table>
-						<thead><tr><th>对比数据</th></tr></thead>
-						<tr v-show="yes"><td>暂无数据</td></tr>
-						<tr v-show="no" v-for="datas in comparedata">
-							<td>{{datas}}</td>
-						</tr>
-					</table>
+					<tablelist :listdata='comparedata' :bool='yes' tit="对比数据"></tablelist>
 				</ul>
 			</div>
 		</div>
 		<div class="result-box">
+			<tablelist :listdata='resultdata' :bool='yes' tit="筛选结果(保留重复项)"></tablelist>
+		</div>
+	</div>
+	<!-- 模板组件 -->
+	<template id="tp-list">
+		<!-- 必须 template>div>模板组件Html 层级 -->
+		<div>
 			<table>
-				<thead><tr><th>筛选结果</th></tr></thead>
-				<tr v-show="yes"><td>暂无数据</td></tr>
-				<tr v-show="no" v-for="datas in resultdata">
+				<thead><tr><th>{{tit}}</th></tr></thead>
+				<tr v-if="bool"><td>暂无数据</td></tr>
+				<tr v-else v-for="datas in listdata">
 					<td>{{datas}}</td>
 				</tr>
 			</table>
 		</div>
-	</div>
+	</template>
 	<!-- build:js ../js/main.min.js?rev=@@hash -->
 	<script src="../js/vue.js?rev=@@hash"></script>
 	<script src="../js/style.js?rev=@@hash"></script>

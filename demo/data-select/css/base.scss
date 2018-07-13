@@ -38,12 +38,14 @@
 		font-size: 14px;
 		line-height: 28px;
 		display: flex;
-		justify-content:space-between;
+		flex-flow:wrap-reverse;
 	}
 	.main{
-		flex:0 0 40%;
+		min-width:200px;
+		flex:1 0 auto;
 		display: flex;
 		flex-flow:column nowrap;
+		margin-right: 10px;
 		.txt{
 			flex:0 0 260px;
 			display: flex;
@@ -79,7 +81,7 @@
 		}
 		.data-box{
 			margin-top:30px; 
-			flex:0 0 500px;
+			flex:1 0 auto;
 			border:1px solid #ddd;
 			overflow-y: auto;
 			display: flex;
@@ -89,7 +91,8 @@
 		}
 	}
 	.result-box{
-		flex:0 0 58%;
+		min-width:200px;
+		flex:1 0 auto;
 		border:1px solid #ddd;
 		overflow-x: hidden;
 		overflow-y: auto;
