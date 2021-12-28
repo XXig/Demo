@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ellipsis</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tags {
+            width: 80%;
+            height: 38px;
+            border: 1px solid;
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            resize: horizontal;
+        }
+
+        .tags.flex {
+            padding-right: 20px;
+            margin-right: -4px;
+
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .tags.flex .tag {
+            position: relative;
+        }
+
+        .tags.flex .tag:not(:last-child)::after {
+            content: attr(data-number);
+            color: inherit;
+            font-size: 14px;
+
+            position: absolute;
+            right: -20px;
+            top: 5px;
+        }
+
+        .tag {
+            height: 28px;
+            max-width: 132px;
+            margin-top: 4px;
+            margin-right: 4px;
+
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #EDF0F8;
+
+        }
+
+        .tag>span {
+            width: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: 400;
+            font-size: 14px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .txt,
+        .txt-2,
+        .txt-3 {
+            width: 80%;
+            position: relative;
+            border: 1px solid;
+            font-size: 14px;
+            overflow: hidden;
+            resize: horizontal;
+        }
+
+        .txt:active .title {
+            display: none;
+        }
+
+        .txt .title {
+            position: absolute;
+            line-height: 25px;
+            transform: translateY(-25px);
+            color: transparent;
+        }
+
+        .txt span:not(.title) {
+            display: block;
+            height: 25px;
+            line-height: 25px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .txt-2,
+        .txt-3 {
+            height: 1.5em;
+            line-height: 1.5em;
+            background: #fff;
+
+        }
+
+        .txt-2 span:not(.title),
+        .txt-3 span:not(.title) {
+            display: block;
+            max-height: 3em;
+        }
+
+        .txt-2 .title {
+            display: block;
+            height: inherit;
+            background: inherit;
+
+            position: relative;
+            top: -3em;
+
+            text-align: justify;
+
+            overflow: hidden;
+        }
+
+        .txt-2 .title::before {
+            content: attr(title);
+            width: 50%;
+            float: right;
+
+            direction: rtl;
+            margin-right: 5px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .txt-3 .title {
+            display: block;
+            background: inherit;
+
+            position: relative;
+            top: -3em;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .txt-3 .title::after {
+            content: attr(data-title);
+            padding-left: 4em;
+        }
+
+        .txt-3 .title:hover {
+            display: inline-block;
+            animation: move 6s .3s linear infinite;
+        }
+
+        @keyframes move {
+            to {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>text-overflow: ellipsis</h1>
+    <div class="tags">
+        <div class="tag"><span>过长字符过长字符过长字符过长字符</span></div>
+        <div class="tag"><span>123</span></div>
+        <div class="tag"><span>过长字符过长字符过长字符过长字符</span></div>
+        <div class="tag"><span>短字符短字符</span></div>
+    </div>
+    <br>
+    <!-- <h1>伪类content: attr()+定位</h1> -->
+    <div class="tags flex">
+        <div class="tag" data-number="+3"><span>过长字符过长字符过长字符过长字符</span></div>
+        <div class="tag" data-number="+2"><span>123</span></div>
+        <div class="tag" data-number="+1"><span>过长字符过长字符过长字符过长字符</span></div>
+        <div class="tag" data-number="+0"><span>短字符短字符</span></div>
+    </div>
+    <br>
+    <!-- <h1>定位</h1> -->
+    <div class="txt">
+        <span class="title"
+            title="过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符">过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
+        <span>过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
+    </div>
+    <br>
+    <div class="txt-2">
+        <span>前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+        <span class="title"
+            title="前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾">前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+    </div>
+    <br>
+    <div class="txt-3">
+        <span>前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+        <span class="title"
+            data-title="前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾">前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+    </div>
+</body>
+
+</html>
