@@ -12,6 +12,10 @@
             padding: 0;
         }
 
+        body {
+            padding: 10px;
+        }
+
         .tags {
             width: 80%;
             height: 38px;
@@ -174,7 +178,25 @@
 </head>
 
 <body>
-    <h1>text-overflow: ellipsis</h1>
+    <br>
+    <br>
+    <br>
+    <div class="txt">
+        <!-- A盒子 -->
+        <span class="title"
+            title="过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符">过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
+        <!-- B盒子 -->
+        <span>过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
+    </div>
+    <br>
+    <div class="txt-3">
+        <!-- B盒子 -->
+        <span>前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+        <!-- A盒子 -->
+        <span class="title"
+            data-title="前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾">前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
+    </div>
+    <br>
     <div class="tags">
         <div class="tag"><span>过长字符过长字符过长字符过长字符</span></div>
         <div class="tag"><span>123</span></div>
@@ -182,7 +204,6 @@
         <div class="tag"><span>短字符短字符</span></div>
     </div>
     <br>
-    <!-- <h1>伪类content: attr()+定位</h1> -->
     <div class="tags flex">
         <div class="tag" data-number="+3"><span>过长字符过长字符过长字符过长字符</span></div>
         <div class="tag" data-number="+2"><span>123</span></div>
@@ -190,24 +211,12 @@
         <div class="tag" data-number="+0"><span>短字符短字符</span></div>
     </div>
     <br>
-    <!-- <h1>定位</h1> -->
-    <div class="txt">
-        <span class="title"
-            title="过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符">过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
-        <span>过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符</span>
-    </div>
-    <br>
-    <div class="txt-2">
+    <!-- <div class="txt-2">
         <span>前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
         <span class="title"
             title="前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾">前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
     </div>
-    <br>
-    <div class="txt-3">
-        <span>前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
-        <span class="title"
-            data-title="前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾">前面过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符过长字符结尾</span>
-    </div>
+    <br> -->
 </body>
 
 </html>
