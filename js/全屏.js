@@ -1,4 +1,4 @@
-function fullScreenStart(){
+function fullScreenStart() {
 	fullScreen()
 	document.addEventListener("webkitfullscreenchange", function () {
 		if (document.webkitIsFullScreen) {
