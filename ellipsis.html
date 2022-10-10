@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ellipsis</title>
     <style>
+        /* section:not(:has( h5))选择的是所有不包含<h5>标签的 <section> 元素*/
+        section:not(:has(h5)) {
+            color: #f00;
+        }
+
+        /*section:has(:not( h5)) 选择的是所有没有<h5>标签,但是有其他标签的<section>元素 */
+        section:has(:not(h5)) {
+            color: blue;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -174,11 +184,80 @@
                 transform: translateX(-50%);
             }
         }
+
+        .button {
+            padding: 4px 8px;
+            display: inline-flex;
+            border: 1px solid #f00;
+            transition: all 1s;
+            max-width: 56px;
+        }
+
+        .button>.icon {
+            text-align: center;
+            background: #ccc;
+        }
+
+        .button:hover {
+            max-width: 1000px;
+            transition: all .3s;
+        }
+
+        .button:hover>.ttt {
+            width: auto;
+        }
+
+        .ttt {
+            display: inline-block;
+            width: 0;
+            transition: all .3s;
+            overflow: hidden;
+        }
+
+        .myspan {
+            display: inline-block;
+            font-size: 30px;
+            background-color: #ddd;
+            vertical-align: bottom;
+        }
+
+        .myspan::after {
+            content: " \00a0\f12a ";
+            font-family: ionicons;
+            font-size: 80%;
+            display: inline-block;
+            max-width: 0;
+            transition: max-width .6s;
+            vertical-align: bottom;
+            overflow: hidden;
+        }
+
+        .myspan:hover::after {
+            max-width: 80px;
+            transition: max-width 1s;
+        }
     </style>
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" />
 </head>
 
 <body>
+    <section>1</section>
+    <section>
+        <div>1</div>
+    </section>
+    <section>
+        <h5>1</h5>
+    </section>
+    <section>
+        <h5>1</h5>
+        <div>1</div>
+        <div>
+            <h5>1</h5>
+        </div>
+    </section>
+    <!-- <span class="myspan">Hel!</span>
     <br>
+    <div class="button"><span class="icon">ICON</span><span class="ttt">12343</span></div> -->
     <br>
     <br>
     <div class="txt">
