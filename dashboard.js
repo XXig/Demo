@@ -44,62 +44,62 @@ const updatePanel = (panel) => {
                 const metrics = query?.metrics?.[LIST_KEY];
                 if (metrics?.length) {
                     panelItem.query[MAP_KEY].metrics[LIST_KEY] = metrics.map((item) => {
-                        if (item[MAP_KEY].measure?.[MAP_KEY]) {
+                        if (item[MAP_KEY].format == null && item[MAP_KEY].measure?.[MAP_KEY]) {
                             item[MAP_KEY].format = item[MAP_KEY].measure[MAP_KEY].format
                         }
                         return item
                     });
                 }
 
-                // 重置过滤器
-                const filters = query?.filters?.[LIST_KEY];
-                if (filters?.length) {
-                    panelItem.query[MAP_KEY].filters[LIST_KEY] = updateFilters(filters)
-                }
-                // 更新排序维度
-                const orders = query?.orders?.[LIST_KEY];
-                if (orders?.length) {
-                    panelItem.query[MAP_KEY].orders[LIST_KEY] = orders.map((item) => {
-                        if (!('category_id' in item[MAP_KEY])) {
-                            item[MAP_KEY].column = item[MAP_KEY].name;
-                        }
-                        return item;
-                    });
-                }
-                // 更新分区维度
-                const partitions = query?.partitions?.[MAP_KEY];
-                if (partitions) {
-                    const keys = Object.keys(partitions);
-                    if (keys?.length) {
-                        for (const id of keys) {
-                            const partitionItem = partitions[id][LIST_KEY];
-                            if (partitionItem?.length) {
-                                partitions[id][LIST_KEY] = updateDimensions(partitionItem);
-                            }
-                        }
-                    }
-                }
-                // 更新维度
-                const dimensions = query?.dimensions?.[LIST_KEY];
-                if (dimensions?.length) {
-                    panelItem.query[MAP_KEY].dimensions[LIST_KEY] = updateDimensions(dimensions);
-                }
+                // // 重置过滤器
+                // const filters = query?.filters?.[LIST_KEY];
+                // if (filters?.length) {
+                //     panelItem.query[MAP_KEY].filters[LIST_KEY] = updateFilters(filters)
+                // }
+                // // 更新排序维度
+                // const orders = query?.orders?.[LIST_KEY];
+                // if (orders?.length) {
+                //     panelItem.query[MAP_KEY].orders[LIST_KEY] = orders.map((item) => {
+                //         if (!('category_id' in item[MAP_KEY])) {
+                //             item[MAP_KEY].column = item[MAP_KEY].name;
+                //         }
+                //         return item;
+                //     });
+                // }
+                // // 更新分区维度
+                // const partitions = query?.partitions?.[MAP_KEY];
+                // if (partitions) {
+                //     const keys = Object.keys(partitions);
+                //     if (keys?.length) {
+                //         for (const id of keys) {
+                //             const partitionItem = partitions[id][LIST_KEY];
+                //             if (partitionItem?.length) {
+                //                 partitions[id][LIST_KEY] = updateDimensions(partitionItem);
+                //             }
+                //         }
+                //     }
+                // }
+                // // 更新维度
+                // const dimensions = query?.dimensions?.[LIST_KEY];
+                // if (dimensions?.length) {
+                //     panelItem.query[MAP_KEY].dimensions[LIST_KEY] = updateDimensions(dimensions);
+                // }
 
-                const chartconfig = panelItem.chartconfig?.[MAP_KEY]
-                // 更新行维度
-                const row = chartconfig.row?.[LIST_KEY];
-                if (row?.length) {
-                    chartconfig.row[LIST_KEY] = updateDimensions(row);
-                }
-                // 更新详情维度
-                const detailDimens = chartconfig?.detailDimens?.[LIST_KEY];
-                if (detailDimens?.length) {
-                    chartconfig.detailDimens[LIST_KEY] = updateDimensions(detailDimens);
-                }
-                // 更新筛选器
-                if (chartconfig?.filterMethod?.[MAP_KEY].member) {
-                    chartconfig.filterMethod[MAP_KEY].field = chartconfig.filterMethod[MAP_KEY].member.split('.')?.[1] ?? ''
-                }
+                // const chartconfig = panelItem.chartconfig?.[MAP_KEY]
+                // // 更新行维度
+                // const row = chartconfig.row?.[LIST_KEY];
+                // if (row?.length) {
+                //     chartconfig.row[LIST_KEY] = updateDimensions(row);
+                // }
+                // // 更新详情维度
+                // const detailDimens = chartconfig?.detailDimens?.[LIST_KEY];
+                // if (detailDimens?.length) {
+                //     chartconfig.detailDimens[LIST_KEY] = updateDimensions(detailDimens);
+                // }
+                // // 更新筛选器
+                // if (chartconfig?.filterMethod?.[MAP_KEY].member) {
+                //     chartconfig.filterMethod[MAP_KEY].field = chartconfig.filterMethod[MAP_KEY].member.split('.')?.[1] ?? ''
+                // }
             }
         }
     }
