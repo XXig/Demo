@@ -263,6 +263,45 @@ const sql_panel = {
                                     "data_type": "double",
                                     "data_icon": "DECIMAL_16"
                                 }
+                            }, {
+                                "java.util.LinkedHashMap": {
+                                    "id": "724a612d-9990-49e6-bd7b-d45a08fdbb94",
+                                    "datasource_id": "7735797c-599d-43f0-b572-ab571d880fdd",
+                                    "datasource_name": "retail_stores_by_transaction",
+                                    "name": "Total Sales",
+                                    "display_name": "?????Total Sales",
+                                    "display_type": "YAML",
+                                    "type": "BASIC",
+                                    "description": "?????????????????GMV?Gross Merchandise Volume?",
+                                    "dimensions": {
+                                        "java.util.ArrayList": ["retail_stores_by_transaction.order_date", "retail_stores_by_transaction.store_city", "retail_stores_by_transaction.store_region", "retail_stores_by_transaction.order_date_year", "retail_stores_by_transaction.item_category", "retail_stores_by_transaction.order_date_month"]
+                                    },
+                                    "time_dimensions": {
+                                        "java.util.ArrayList": ["retail_stores_by_transaction.order_date"]
+                                    },
+                                    "format": {
+                                        "java.util.LinkedHashMap": {
+                                            "type": "xxig",
+                                            "unit": "Auto",
+                                            "decimal_place": 2,
+                                            "currency_symbol": "$",
+                                            "use_thousand_separator": true
+                                        }
+                                    },
+                                    "filters": null,
+                                    "related_metrics": null,
+                                    "status": "ONLINE",
+                                    "created_by": "training@kyligence.io",
+                                    "created_id": null,
+                                    "created": 0,
+                                    "last_modified": 0,
+                                    "display": "retail_stores_by_transaction.item_unit_price * (1 - retail_stores_by_transaction.item_discount) * retail_stores_by_transaction.order_quantity",
+                                    "expressions": "retail_stores_by_transaction.item_unit_price * (1 - retail_stores_by_transaction.item_discount) * retail_stores_by_transaction.order_quantity",
+                                    "dataset_id": "0ce45884-4984-4059-8518-ff147464d8c6",
+                                    "dataset_name": "retail_stores_by_transaction",
+                                    "data_type": "double",
+                                    "data_icon": "DECIMAL_16"
+                                }
                             }]
                         },
                         "limit": 1000,
