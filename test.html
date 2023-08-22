@@ -71,6 +71,65 @@
 
 <body>
 
+	<style>
+		.xin {
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: relative;
+			top: 170px;
+			left: 50%;
+			animation-name: likes;
+			animation-direction: alternate;
+			animation-timing-function: linear;
+			animation-delay: 0s;
+			animation-iteration-count: infinite;
+			animation-duration: 1s;
+			transform: rotate(-45deg);
+		}
+
+		.xin::before {
+			content: "";
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			left: 0;
+			top: -50px;
+			border-radius: 50%;
+		}
+
+		.xin::after {
+			content: "";
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 0;
+			left: 50px;
+			border-radius: 50%;
+		}
+
+		@keyframes likes {
+			0% {
+				transform: scale(1) rotate(-45deg);
+			}
+
+			25% {
+				transform: scale(1.08) rotate(-45deg);
+			}
+
+			50% {
+				transform: scale(1) rotate(-45deg);
+			}
+
+			75% {
+				transform: scale(1.08) rotate(-45deg);
+			}
+		}
+	</style>
+	<div class="xin"></div>
+
 	<!-- 单位 100vh（视窗高） 100vw（视窗宽）vmin（vw和vh中较小的那个） vmax（vw和vh中较大的那个） -->
 	<span style="font-size:10vh">10vh=视窗高/10=字体大小</span>
 	<span style="font-size:10vw">字</span>
